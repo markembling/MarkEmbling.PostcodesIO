@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,8 +47,13 @@
     <Compile Include="OutwardCodeLookupResult.cs" />
     <Compile Include="PostcodeBulkLookupResult.cs" />
     <Compile Include="PostcodeLookupResult.cs" />
+    <Compile Include="PostcodesIOApi.cs" />
     <Compile Include="PostcodesIOClient.cs" />
+    <Compile Include="PostcodesIOException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

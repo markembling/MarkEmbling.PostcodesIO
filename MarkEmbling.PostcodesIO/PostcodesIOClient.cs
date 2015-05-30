@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace MarkEmbling.PostcodesIO {
     public class PostcodesIOClient : IPostcodesIOClient {
+        public PostcodesIOClient() {
+            
+        }
+
         public PostcodeLookupResult Lookup(string postcode) {
             throw new System.NotImplementedException();
         }
