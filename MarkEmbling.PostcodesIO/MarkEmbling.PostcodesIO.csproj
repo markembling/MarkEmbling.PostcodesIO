@@ -39,6 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LatLonBulkLookupResult.cs" />
+    <Compile Include="LatLonLookupResult.cs" />
+    <Compile Include="OutwardCodeLookupResult.cs" />
+    <Compile Include="PostcodeBulkLookupResult.cs" />
+    <Compile Include="PostcodeLookupResult.cs" />
+    <Compile Include="PostcodesIOClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
