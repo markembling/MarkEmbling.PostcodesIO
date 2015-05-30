@@ -47,7 +47,6 @@
     <Compile Include="OutwardCodeLookupResult.cs" />
     <Compile Include="PostcodeBulkLookupResult.cs" />
     <Compile Include="PostcodeLookupResult.cs" />
-    <Compile Include="PostcodesIOApi.cs" />
     <Compile Include="PostcodesIOClient.cs" />
     <Compile Include="PostcodesIOException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

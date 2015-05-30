@@ -1,26 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using RestSharp;
 
 namespace MarkEmbling.PostcodesIO {
     public class PostcodesIOClient : IPostcodesIOClient {
-        public PostcodesIOClient() {
-            
+        private readonly string _endpoint;
+
+        public PostcodesIOClient(string endpoint = "https://api.postcodes.io") {
+            _endpoint = endpoint;
+        }
+
+        public T Execute<T>(RestRequest request) where T : new() {
+            var client = new RestClient {BaseUrl = new Uri(_endpoint)};
+            var response = client.Execute<T>(request);
+
+            if (response.ErrorException != null) {
+                throw new PostcodesIOException(response.ErrorException);
+            }
+
+            return response.Data;
         }
 
         public PostcodeLookupResult Lookup(string postcode) {
-            throw new System.NotImplementedException();
+            var request = new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET) {
+                RootElement = "result"
+            };
+            return Execute<PostcodeLookupResult>(request);
         }
 
         public PostcodeBulkLookupResult BulkLookup(IEnumerable<string> postcodes) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public LatLonLookupResult LookupLatLon(ReverseGeocodeQuery query) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public LatLonBulkLookupResult BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 
