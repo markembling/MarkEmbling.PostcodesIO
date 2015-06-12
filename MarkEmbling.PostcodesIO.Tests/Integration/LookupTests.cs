@@ -2,7 +2,7 @@
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
-    public class PostcodesIOClientTests {
+    public class LookupTests {
         private PostcodesIOClient _client;
 
         [SetUp]

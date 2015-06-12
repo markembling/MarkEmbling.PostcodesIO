@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\PostcodesIOClientTests.cs" />
+    <Compile Include="Integration\BulkLookupTests.cs" />
+    <Compile Include="Integration\LookupTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

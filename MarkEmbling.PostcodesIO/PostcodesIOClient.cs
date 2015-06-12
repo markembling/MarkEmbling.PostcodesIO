@@ -29,7 +29,7 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<PostcodeLookupResult>(request);
         }
 
-        public PostcodeBulkLookupResult BulkLookup(IEnumerable<string> postcodes) {
+        public IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes) {
             throw new NotImplementedException();
         }
 
@@ -44,7 +44,7 @@ namespace MarkEmbling.PostcodesIO {
 
     public interface IPostcodesIOClient {
         PostcodeLookupResult Lookup(string postcode);
-        PostcodeBulkLookupResult BulkLookup(IEnumerable<string> postcodes);
+        IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
 
         LatLonLookupResult LookupLatLon(ReverseGeocodeQuery query);
         LatLonBulkLookupResult BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);

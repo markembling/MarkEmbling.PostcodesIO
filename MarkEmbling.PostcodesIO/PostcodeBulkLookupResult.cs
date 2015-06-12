@@ -1,4 +1,12 @@
 ﻿namespace MarkEmbling.PostcodesIO {
+    public class QueryResult<TQuery, TResult> where TResult : class {
+        public TQuery Query { get; set; }
+        public TResult Result { get; set; }
+    }
+
+
+
+
     public class PostcodeBulkLookupResult {
         /*
 {
