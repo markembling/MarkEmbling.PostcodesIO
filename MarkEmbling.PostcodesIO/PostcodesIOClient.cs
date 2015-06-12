@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
 
 namespace MarkEmbling.PostcodesIO {

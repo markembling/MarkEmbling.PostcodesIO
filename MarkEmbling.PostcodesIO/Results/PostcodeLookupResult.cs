@@ -1,6 +1,6 @@
 ﻿using RestSharp.Deserializers;
 
-namespace MarkEmbling.PostcodesIO {
+namespace MarkEmbling.PostcodesIO.Results {
     public class PostcodeLookupResult {
         public string Postcode { get; set; }
         public int Quality { get; set; }
