@@ -10,11 +10,11 @@ namespace MarkEmbling.PostcodesIO {
         public string Country { get; set; }
 
         [DeserializeAs(Name = "nhs_ha")]
-        public string NHSHeathAuthority { get; set; }
+        public string NHSHealthAuthority { get; set; }
 
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public string ParlimentaryConstituency { get; set; }
+        public string ParliamentaryConstituency { get; set; }
         public string EuropeanElectoralRegion { get; set; }
         public string PrimaryCareTrust { get; set; }
         public string Region { get; set; }
