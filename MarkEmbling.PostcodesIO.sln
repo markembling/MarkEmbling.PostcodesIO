@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO", "MarkEmbling.PostcodesIO.csproj", "{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO", "MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj", "{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO.Tests", "..\MarkEmbling.PostcodesIO.Tests\MarkEmbling.PostcodesIO.Tests.csproj", "{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO.Tests", "MarkEmbling.PostcodesIO.Tests\MarkEmbling.PostcodesIO.Tests.csproj", "{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
