@@ -17,8 +17,11 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
             var result = _client.BulkLookup(new[]{"GU1 1AA", "GU1 1AB"}).ToList();
 
             Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("GU1 1AA", result[0].Query);
-            Assert.AreEqual("GU1 1AB", result[0].Query);
+            // The results come back in no particular order, so we must check for 
+            // existence of both but make no assumptions about the order they 
+            // may have come back in.
+            Assert.True(result.Any(x => x.Query == "GU1 1AA"));
+            Assert.True(result.Any(x => x.Query == "GU1 1AB"));
         }
     }
 }

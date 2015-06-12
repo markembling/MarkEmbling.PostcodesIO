@@ -30,7 +30,12 @@ namespace MarkEmbling.PostcodesIO {
         }
 
         public IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes) {
-            throw new NotImplementedException();
+            var request = new RestRequest("postcodes", Method.POST) {
+                RootElement = "result",
+                RequestFormat = DataFormat.Json
+            };
+            request.AddBody(new {postcodes});
+            return Execute<List<QueryResult<string, PostcodeLookupResult>>>(request);
         }
 
         public LatLonLookupResult LookupLatLon(ReverseGeocodeQuery query) {
