@@ -90,6 +90,7 @@ namespace MarkEmbling.PostcodesIO {
     }
 
     public class ReverseGeocodeQuery {
+        // TODO: these need to serialise as the proper names! Probably need JSON.NET here.
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
