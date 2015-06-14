@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\AutocompleteTests.cs" />
+    <Compile Include="Integration\BulkLookupLatLonTests.cs" />
     <Compile Include="Integration\BulkLookupTests.cs" />
     <Compile Include="Integration\LookupLatLonTests.cs" />
     <Compile Include="Integration\LookupTests.cs" />

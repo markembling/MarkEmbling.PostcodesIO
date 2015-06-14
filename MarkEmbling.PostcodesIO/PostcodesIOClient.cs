@@ -44,7 +44,7 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<List<PostcodeLookupResult>>(request);
         }
 
-        public object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
+        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, IEnumerable<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
             throw new NotImplementedException();
         }
 
@@ -72,7 +72,7 @@ namespace MarkEmbling.PostcodesIO {
         IEnumerable<BulkQueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
 
         IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
-        object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
+        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, IEnumerable<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
 
         bool Validate(string postcode);
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
