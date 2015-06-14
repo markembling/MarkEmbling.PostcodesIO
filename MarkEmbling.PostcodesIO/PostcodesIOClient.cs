@@ -52,6 +52,12 @@ namespace MarkEmbling.PostcodesIO {
             var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET);
             return Execute<bool>(request);
         }
+
+        public IEnumerable<string> Autocomplete(string postcode, int? limit = null) {
+            var request = new RestRequest(string.Format("postcodes/{0}/autocomplete", postcode), Method.GET);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            return Execute<List<string>>(request);
+        }
     }
 
     public interface IPostcodesIOClient {
@@ -64,11 +70,11 @@ namespace MarkEmbling.PostcodesIO {
         object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
 
         bool Validate(string postcode);
+        IEnumerable<string> Autocomplete(string postcode, int? limit = null);
 
         /*
         object Query(string q, int? limit = null);
         object Nearest(string postcode, int? limit = null, int? radius = null);
-        IEnumerable<string> Autocomplete(string postcode, int? limit = null);
         PostcodeLookupResult Random();
         OutwardCodeLookupResult LookupOutwardCode(string outcode);
          */
