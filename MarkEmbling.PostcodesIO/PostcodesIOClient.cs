@@ -39,11 +39,17 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<List<QueryResult<string, PostcodeLookupResult>>>(request);
         }
 
-        public LatLonLookupResult LookupLatLon(ReverseGeocodeQuery query) {
-            throw new NotImplementedException();
+        public IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query) {
+            var request = new RestRequest("postcodes", Method.GET) {
+                RootElement = "result"
+            };
+            request.AddParameter("lat", query.Latitude);
+            request.AddParameter("lon", query.Longitude);
+            if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
+            return Execute<List<PostcodeLookupResult>>(request);
         }
 
-        public LatLonBulkLookupResult BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
+        public object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
             throw new NotImplementedException();
         }
     }
@@ -52,8 +58,8 @@ namespace MarkEmbling.PostcodesIO {
         PostcodeLookupResult Lookup(string postcode);
         IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
 
-        LatLonLookupResult LookupLatLon(ReverseGeocodeQuery query);
-        LatLonBulkLookupResult BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
+        IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
+        object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
 
         /*
         object Query(string q, int? limit = null);

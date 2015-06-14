@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Results\LatLonLookupResult.cs" />
     <Compile Include="Results\OutwardCodeLookupResult.cs" />
     <Compile Include="Results\PostcodeLookupResult.cs" />
     <Compile Include="PostcodesIOClient.cs" />
