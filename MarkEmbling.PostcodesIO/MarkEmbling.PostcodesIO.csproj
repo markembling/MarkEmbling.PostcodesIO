@@ -47,7 +47,7 @@
     <Compile Include="PostcodesIOClient.cs" />
     <Compile Include="PostcodesIOException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results\QueryResult.cs" />
+    <Compile Include="Results\BulkQueryResult.cs" />
     <Compile Include="Results\RawResult.cs" />
   </ItemGroup>
   <ItemGroup>

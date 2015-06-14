@@ -28,12 +28,12 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<PostcodeLookupResult>(request);
         }
 
-        public IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes) {
+        public IEnumerable<BulkQueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes) {
             var request = new RestRequest("postcodes", Method.POST) {
                 RequestFormat = DataFormat.Json
             };
             request.AddBody(new {postcodes});
-            return Execute<List<QueryResult<string, PostcodeLookupResult>>>(request);
+            return Execute<List<BulkQueryResult<string, PostcodeLookupResult>>>(request);
         }
 
         public IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query) {
@@ -64,7 +64,7 @@ namespace MarkEmbling.PostcodesIO {
         // TODO: documentation
 
         PostcodeLookupResult Lookup(string postcode);
-        IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
+        IEnumerable<BulkQueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
 
         IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
         object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);

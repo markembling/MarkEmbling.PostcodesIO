@@ -1,5 +1,4 @@
-﻿using System.Runtime.Remoting.Channels;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
