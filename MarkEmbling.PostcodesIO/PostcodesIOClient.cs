@@ -44,12 +44,12 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<List<PostcodeLookupResult>>(request);
         }
 
-        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, IEnumerable<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
+        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
             var request = new RestRequest("postcodes", Method.POST) {
                 RequestFormat = DataFormat.Json
             };
             request.AddBody(new {geolocations = queries});
-            return Execute<List<BulkQueryResult<ReverseGeocodeQuery, IEnumerable<PostcodeLookupResult>>>>(request);
+            return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>>>(request);
         }
 
         public bool Validate(string postcode) {
@@ -76,7 +76,7 @@ namespace MarkEmbling.PostcodesIO {
         IEnumerable<BulkQueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
 
         IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
-        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, IEnumerable<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
+        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
 
         bool Validate(string postcode);
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
