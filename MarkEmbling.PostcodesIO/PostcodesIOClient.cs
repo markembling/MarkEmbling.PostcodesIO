@@ -58,6 +58,11 @@ namespace MarkEmbling.PostcodesIO {
             if (limit.HasValue) request.AddParameter("limit", limit);
             return Execute<List<string>>(request);
         }
+
+        public PostcodeLookupResult Random() {
+            var request = new RestRequest("random/postcodes", Method.GET);
+            return Execute<PostcodeLookupResult>(request);
+        }
     }
 
     public interface IPostcodesIOClient {
@@ -71,11 +76,11 @@ namespace MarkEmbling.PostcodesIO {
 
         bool Validate(string postcode);
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
+        PostcodeLookupResult Random();
 
         /*
         object Query(string q, int? limit = null);
         object Nearest(string postcode, int? limit = null, int? radius = null);
-        PostcodeLookupResult Random();
         OutwardCodeLookupResult LookupOutwardCode(string outcode);
          */
     }
