@@ -14,25 +14,22 @@ namespace MarkEmbling.PostcodesIO {
 
         public T Execute<T>(RestRequest request) where T : new() {
             var client = new RestClient {BaseUrl = new Uri(_endpoint)};
-            var response = client.Execute<T>(request);
+            var response = client.Execute<RawResult<T>>(request);
 
             if (response.ErrorException != null) {
                 throw new PostcodesIOException(response.ErrorException);
             }
 
-            return response.Data;
+            return response.Data.Result;
         }
 
         public PostcodeLookupResult Lookup(string postcode) {
-            var request = new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET) {
-                RootElement = "result"
-            };
+            var request = new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET);
             return Execute<PostcodeLookupResult>(request);
         }
 
         public IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes) {
             var request = new RestRequest("postcodes", Method.POST) {
-                RootElement = "result",
                 RequestFormat = DataFormat.Json
             };
             request.AddBody(new {postcodes});
@@ -40,9 +37,7 @@ namespace MarkEmbling.PostcodesIO {
         }
 
         public IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query) {
-            var request = new RestRequest("postcodes", Method.GET) {
-                RootElement = "result"
-            };
+            var request = new RestRequest("postcodes", Method.GET);
             request.AddParameter("lat", query.Latitude);
             request.AddParameter("lon", query.Longitude);
             if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
@@ -52,18 +47,26 @@ namespace MarkEmbling.PostcodesIO {
         public object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
             throw new NotImplementedException();
         }
+
+        public bool Validate(string postcode) {
+            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET);
+            return Execute<bool>(request);
+        }
     }
 
     public interface IPostcodesIOClient {
+        // TODO: documentation
+
         PostcodeLookupResult Lookup(string postcode);
         IEnumerable<QueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
 
         IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
         object BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
 
+        bool Validate(string postcode);
+
         /*
         object Query(string q, int? limit = null);
-        bool Validate(string postcode);
         object Nearest(string postcode, int? limit = null, int? radius = null);
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
         PostcodeLookupResult Random();

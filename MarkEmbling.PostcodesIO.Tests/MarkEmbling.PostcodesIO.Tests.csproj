@@ -45,6 +45,7 @@
     <Compile Include="Integration\BulkLookupTests.cs" />
     <Compile Include="Integration\LookupLatLonTests.cs" />
     <Compile Include="Integration\LookupTests.cs" />
+    <Compile Include="Integration\ValidateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

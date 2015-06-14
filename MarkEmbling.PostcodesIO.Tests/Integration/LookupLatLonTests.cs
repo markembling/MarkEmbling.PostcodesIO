@@ -33,6 +33,6 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
             Assert.AreEqual(2, results.Count);
         }
 
-        // TODO: tests for radius and wideSearch
+        // TODO: tests for radius and wideSearch. Probably better as unit tests.
     }
 }
