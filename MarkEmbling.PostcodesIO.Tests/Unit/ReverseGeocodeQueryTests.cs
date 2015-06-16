@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Unit {
-    [TestFixture]
+    [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class ReverseGeocodeQueryTests {
         [Test]
         public void Similar_instances_should_be_considered_equal() {

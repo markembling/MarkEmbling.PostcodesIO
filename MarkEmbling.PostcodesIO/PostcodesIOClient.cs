@@ -46,7 +46,8 @@ namespace MarkEmbling.PostcodesIO {
 
         public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries) {
             var request = new RestRequest("postcodes", Method.POST) {
-                RequestFormat = DataFormat.Json
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new JsonDotNetSerializer()
             };
             request.AddBody(new {geolocations = queries});
             return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>>>(request);
@@ -90,7 +91,6 @@ namespace MarkEmbling.PostcodesIO {
     }
 
     public class ReverseGeocodeQuery {
-        // TODO: these need to serialise as the proper names! Probably need JSON.NET here.
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
