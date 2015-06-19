@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MarkEmbling.PostcodesIO.Exceptions;
 using MarkEmbling.PostcodesIO.Internals;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
@@ -17,9 +18,10 @@ namespace MarkEmbling.PostcodesIO {
             var client = new RestClient {BaseUrl = new Uri(_endpoint)};
             var response = client.Execute<RawResult<T>>(request);
 
-            if (response.ErrorException != null) {
-                throw new PostcodesIOException(response.ErrorException);
-            }
+            if (response.ErrorException != null) 
+                throw new PostcodesIOApiException(response.ErrorException);
+            if (response.Data == null) 
+                throw new PostcodesIOEmptyResponseException(response.StatusCode);
 
             return response.Data.Result;
         }

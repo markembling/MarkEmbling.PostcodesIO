@@ -16,11 +16,14 @@ namespace MarkEmbling.PostcodesIO {
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
         PostcodeLookupResult Random();
 
-        
+
 
         /*
-        object Nearest(string postcode, int? limit = null, int? radius = null);
-        OutwardCodeLookupResult LookupOutwardCode(string outcode);
+        IEnumerable<PostcodeLookupResult> Nearest(string postcode, int? limit = null, int? radius = null);
+        
+        OutwardCodeLookupResult OutwardCodeLookup(string outcode);
+        IEnumerable<OutwardCodeLookupResult> OutwardCodeLookupLatLon(ReverseGeocodeQuery query);
+        IEnumerable<PostcodeLookupResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null);
          */
     }
 }
