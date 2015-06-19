@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Internals\JsonDotNetSerializer.cs" />
     <Compile Include="Internals\LowercaseWithUnderscoresContractResolver.cs" />
+    <Compile Include="IPostcodesIOClient.cs" />
     <Compile Include="Results\OutwardCodeLookupResult.cs" />
     <Compile Include="Results\PostcodeLookupResult.cs" />
     <Compile Include="PostcodesIOClient.cs" />

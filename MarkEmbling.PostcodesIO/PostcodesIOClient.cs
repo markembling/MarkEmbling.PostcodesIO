@@ -37,6 +37,18 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<List<BulkQueryResult<string, PostcodeLookupResult>>>(request);
         }
 
+        public IEnumerable<PostcodeLookupResult> Query(string q, int? limit = null) {
+            var request = new RestRequest("postcodes", Method.GET);
+            request.AddQueryParameter("q", q);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            return Execute<List<PostcodeLookupResult>>(request);
+        }
+
+        public bool Validate(string postcode) {
+            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET);
+            return Execute<bool>(request);
+        }
+
         public IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query) {
             var request = new RestRequest("postcodes", Method.GET);
             request.AddParameter("lat", query.Latitude);
@@ -54,11 +66,6 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>>>(request);
         }
 
-        public bool Validate(string postcode) {
-            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET);
-            return Execute<bool>(request);
-        }
-
         public IEnumerable<string> Autocomplete(string postcode, int? limit = null) {
             var request = new RestRequest(string.Format("postcodes/{0}/autocomplete", postcode), Method.GET);
             if (limit.HasValue) request.AddParameter("limit", limit);
@@ -69,25 +76,5 @@ namespace MarkEmbling.PostcodesIO {
             var request = new RestRequest("random/postcodes", Method.GET);
             return Execute<PostcodeLookupResult>(request);
         }
-    }
-
-    public interface IPostcodesIOClient {
-        // TODO: documentation
-
-        PostcodeLookupResult Lookup(string postcode);
-        IEnumerable<BulkQueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
-
-        IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
-        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
-
-        bool Validate(string postcode);
-        IEnumerable<string> Autocomplete(string postcode, int? limit = null);
-        PostcodeLookupResult Random();
-
-        /*
-        object Query(string q, int? limit = null);
-        object Nearest(string postcode, int? limit = null, int? radius = null);
-        OutwardCodeLookupResult LookupOutwardCode(string outcode);
-         */
     }
 }
