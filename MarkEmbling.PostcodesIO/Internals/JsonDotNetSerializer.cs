@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
 using RestSharp.Serializers;
 
-namespace MarkEmbling.PostcodesIO {
+namespace MarkEmbling.PostcodesIO.Internals {
     public class JsonDotNetSerializer : ISerializer {
         public JsonDotNetSerializer() {
             ContentType = "application/json";
@@ -25,13 +21,5 @@ namespace MarkEmbling.PostcodesIO {
         public string Namespace { get; set; }
         public string DateFormat { get; set; }
         public string ContentType { get; set; }
-    }
-
-    public class LowercaseWithUnderscoresContractResolver : DefaultContractResolver {
-        protected override string ResolvePropertyName(string propertyName) {
-            var name = Regex.Replace(propertyName, "([A-Z])", "_$1").ToLowerInvariant();
-            if (name.StartsWith("_")) name = name.Substring(1);
-            return name;
-        }
     }
 }
