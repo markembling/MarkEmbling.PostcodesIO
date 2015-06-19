@@ -5,25 +5,25 @@ namespace MarkEmbling.PostcodesIO {
     public interface IPostcodesIOClient {
         // TODO: documentation
 
-        PostcodeLookupResult Lookup(string postcode);
-        IEnumerable<BulkQueryResult<string, PostcodeLookupResult>> BulkLookup(IEnumerable<string> postcodes);
-        IEnumerable<PostcodeLookupResult> Query(string q, int? limit = null);
+        PostcodeResult Lookup(string postcode);
+        IEnumerable<BulkQueryResult<string, PostcodeResult>> BulkLookup(IEnumerable<string> postcodes);
+        IEnumerable<PostcodeResult> Query(string q, int? limit = null);
         bool Validate(string postcode);
 
-        IEnumerable<PostcodeLookupResult> LookupLatLon(ReverseGeocodeQuery query);
-        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeLookupResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
+        IEnumerable<PostcodeResult> LookupLatLon(ReverseGeocodeQuery query);
+        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
 
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
-        PostcodeLookupResult Random();
+        PostcodeResult Random();
 
 
 
         /*
-        IEnumerable<PostcodeLookupResult> Nearest(string postcode, int? limit = null, int? radius = null);
+        IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null);
         
-        OutwardCodeLookupResult OutwardCodeLookup(string outcode);
-        IEnumerable<OutwardCodeLookupResult> OutwardCodeLookupLatLon(ReverseGeocodeQuery query);
-        IEnumerable<PostcodeLookupResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null);
+        OutwardCodeResult OutwardCodeLookup(string outcode);
+        IEnumerable<OutwardCodeResult> OutwardCodeLookupLatLon(ReverseGeocodeQuery query);
+        IEnumerable<PostcodeResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null);
          */
     }
 }

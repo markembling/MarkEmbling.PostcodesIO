@@ -1,5 +1,5 @@
 ﻿namespace MarkEmbling.PostcodesIO {
-    public class OutwardCodeLookupResult {
+    public class OutwardCodeResult {
         /*
 {
     "status": 200,
