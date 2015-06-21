@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MarkEmbling.PostcodesIO")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Library for interacting with the excellent Postcodes.io service.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mark Embling")]
 [assembly: AssemblyProduct("MarkEmbling.PostcodesIO")]
