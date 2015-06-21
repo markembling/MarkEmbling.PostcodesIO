@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>MarkEmbling.PostcodesIO</id>
+    <version>0.0.1.0</version>
+    <authors>Mark Embling</authors>
+    <owners>Mark Embling</owners>
+    <licenseUrl>https://raw.github.com/markembling/MarkEmbling.PostcodesIO/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/markembling/MarkEmbling.PostcodesIO</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library for interacting with the excellent Postcodes.io service.</description>
+  </metadata>
+  <files>
+    <file src="build\bin\MarkEmbling.PostcodesIO.dll" target="lib\net40\MarkEmbling.PostcodesIO.dll" />
+  </files>
+</package>
