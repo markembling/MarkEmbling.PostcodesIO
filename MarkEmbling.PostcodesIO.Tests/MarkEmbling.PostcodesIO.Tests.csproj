@@ -55,6 +55,7 @@
     <Compile Include="Integration\LookupTests.cs" />
     <Compile Include="Integration\QueryTests.cs" />
     <Compile Include="Integration\RandomTests.cs" />
+    <Compile Include="Integration\NearestTests.cs" />
     <Compile Include="Integration\ValidateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\ReverseGeocodeQueryTests.cs" />

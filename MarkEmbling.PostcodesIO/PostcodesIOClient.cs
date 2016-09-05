@@ -135,6 +135,18 @@ namespace MarkEmbling.PostcodesIO {
             return ExecuteAsync<PostcodeResult>(request);
         }
 
+        public IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null)
+        {
+            var request = CreateNearest(postcode, limit, radius);
+            return Execute<List<PostcodeResult>>(request);
+        }
+
+        public Task<IEnumerable<PostcodeResult>> NearestAsync(string postcode, int? limit = null, int? radius = null)
+        {
+            var request = CreateNearest(postcode, limit, radius);
+            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
         private static RestRequest CreateBulkLookupRequest(IEnumerable<string> postcodes)
         {
             var request = new RestRequest("postcodes", Method.POST)
@@ -194,6 +206,14 @@ namespace MarkEmbling.PostcodesIO {
         private static RestRequest CreateRandomRequest()
         {
             var request = new RestRequest("random/postcodes", Method.GET);
+            return request;
+        }
+
+        private static RestRequest CreateNearest(string postcode, int? limit, int? radius)
+        {
+            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.GET);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            if (radius.HasValue) request.AddParameter("radius", radius);
             return request;
         }
     }
