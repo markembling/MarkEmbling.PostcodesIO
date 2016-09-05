@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
@@ -29,6 +30,32 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
                 Longitude = -0.58231794275613,
                 Limit = 2
             }).ToList();
+
+            Assert.AreEqual(2, results.Count);
+        }
+
+        [Test]
+        public async Task LookupLatLon_simple_query_returns_populated_response_async()
+        {
+            var results = (await _client.LookupLatLonAsync(new ReverseGeocodeQuery
+            {
+                Latitude = 51.2452924089757,
+                Longitude = -0.58231794275613
+            })).ToList();
+
+            Assert.True(results.Any());
+            Assert.AreEqual("GU1 1AA", results[0].Postcode);
+        }
+
+        [Test]
+        public async Task LookupLatLon_with_limit_returns_only_that_number_of_results_async()
+        {
+            var results = (await _client.LookupLatLonAsync(new ReverseGeocodeQuery
+            {
+                Latitude = 51.2452924089757,
+                Longitude = -0.58231794275613,
+                Limit = 2
+            })).ToList();
 
             Assert.AreEqual(2, results.Count);
         }

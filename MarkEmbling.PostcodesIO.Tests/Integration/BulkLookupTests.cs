@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
@@ -13,10 +15,24 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         }
 
         [Test]
-        public void BulkLookup_returns_results() {
+        public void BulkLookup_returns_results()
+        {
             var result = _client.BulkLookup(new[]{"GU1 1AA", "GU1 1AB", "GU1 1AD"}).ToList();
 
-            Assert.AreEqual(3, result.Count());
+            TestResults(result);
+        }
+
+        [Test]
+        public async Task BulkLookup_returns_results_async()
+        {
+            var result = (await _client.BulkLookupAsync(new[] { "GU1 1AA", "GU1 1AB", "GU1 1AD" })).ToList();
+
+            TestResults(result);
+        }
+
+        private static void TestResults(List<BulkQueryResult<string, PostcodeResult>> result)
+        {
+            Assert.AreEqual(3, result.Count);
             // The results come back in no particular order, so we must check for 
             // existence of both but make no assumptions about the order they 
             // may have come back in.

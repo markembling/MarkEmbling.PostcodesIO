@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Threading.Tasks;
+using MarkEmbling.PostcodesIO.Results;
+using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
@@ -11,9 +13,23 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         }
 
         [Test]
-        public void Lookup_returns_populated_response() {
+        public void Lookup_returns_populated_response()
+        {
             var result = _client.Lookup("GU1 1AA");
 
+            TestLookup_returns_populated_responseResult(result);
+        }
+
+        [Test]
+        public async Task Lookup_returns_populated_response_async()
+        {
+            var result = await _client.LookupAsync("GU1 1AA");
+
+            TestLookup_returns_populated_responseResult(result);
+        }
+
+        private static void TestLookup_returns_populated_responseResult(PostcodeResult result)
+        {
             Assert.AreEqual("GU1 1AA", result.Postcode);
             Assert.AreEqual(1, result.Quality);
             Assert.AreEqual(499050, result.Eastings);
@@ -40,9 +56,23 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         }
 
         [Test]
-        public void Lookup_returns_populated_codes_property() {
+        public void Lookup_returns_populated_codes_property()
+        {
             var result = _client.Lookup("GU1 1AA").Codes;
 
+            TestLookup_returns_populated_codes_propertyResult(result);
+        }
+
+        [Test]
+        public async Task Lookup_returns_populated_codes_property_async()
+        {
+            var result = (await _client.LookupAsync("GU1 1AA")).Codes;
+
+            TestLookup_returns_populated_codes_propertyResult(result);
+        }
+
+        private static void TestLookup_returns_populated_codes_propertyResult(Codes result)
+        {
             Assert.AreEqual("E07000209", result.AdminDistrict);
             Assert.AreEqual("E10000030", result.AdminCounty);
             Assert.AreEqual("E05007293", result.AdminWard);
