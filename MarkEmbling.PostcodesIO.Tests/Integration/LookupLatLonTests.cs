@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
@@ -13,14 +15,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         }
 
         [Test]
-        public void LookupLatLon_simple_query_returns_populated_response() {
+        public void LookupLatLon_simple_query_returns_populated_response()
+        {
             var results = _client.LookupLatLon(new ReverseGeocodeQuery {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613
             }).ToList();
 
-            Assert.True(results.Any());
-            Assert.AreEqual("GU1 1AA", results[0].Postcode);
+            TestLookupLatLon_simple_query_returns_populated_response(results);
         }
 
         [Test]
@@ -43,8 +45,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
                 Longitude = -0.58231794275613
             })).ToList();
 
-            Assert.True(results.Any());
-            Assert.AreEqual("GU1 1AA", results[0].Postcode);
+            TestLookupLatLon_simple_query_returns_populated_response(results);
         }
 
         [Test]
@@ -61,5 +62,11 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         }
 
         // TODO: tests for radius and wideSearch. Probably better as unit tests.
+        private static void TestLookupLatLon_simple_query_returns_populated_response(List<PostcodeResult> results)
+        {
+            Assert.True(results.Any());
+            //TODO probably a better way of writing this without using Assert.IsTrue
+            Assert.IsTrue(results.Any(p => p.Postcode == "GU1 1AA"));
+        }
     }
 }
