@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
@@ -35,9 +37,38 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         public void BulkLookupLatLon_results_contain_postcode_results() {
             var results = _client.BulkLookupLatLon(_lookups).ToList();
 
+            TestBulkLookupLatLon_results_contain_postcode_results(results);
+        }
+
+        [Test]
+        public async Task BulkLookupLatLon_returns_results_async()
+        {
+            var results = await _client.BulkLookupLatLonAsync(_lookups);
+            Assert.AreEqual(2, results.Count());
+        }
+
+        [Test]
+        public async Task BulkLookupLatLon_results_contain_original_queries_async()
+        {
+            var results = (await _client.BulkLookupLatLonAsync(_lookups)).ToList();
+
+            Assert.True(results.Any(x => x.Query.Equals(_lookups[0])));
+            Assert.True(results.Any(x => x.Query.Equals(_lookups[1])));
+        }
+
+        [Test]
+        public async Task BulkLookupLatLon_results_contain_postcode_results_async()
+        {
+            var results = (await _client.BulkLookupLatLonAsync(_lookups)).ToList();
+
+            TestBulkLookupLatLon_results_contain_postcode_results(results);
+        }
+
+        private void TestBulkLookupLatLon_results_contain_postcode_results(List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> results)
+        {
             Assert.True(results[0].Result.Any());
             Assert.True(results[1].Result.Any());
-            Assert.True(results.Single(r => r.Query.Equals(_lookups[0])).Result.ElementAt(0).Postcode == "GU1 1AA");
+            Assert.True(results.Single(r => r.Query.Equals(_lookups[0])).Result.Exists(p => p.Postcode == "GU1 1AA"));
         }
     }
 }

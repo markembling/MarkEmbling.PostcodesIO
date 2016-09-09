@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
@@ -19,6 +20,20 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         [Test]
         public void Validate_returns_false_for_nonsense_postcode() {
             var result = _client.Validate("FAKE_POSTCODE");
+            Assert.False(result);
+        }
+
+        [Test]
+        public async Task Validate_returns_true_for_valid_postcode_async()
+        {
+            var result = await _client.ValidateAsync("GU1 1AA");
+            Assert.True(result);
+        }
+
+        [Test]
+        public async Task Validate_returns_false_for_nonsense_postcode_async()
+        {
+            var result = await _client.ValidateAsync("FAKE_POSTCODE");
             Assert.False(result);
         }
     }
