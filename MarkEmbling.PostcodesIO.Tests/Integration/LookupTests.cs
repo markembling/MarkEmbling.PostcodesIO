@@ -32,19 +32,19 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         {
             Assert.AreEqual("GU1 1AA", result.Postcode);
             Assert.AreEqual(1, result.Quality);
-            Assert.AreEqual(499050, result.Eastings);
-            Assert.AreEqual(150523, result.Northings);
+            Assert.AreEqual(499049, result.Eastings);
+            Assert.AreEqual(150522, result.Northings);
             Assert.AreEqual("England", result.Country);
             Assert.AreEqual("South East Coast", result.NHSHealthAuthority);
-            Assert.AreEqual(-0.58231794275613, result.Longitude);
-            Assert.AreEqual(51.2452924089757, result.Latitude);
+            Assert.AreEqual(-0.582332541160269, result.Longitude);
+            Assert.AreEqual(51.2452835933475, result.Latitude);
             Assert.AreEqual("Guildford", result.ParliamentaryConstituency);
             Assert.AreEqual("South East", result.EuropeanElectoralRegion);
             Assert.AreEqual("Surrey", result.PrimaryCareTrust);
             Assert.AreEqual("South East", result.Region);
             Assert.AreEqual("Guildford 015A", result.LSOA);
             Assert.AreEqual("Guildford 015", result.MSOA);
-            Assert.AreEqual("Friary and St Nicolas", result.NUTS);
+            Assert.AreEqual("West Surrey", result.NUTS);
             Assert.AreEqual("1AA", result.InCode);
             Assert.AreEqual("GU1", result.OutCode);
             Assert.AreEqual("Guildford", result.AdminDistrict);
@@ -77,7 +77,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
             Assert.AreEqual("E10000030", result.AdminCounty);
             Assert.AreEqual("E05007293", result.AdminWard);
             Assert.AreEqual("E43000138", result.Parish);
-            Assert.AreEqual("E38000067", result.CCG);
+            Assert.AreEqual("E38000214", result.CCG);
         }
     }
 }
