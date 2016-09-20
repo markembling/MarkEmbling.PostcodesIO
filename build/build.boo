@@ -10,6 +10,7 @@ target default, (compile, test, prep):
 
 desc "Compiles the solution"
 target compile:
+  rmdir("MarkEmbling.PostcodesIO/bin/${configuration}")
   msbuild(file: solution, configuration: configuration, version: "4.0")
 
 desc "Executes the tests"
