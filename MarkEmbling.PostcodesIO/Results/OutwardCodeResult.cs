@@ -1,4 +1,7 @@
-﻿namespace MarkEmbling.PostcodesIO {
+﻿using System;
+
+namespace MarkEmbling.PostcodesIO.Results {
+    [Serializable]
     public class OutwardCodeResult {
         /*
 {
