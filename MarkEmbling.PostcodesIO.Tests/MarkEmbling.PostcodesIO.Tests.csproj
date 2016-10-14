@@ -59,6 +59,7 @@
     <Compile Include="Integration\ValidateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\ReverseGeocodeQueryTests.cs" />
+    <Compile Include="Unit\SerializabilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj">
