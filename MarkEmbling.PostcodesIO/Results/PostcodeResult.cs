@@ -32,6 +32,7 @@ namespace MarkEmbling.PostcodesIO.Results {
         public Codes Codes { get; set; }
     }
 
+    [Serializable]
     public class Codes {
         public string AdminDistrict { get; set; }
         public string AdminCounty { get; set; }
