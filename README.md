@@ -6,7 +6,8 @@ MarkEmbling.PostcodesIO
 ### Usage
 
     var client = new PostcodesIOClient();
-	var result = _client.Lookup("GU1 1AA");
+	var result = client.Lookup("GU1 1AA");
+    // result contains properties such as Latitude, Longitude, Region, County and so on...
 
 Check out the integration tests (`MarkEmbling.PostcodesIO.Tests`) for further examples.
 
