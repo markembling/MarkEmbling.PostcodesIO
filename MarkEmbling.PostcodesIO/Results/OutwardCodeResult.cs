@@ -1,37 +1,22 @@
-﻿using System;
+﻿using RestSharp.Deserializers;
+using System;
+using System.Collections.Generic;
 
-namespace MarkEmbling.PostcodesIO.Results {
+namespace MarkEmbling.PostcodesIO.Results
+{
     [Serializable]
     public class OutwardCodeResult {
-        /*
-{
-    "status": 200,
-    "result": {
-        "outcode": "GU1",
-        "northings": "150309.915094339623",
-        "eastings": "500250.147169811321",
-        "longitude": -0.565189077661387,
-        "latitude": 51.2431666242521,
-        "admin_district": [
-            "Guildford"
-        ],
-        "parish": [
-            "Worplesdon"
-        ],
-        "admin_county": [
-            "Surrey"
-        ],
-        "admin_ward": [
-            "Burpham",
-            "Holy Trinity",
-            "Friary and St Nicolas",
-            "Stoke",
-            "Merrow",
-            "Worplesdon",
-            "Christchurch"
-        ]
-    }
-}
-         */
+        public string Outcode { get; set; }
+        public decimal Longitude { get; set; }
+        public decimal Latitude { get; set; }
+        public int Northings { get; set; }
+        public int Eastings { get; set; }
+        [DeserializeAs(Name = "admin_district")]
+        public List<string> AdminDistrict { get; set; }
+        public List<string> Parish { get; set; }
+        [DeserializeAs(Name = "admin_county")]
+        public List<string> AdminCounty { get; set; }
+        [DeserializeAs(Name = "admin_ward")]
+        public List<string> AdminWard { get; set; }
     }
 }

@@ -45,6 +45,11 @@ namespace MarkEmbling.PostcodesIO {
             return Execute<PostcodeResult>(request);
         }
 
+        public OutwardCodeResult OutwardCodeLookup(string outcode) {
+            var request = CreateOutwardCodeLookupRequest(outcode);
+            return Execute<OutwardCodeResult>(request);
+        }
+
         public Task<PostcodeResult> LookupAsync(string postcode)
         {
             var request = CreateLookupRequest(postcode);
@@ -183,6 +188,11 @@ namespace MarkEmbling.PostcodesIO {
         private static RestRequest CreateLookupRequest(string postcode)
         {
             return new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET);
+        }
+
+        private static RestRequest CreateOutwardCodeLookupRequest(string outcode)
+        {
+            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
         }
 
         private static RestRequest CreateBulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)

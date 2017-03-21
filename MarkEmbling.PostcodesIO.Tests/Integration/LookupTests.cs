@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
@@ -18,6 +19,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
             var result = _client.Lookup("GU1 1AA");
 
             TestLookup_returns_populated_responseResult(result);
+        }
+
+        [Test]
+        public void OutwardCode_Lookup_returns_populated_response()
+        {
+            var result = _client.OutwardCodeLookup("IP3");
+
+            TestOutwardCode_Lookup_returns_populated_responseResult(result);
         }
 
         [Test]
@@ -53,6 +62,19 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
             Assert.AreEqual("Friary and St Nicolas", result.AdminWard);
             Assert.AreEqual("NHS Guildford and Waverley", result.CCG);
             Assert.NotNull(result.Codes);
+        }
+
+        private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutwardCodeResult result)
+        {
+            Assert.AreEqual("IP3", result.Outcode);
+            Assert.AreEqual(1.18793994032433, result.Longitude);
+            Assert.AreEqual(52.0412229520819, result.Latitude);
+            Assert.AreEqual(242888, result.Northings);
+            Assert.AreEqual(618728, result.Eastings);
+            Assert.AreEqual(new List<string>() { "Suffolk Coastal", "Ipswich" }, result.AdminDistrict);
+            Assert.AreEqual(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }, result.Parish);
+            Assert.AreEqual(new List<string>() { "Suffolk" }, result.AdminCounty);
+            Assert.AreEqual(new List<string>() { "Alexandra", "St John's", "Tower", "Bixley", "Holywells", "Priory Heath", "Gainsborough", "Nacton & Purdis Farm" }, result.AdminWard);    
         }
 
         [Test]
