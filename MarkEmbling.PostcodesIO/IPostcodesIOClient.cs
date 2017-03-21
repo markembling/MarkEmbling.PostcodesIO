@@ -28,11 +28,9 @@ namespace MarkEmbling.PostcodesIO {
         IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null);
         Task<IEnumerable<PostcodeResult>> NearestAsync(string postcode, int? limit = null, int? radius = null);
 
+        OutwardCodeResult OutwardCodeLookup(string outcode);
 
         /*
-        
-        
-        OutwardCodeResult OutwardCodeLookup(string outcode);
         IEnumerable<OutwardCodeResult> OutwardCodeLookupLatLon(ReverseGeocodeQuery query);
         IEnumerable<PostcodeResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null);
          */
