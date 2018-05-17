@@ -152,6 +152,18 @@ namespace MarkEmbling.PostcodesIO {
             return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
+        public TerminatedPostcodeResult Terminated(string postcode)
+        {
+            var request = CreateTerminatedRequest(postcode);
+            return Execute<TerminatedPostcodeResult>(request);
+        }
+
+        public Task<TerminatedPostcodeResult> TerminatedAsync(string postcode)
+        {
+            var request = CreateTerminatedRequest(postcode);
+            return ExecuteAsync<TerminatedPostcodeResult>(request);
+        }
+
         private static RestRequest CreateBulkLookupRequest(IEnumerable<string> postcodes)
         {
             var request = new RestRequest("postcodes", Method.POST)
@@ -225,6 +237,11 @@ namespace MarkEmbling.PostcodesIO {
             if (limit.HasValue) request.AddParameter("limit", limit);
             if (radius.HasValue) request.AddParameter("radius", radius);
             return request;
+        }
+
+        private static RestRequest CreateTerminatedRequest(string postcode)
+        {
+            return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.GET);
         }
     }
 }
