@@ -30,6 +30,9 @@ namespace MarkEmbling.PostcodesIO {
 
         OutwardCodeResult OutwardCodeLookup(string outcode);
 
+        TerminatedPostcodeResult Terminated(string postcode);
+        Task<TerminatedPostcodeResult> TerminatedAsync(string postcode);
+
         /*
         IEnumerable<OutwardCodeResult> OutwardCodeLookupLatLon(ReverseGeocodeQuery query);
         IEnumerable<PostcodeResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null);

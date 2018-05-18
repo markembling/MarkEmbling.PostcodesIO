@@ -60,6 +60,7 @@
     <Compile Include="IPostcodesIOClient.cs" />
     <Compile Include="Exceptions\PostcodesIOEmptyResponseException.cs" />
     <Compile Include="Results\OutwardCodeResult.cs" />
+    <Compile Include="Results\TerminatedPostcodeResult.cs" />
     <Compile Include="Results\PostcodeResult.cs" />
     <Compile Include="PostcodesIOClient.cs" />
     <Compile Include="Exceptions\PostcodesIOApiException.cs" />
