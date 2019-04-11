@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,7 +61,7 @@
     <Compile Include="Unit\SerializabilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj">
+    <ProjectReference Include="..\..\src\MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj">
       <Project>{afeb7e5e-f99d-4337-ba1b-e455635dff1f}</Project>
       <Name>MarkEmbling.PostcodesIO</Name>
     </ProjectReference>

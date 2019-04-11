@@ -2,7 +2,7 @@ include "build_support.boo"
 
 solution = "MarkEmbling.PostcodesIO.sln"
 configuration = "release"
-test_assembly = "MarkEmbling.PostcodesIO.Tests/bin/${configuration}/MarkEmbling.PostcodesIO.Tests.dll"
+test_assembly = "tests/MarkEmbling.PostcodesIO.Tests/bin/${configuration}/MarkEmbling.PostcodesIO.Tests.dll"
 bin_path = "build/bin"
 
 target default, (compile, test, prep):
@@ -10,7 +10,7 @@ target default, (compile, test, prep):
 
 desc "Compiles the solution"
 target compile:
-  rmdir("MarkEmbling.PostcodesIO/bin/${configuration}")
+  rmdir("src/MarkEmbling.PostcodesIO/bin/${configuration}")
   msbuild(file: solution, configuration: configuration, version: "4.0")
 
 desc "Executes the tests"
@@ -21,7 +21,7 @@ desc "Copies the binaries to the 'build/bin' directory"
 target prep, (compile, test):
   rmdir(bin_path)
 
-  with FileList("MarkEmbling.PostcodesIO/bin/${configuration}"):
+  with FileList("src/MarkEmbling.PostcodesIO/bin/${configuration}"):
     .Include("*.{dll,exe,config,nupkg}")
     .ForEach def(file):
       file.CopyToDirectory(bin_path)

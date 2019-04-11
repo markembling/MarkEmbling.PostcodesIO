@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO", "MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj", "{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO", "src\MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj", "{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO.Tests", "MarkEmbling.PostcodesIO.Tests\MarkEmbling.PostcodesIO.Tests.csproj", "{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO.Tests", "tests\MarkEmbling.PostcodesIO.Tests\MarkEmbling.PostcodesIO.Tests.csproj", "{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A6AF1AB0-4126-4674-A05F-E2B4211A5B41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{744A05F4-1F6B-444F-AEAB-C8B7DD30A132}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F} = {A6AF1AB0-4126-4674-A05F-E2B4211A5B41}
+		{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD} = {744A05F4-1F6B-444F-AEAB-C8B7DD30A132}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66B8796C-56DE-4549-90D7-E5BBE4F7EC95}
