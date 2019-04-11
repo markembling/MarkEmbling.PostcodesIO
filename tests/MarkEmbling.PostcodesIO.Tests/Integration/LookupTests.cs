@@ -45,8 +45,8 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
             Assert.AreEqual(150522, result.Northings);
             Assert.AreEqual("England", result.Country);
             Assert.AreEqual("South East Coast", result.NHSHealthAuthority);
-            Assert.AreEqual(-0.582332541160269, result.Longitude);
-            Assert.AreEqual(51.2452835933475, result.Latitude);
+            Assert.AreEqual(-0.582332, result.Longitude);
+            Assert.AreEqual(51.245283, result.Latitude);
             Assert.AreEqual("Guildford", result.ParliamentaryConstituency);
             Assert.AreEqual("South East", result.EuropeanElectoralRegion);
             Assert.AreEqual("Surrey", result.PrimaryCareTrust);
@@ -67,14 +67,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration {
         private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutwardCodeResult result)
         {
             Assert.AreEqual("IP3", result.Outcode);
-            Assert.AreEqual(1.18793994032433, result.Longitude);
-            Assert.AreEqual(52.0412229520819, result.Latitude);
-            Assert.AreEqual(242888, result.Northings);
-            Assert.AreEqual(618728, result.Eastings);
+            Assert.AreEqual(1.18785462894737, result.Longitude);
+            Assert.AreEqual(52.0414095157894, result.Latitude);
+            Assert.AreEqual(242908, result.Northings);
+            Assert.AreEqual(618721, result.Eastings);
             Assert.AreEqual(new List<string>() { "Suffolk Coastal", "Ipswich" }, result.AdminDistrict);
             Assert.AreEqual(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }, result.Parish);
             Assert.AreEqual(new List<string>() { "Suffolk" }, result.AdminCounty);
-            Assert.AreEqual(new List<string>() { "Alexandra", "St John's", "Tower", "Bixley", "Holywells", "Priory Heath", "Gainsborough", "Nacton & Purdis Farm" }, result.AdminWard);    
+            Assert.AreEqual(new List<string>() { "Bixley", "Gainsborough", "Holywells", "Nacton & Purdis Farm", "Alexandra", "St John's", "Tower", "Priory Heath" }, result.AdminWard);    
         }
 
         [Test]
