@@ -170,7 +170,7 @@ namespace MarkEmbling.PostcodesIO
             {
                 RequestFormat = DataFormat.Json
             };
-            request.AddBody(new {postcodes});
+            request.AddJsonBody(new { postcodes });
             return request;
         }
 
@@ -214,7 +214,7 @@ namespace MarkEmbling.PostcodesIO
                 RequestFormat = DataFormat.Json,
                 JsonSerializer = new JsonDotNetSerializer()
             };
-            request.AddBody(new {geolocations = queries});
+            request.AddJsonBody(new { geolocations = queries });
             return request;
         }
 
