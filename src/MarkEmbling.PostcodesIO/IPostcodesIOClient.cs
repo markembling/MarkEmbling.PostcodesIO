@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using MarkEmbling.PostcodesIO.Results;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MarkEmbling.PostcodesIO.Results;
 
-namespace MarkEmbling.PostcodesIO {
+namespace MarkEmbling.PostcodesIO
+{
     public interface IPostcodesIOClient {
         // TODO: documentation
 

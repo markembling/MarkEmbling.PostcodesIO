@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace MarkEmbling.PostcodesIO.Results {
+namespace MarkEmbling.PostcodesIO.Results
+{
     /// <summary>
     /// A single query/result pair from a bulk API call
     /// </summary>

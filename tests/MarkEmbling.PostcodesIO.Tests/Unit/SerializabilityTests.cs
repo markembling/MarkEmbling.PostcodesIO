@@ -1,7 +1,7 @@
-﻿using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MarkEmbling.PostcodesIO.Tests.Unit
 {

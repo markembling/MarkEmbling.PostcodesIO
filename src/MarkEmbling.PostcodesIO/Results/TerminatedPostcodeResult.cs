@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace MarkEmbling.PostcodesIO.Results {
+namespace MarkEmbling.PostcodesIO.Results
+{
     [Serializable]
     public class TerminatedPostcodeResult
     {

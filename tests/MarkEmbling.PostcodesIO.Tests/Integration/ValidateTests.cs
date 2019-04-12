@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO.Tests.Integration {
+namespace MarkEmbling.PostcodesIO.Tests.Integration
+{
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class ValidateTests {
         private PostcodesIOClient _client;

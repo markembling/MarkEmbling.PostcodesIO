@@ -1,4 +1,5 @@
-﻿namespace MarkEmbling.PostcodesIO.Results {
+﻿namespace MarkEmbling.PostcodesIO.Results
+{
     /// <summary>
     /// Raw result object returned from the Postcodes.io API
     /// </summary>

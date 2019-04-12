@@ -1,7 +1,8 @@
-using System.Text.RegularExpressions;
 using Newtonsoft.Json.Serialization;
+using System.Text.RegularExpressions;
 
-namespace MarkEmbling.PostcodesIO.Internals {
+namespace MarkEmbling.PostcodesIO.Internals
+{
     public class LowercaseWithUnderscoresContractResolver : DefaultContractResolver {
         protected override string ResolvePropertyName(string propertyName) {
             var name = Regex.Replace(propertyName, "([A-Z])", "_$1").ToLowerInvariant();

@@ -1,10 +1,11 @@
+using MarkEmbling.PostcodesIO.Results;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MarkEmbling.PostcodesIO.Results;
-using NUnit.Framework;
 
-namespace MarkEmbling.PostcodesIO.Tests.Integration {
+namespace MarkEmbling.PostcodesIO.Tests.Integration
+{
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class BulkLookupLatLonTests {
         private PostcodesIOClient _client;

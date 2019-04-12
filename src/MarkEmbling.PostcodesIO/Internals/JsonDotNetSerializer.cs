@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using RestSharp.Serializers;
 
-namespace MarkEmbling.PostcodesIO.Internals {
+namespace MarkEmbling.PostcodesIO.Internals
+{
     public class JsonDotNetSerializer : ISerializer {
         public JsonDotNetSerializer() {
             ContentType = "application/json";

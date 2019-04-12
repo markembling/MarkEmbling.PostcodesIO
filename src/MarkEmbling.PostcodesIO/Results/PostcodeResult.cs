@@ -1,7 +1,8 @@
-﻿using System;
-using RestSharp.Deserializers;
+﻿using RestSharp.Deserializers;
+using System;
 
-namespace MarkEmbling.PostcodesIO.Results {
+namespace MarkEmbling.PostcodesIO.Results
+{
     [Serializable]
     public class PostcodeResult {
         public string Postcode { get; set; }

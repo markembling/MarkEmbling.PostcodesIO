@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO", "src\MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj", "{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkEmbling.PostcodesIO.Tests", "tests\MarkEmbling.PostcodesIO.Tests\MarkEmbling.PostcodesIO.Tests.csproj", "{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A6AF1AB0-4126-4674-A05F-E2B4211A5B41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{744A05F4-1F6B-444F-AEAB-C8B7DD30A132}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkEmbling.PostcodesIO", "src\MarkEmbling.PostcodesIO\MarkEmbling.PostcodesIO.csproj", "{2DABCA36-950E-461B-B9DF-60C9D801AA22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkEmbling.PostcodesIO.Tests", "tests\MarkEmbling.PostcodesIO.Tests\MarkEmbling.PostcodesIO.Tests.csproj", "{98161FD9-1577-4042-9721-52D40889D48D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,21 +17,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DABCA36-950E-461B-B9DF-60C9D801AA22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DABCA36-950E-461B-B9DF-60C9D801AA22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DABCA36-950E-461B-B9DF-60C9D801AA22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DABCA36-950E-461B-B9DF-60C9D801AA22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98161FD9-1577-4042-9721-52D40889D48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98161FD9-1577-4042-9721-52D40889D48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98161FD9-1577-4042-9721-52D40889D48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98161FD9-1577-4042-9721-52D40889D48D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AFEB7E5E-F99D-4337-BA1B-E455635DFF1F} = {A6AF1AB0-4126-4674-A05F-E2B4211A5B41}
-		{7BA958F0-C3D3-4CEF-BE42-BC9793E9B1DD} = {744A05F4-1F6B-444F-AEAB-C8B7DD30A132}
+		{2DABCA36-950E-461B-B9DF-60C9D801AA22} = {A6AF1AB0-4126-4674-A05F-E2B4211A5B41}
+		{98161FD9-1577-4042-9721-52D40889D48D} = {744A05F4-1F6B-444F-AEAB-C8B7DD30A132}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66B8796C-56DE-4549-90D7-E5BBE4F7EC95}

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MarkEmbling.PostcodesIO.Exceptions;
+﻿using MarkEmbling.PostcodesIO.Exceptions;
 using MarkEmbling.PostcodesIO.Internals;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO {
+namespace MarkEmbling.PostcodesIO
+{
     public class PostcodesIOClient : IPostcodesIOClient {
         private readonly string _endpoint;
 

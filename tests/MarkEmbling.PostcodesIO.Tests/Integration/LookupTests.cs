@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
-using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO.Tests.Integration {
+namespace MarkEmbling.PostcodesIO.Tests.Integration
+{
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class LookupTests {
         private PostcodesIOClient _client;

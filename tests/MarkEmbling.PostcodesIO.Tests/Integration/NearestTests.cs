@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration
 {
