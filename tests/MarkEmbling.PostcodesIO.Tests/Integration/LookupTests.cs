@@ -127,5 +127,15 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual("E38000214", result.CCG);
             Assert.AreEqual("UKJ25", result.NUTS);
         }
+
+        [Test]
+        public void Null_eastings_and_northings_are_handled()
+        {
+            // Channel island postcodes do not come with eastings or northings according to API docs
+            var result = _client.Lookup("JE2 4ST");
+
+            Assert.IsNull(result.Eastings);
+            Assert.IsNull(result.Northings);
+        }
     }
 }

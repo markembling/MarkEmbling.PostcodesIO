@@ -7,8 +7,8 @@ namespace MarkEmbling.PostcodesIO.Results
     [Serializable]
     public class OutwardCodeResult {
         public string Outcode { get; set; }
-        public int Eastings { get; set; }
-        public int Northings { get; set; }
+        public int? Eastings { get; set; }
+        public int? Northings { get; set; }
         public List<string> AdminCounty { get; set; }
         public List<string> AdminDistrict { get; set; }
         public List<string> AdminWard { get; set; }

@@ -7,8 +7,8 @@ namespace MarkEmbling.PostcodesIO.Results
     public class PostcodeResult {
         public string Postcode { get; set; }
         public int Quality { get; set; }
-        public int Eastings { get; set; }
-        public int Northings { get; set; }
+        public int? Eastings { get; set; }
+        public int? Northings { get; set; }
         public string Country { get; set; }
 
         [DeserializeAs(Name = "nhs_ha")]
