@@ -73,10 +73,33 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual(52.0414095157894, result.Latitude);
             Assert.AreEqual(242908, result.Northings);
             Assert.AreEqual(618721, result.Eastings);
-            Assert.AreEqual(new List<string>() { "Suffolk Coastal", "Ipswich" }, result.AdminDistrict);
-            Assert.AreEqual(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }, result.Parish);
+            Assert.AreEqual(
+                new List<string>() {
+                    "Suffolk Coastal",
+                    "Ipswich"
+                }, 
+                result.AdminDistrict);
+            Assert.AreEqual(
+                new List<string>() {
+                    "Ipswich, unparished area",
+                    "Rushmere St. Andrew",
+                    "Purdis Farm"
+                },
+                result.Parish);
             Assert.AreEqual(new List<string>() { "Suffolk" }, result.AdminCounty);
-            Assert.AreEqual(new List<string>() { "Bixley", "Gainsborough", "Holywells", "Nacton & Purdis Farm", "Alexandra", "St John's", "Tower", "Priory Heath" }, result.AdminWard);    
+            Assert.AreEqual(
+                new List<string>() {
+                    "Bixley",
+                    "Gainsborough",
+                    "Holywells",
+                    "Nacton & Purdis Farm",
+                    "Alexandra",
+                    "St John's",
+                    "Tower",
+                    "Priory Heath"
+                }, 
+                result.AdminWard);
+            Assert.AreEqual(new List<string> { "England" }, result.Country);
         }
 
         [Test]
