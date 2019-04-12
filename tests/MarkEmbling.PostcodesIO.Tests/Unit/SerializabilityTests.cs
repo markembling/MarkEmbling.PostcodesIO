@@ -1,5 +1,6 @@
 ﻿using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -83,6 +84,31 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
             Assert.AreEqual(expected.Eastings, actual.Eastings);
             Assert.AreEqual(expected.Latitude, actual.Latitude);
             Assert.AreEqual(expected.Codes.AdminCounty, actual.Codes.AdminCounty);
+        }
+
+        [Test]
+        public void OutwardCodeResult_should_be_serializable()
+        {
+            var expected = new OutwardCodeResult
+            {
+                AdminCounty = new List<string> { "AdminCounty" },
+                AdminDistrict = new List<string> { "AdminDistrict" },
+                AdminWard = new List<string> { "AdminWard" },
+                Country = new List<string> { "Country" },
+                Eastings = 10000,
+                Latitude = 53.9999,
+                Longitude = -3.9999,
+                Northings = 20000,
+                Outcode = "OUT",
+                Parish = new List<string> { "Parish" }
+            };
+            var expectedBytes = Serialize(expected);
+            var actual = Deserialize<OutwardCodeResult>(expectedBytes);
+
+            Assert.AreEqual(expected.AdminCounty, actual.AdminCounty);
+            Assert.AreEqual(expected.Eastings, actual.Eastings);
+            Assert.AreEqual(expected.Latitude, actual.Latitude);
+            Assert.AreEqual(expected.Outcode, actual.Outcode);
         }
     }
 }
