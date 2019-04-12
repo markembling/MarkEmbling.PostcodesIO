@@ -31,15 +31,7 @@ namespace MarkEmbling.PostcodesIO.Results
         public string NUTS { get; set; }
         public string InCode { get; set; }
         public string OutCode { get; set; }
-        public Codes Codes { get; set; }
-    }
-
-    [Serializable]
-    public class Codes {
-        public string AdminDistrict { get; set; }
-        public string AdminCounty { get; set; }
-        public string AdminWard { get; set; }
-        public string Parish { get; set; }
-        public string CCG { get; set; }
+        
+        public PostcodeCodesResult Codes { get; set; }
     }
 }

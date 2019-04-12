@@ -95,13 +95,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             TestLookup_returns_populated_codes_propertyResult(result);
         }
 
-        private static void TestLookup_returns_populated_codes_propertyResult(Codes result)
+        private static void TestLookup_returns_populated_codes_propertyResult(PostcodeCodesResult result)
         {
             Assert.AreEqual("E07000209", result.AdminDistrict);
             Assert.AreEqual("E10000030", result.AdminCounty);
             Assert.AreEqual("E05007293", result.AdminWard);
             Assert.AreEqual("E43000138", result.Parish);
             Assert.AreEqual("E38000214", result.CCG);
+            Assert.AreEqual("UKJ25", result.NUTS);
         }
     }
 }

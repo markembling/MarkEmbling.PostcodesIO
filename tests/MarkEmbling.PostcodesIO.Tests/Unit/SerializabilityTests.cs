@@ -67,7 +67,13 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
                 PrimaryCareTrust = "PrimaryCareTrust",
                 Quality = 1,
                 Region = "Region",
-                Codes = new Codes {Parish = "Parish", CCG = "CCG", AdminDistrict = "AdminDistrict", AdminWard = "AdminWard", AdminCounty = "AdminCounty"}
+                Codes = new PostcodeCodesResult {
+                    Parish = "Parish",
+                    CCG = "CCG",
+                    AdminDistrict = "AdminDistrict",
+                    AdminWard = "AdminWard",
+                    AdminCounty = "AdminCounty"
+                }
             };
 
             var expectedBytes = Serialize(expected);
