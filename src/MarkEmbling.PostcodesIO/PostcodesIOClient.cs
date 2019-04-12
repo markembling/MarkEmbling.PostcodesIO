@@ -8,46 +8,19 @@ using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO
 {
-    public class PostcodesIOClient : IPostcodesIOClient {
+    public class PostcodesIOClient : IPostcodesIOClient
+    {
         private readonly string _endpoint;
 
-        public PostcodesIOClient(string endpoint = "https://api.postcodes.io") {
+        public PostcodesIOClient(string endpoint = "https://api.postcodes.io")
+        {
             _endpoint = endpoint;
         }
 
-        private T Execute<T>(RestRequest request) where T : new() {
-            var client = new RestClient {BaseUrl = new Uri(_endpoint)};
-            var response = client.Execute<RawResult<T>>(request);
-
-            if (response.ErrorException != null) 
-                throw new PostcodesIOApiException(response.ErrorException);
-            if (response.Data == null) 
-                throw new PostcodesIOEmptyResponseException(response.StatusCode);
-
-            return response.Data.Result;
-        }
-
-        private async Task<T> ExecuteAsync<T>(RestRequest request) where T : new()
+        public PostcodeResult Lookup(string postcode)
         {
-            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
-            var response = await client.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
-
-            if (response.ErrorException != null)
-                throw new PostcodesIOApiException(response.ErrorException);
-            if (response.Data == null)
-                throw new PostcodesIOEmptyResponseException(response.StatusCode);
-
-            return response.Data.Result;
-        }
-
-        public PostcodeResult Lookup(string postcode) {
             var request = CreateLookupRequest(postcode);
             return Execute<PostcodeResult>(request);
-        }
-
-        public OutwardCodeResult OutwardCodeLookup(string outcode) {
-            var request = CreateOutwardCodeLookupRequest(outcode);
-            return Execute<OutwardCodeResult>(request);
         }
 
         public Task<PostcodeResult> LookupAsync(string postcode)
@@ -66,30 +39,6 @@ namespace MarkEmbling.PostcodesIO
         {
             var request = CreateBulkLookupRequest(postcodes);
             return ExecuteAsync<List<BulkQueryResult<string, PostcodeResult>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<string, PostcodeResult>>, TaskContinuationOptions.OnlyOnRanToCompletion);
-        }
-
-        public IEnumerable<PostcodeResult> Query(string q, int? limit = null)
-        {
-            var request = CreateQueryRequest(q, limit);
-            return Execute<List<PostcodeResult>>(request);
-        }
-
-        public Task<IEnumerable<PostcodeResult>> QueryAsync(string q, int? limit = null)
-        {
-            var request = CreateQueryRequest(q, limit);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
-        }
-
-        public bool Validate(string postcode)
-        {
-            var request = CreateValidateRequest(postcode);
-            return Execute<bool>(request);
-        }
-
-        public Task<bool> ValidateAsync(string postcode)
-        {
-            var request = CreateValidateRequest(postcode);
-            return ExecuteAsync<bool>(request);
         }
 
         public IEnumerable<PostcodeResult> LookupLatLon(ReverseGeocodeQuery query)
@@ -116,6 +65,42 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
+        public IEnumerable<PostcodeResult> Query(string q, int? limit = null)
+        {
+            var request = CreateQueryRequest(q, limit);
+            return Execute<List<PostcodeResult>>(request);
+        }
+
+        public Task<IEnumerable<PostcodeResult>> QueryAsync(string q, int? limit = null)
+        {
+            var request = CreateQueryRequest(q, limit);
+            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
+        public bool Validate(string postcode)
+        {
+            var request = CreateValidateRequest(postcode);
+            return Execute<bool>(request);
+        }
+
+        public Task<bool> ValidateAsync(string postcode)
+        {
+            var request = CreateValidateRequest(postcode);
+            return ExecuteAsync<bool>(request);
+        }
+
+        public IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null)
+        {
+            var request = CreateNearest(postcode, limit, radius);
+            return Execute<List<PostcodeResult>>(request);
+        }
+
+        public Task<IEnumerable<PostcodeResult>> NearestAsync(string postcode, int? limit = null, int? radius = null)
+        {
+            var request = CreateNearest(postcode, limit, radius);
+            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
         public IEnumerable<string> Autocomplete(string postcode, int? limit = null)
         {
             var request = CreateAutocompleteRequest(postcode, limit);
@@ -140,17 +125,17 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<PostcodeResult>(request);
         }
 
-        public IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null)
+        public OutwardCodeResult OutwardCodeLookup(string outcode)
         {
-            var request = CreateNearest(postcode, limit, radius);
-            return Execute<List<PostcodeResult>>(request);
+            var request = CreateOutwardCodeLookupRequest(outcode);
+            return Execute<OutwardCodeResult>(request);
         }
 
-        public Task<IEnumerable<PostcodeResult>> NearestAsync(string postcode, int? limit = null, int? radius = null)
-        {
-            var request = CreateNearest(postcode, limit, radius);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
-        }
+        // TODO: outward lookup async
+       
+        // TODO: outcode reverse geocoding (& async)
+
+        // TODO: nearest outcode (& async)
 
         public TerminatedPostcodeResult Terminated(string postcode)
         {
@@ -164,6 +149,45 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<TerminatedPostcodeResult>(request);
         }
 
+        // TODO: place lookup (& async)
+
+        // TODO: place query (& async)
+
+        // TODO: random place (& async)
+
+
+
+        private T Execute<T>(RestRequest request) where T : new()
+        {
+            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
+            var response = client.Execute<RawResult<T>>(request);
+
+            if (response.ErrorException != null)
+                throw new PostcodesIOApiException(response.ErrorException);
+            if (response.Data == null)
+                throw new PostcodesIOEmptyResponseException(response.StatusCode);
+
+            return response.Data.Result;
+        }
+
+        private async Task<T> ExecuteAsync<T>(RestRequest request) where T : new()
+        {
+            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
+            var response = await client.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
+
+            if (response.ErrorException != null)
+                throw new PostcodesIOApiException(response.ErrorException);
+            if (response.Data == null)
+                throw new PostcodesIOEmptyResponseException(response.StatusCode);
+
+            return response.Data.Result;
+        }
+
+        private static RestRequest CreateLookupRequest(string postcode)
+        {
+            return new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET);
+        }
+
         private static RestRequest CreateBulkLookupRequest(IEnumerable<string> postcodes)
         {
             var request = new RestRequest("postcodes", Method.POST)
@@ -171,6 +195,28 @@ namespace MarkEmbling.PostcodesIO
                 RequestFormat = DataFormat.Json
             };
             request.AddJsonBody(new { postcodes });
+            return request;
+        }
+
+        private static RestRequest CreateLookupLocationRequest(ReverseGeocodeQuery query)
+        {
+            var request = new RestRequest("postcodes", Method.GET);
+            request.AddParameter("lon", query.Longitude);
+            request.AddParameter("lat", query.Latitude);
+            if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
+            if (query.Radius.HasValue) request.AddParameter("radius", query.Radius);
+            if (query.WideSearch.HasValue) request.AddParameter("wideSearch", query.WideSearch);
+            return request;
+        }
+
+        private static RestRequest CreateBulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
+        {
+            var request = new RestRequest("postcodes", Method.POST)
+            {
+                RequestFormat = DataFormat.Json,
+                JsonSerializer = new JsonDotNetSerializer()
+            };
+            request.AddJsonBody(new { geolocations = queries });
             return request;
         }
 
@@ -188,33 +234,11 @@ namespace MarkEmbling.PostcodesIO
             return request;
         }
 
-        private static RestRequest CreateLookupLocationRequest(ReverseGeocodeQuery query)
+        private static RestRequest CreateNearest(string postcode, int? limit, int? radius)
         {
-            var request = new RestRequest("postcodes", Method.GET);
-            request.AddParameter("lat", query.Latitude);
-            request.AddParameter("lon", query.Longitude);
-            if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
-            return request;
-        }
-
-        private static RestRequest CreateLookupRequest(string postcode)
-        {
-            return new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET);
-        }
-
-        private static RestRequest CreateOutwardCodeLookupRequest(string outcode)
-        {
-            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
-        }
-
-        private static RestRequest CreateBulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
-        {
-            var request = new RestRequest("postcodes", Method.POST)
-            {
-                RequestFormat = DataFormat.Json,
-                JsonSerializer = new JsonDotNetSerializer()
-            };
-            request.AddJsonBody(new { geolocations = queries });
+            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.GET);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            if (radius.HasValue) request.AddParameter("radius", radius);
             return request;
         }
 
@@ -231,12 +255,9 @@ namespace MarkEmbling.PostcodesIO
             return request;
         }
 
-        private static RestRequest CreateNearest(string postcode, int? limit, int? radius)
+        private static RestRequest CreateOutwardCodeLookupRequest(string outcode)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.GET);
-            if (limit.HasValue) request.AddParameter("limit", limit);
-            if (radius.HasValue) request.AddParameter("radius", radius);
-            return request;
+            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
         }
 
         private static RestRequest CreateTerminatedRequest(string postcode)
