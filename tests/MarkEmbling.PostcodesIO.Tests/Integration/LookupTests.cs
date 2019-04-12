@@ -48,20 +48,21 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual("South East Coast", result.NHSHealthAuthority);
             Assert.AreEqual(-0.582332, result.Longitude);
             Assert.AreEqual(51.245283, result.Latitude);
-            Assert.AreEqual("Guildford", result.ParliamentaryConstituency);
             Assert.AreEqual("South East", result.EuropeanElectoralRegion);
             Assert.AreEqual("Surrey", result.PrimaryCareTrust);
             Assert.AreEqual("South East", result.Region);
             Assert.AreEqual("Guildford 015A", result.LSOA);
             Assert.AreEqual("Guildford 015", result.MSOA);
-            Assert.AreEqual("West Surrey", result.NUTS);
             Assert.AreEqual("1AA", result.InCode);
             Assert.AreEqual("GU1", result.OutCode);
+            Assert.AreEqual("Guildford", result.ParliamentaryConstituency);
             Assert.AreEqual("Guildford", result.AdminDistrict);
             Assert.AreEqual("Guildford, unparished area", result.Parish);
             Assert.AreEqual("Surrey", result.AdminCounty);
             Assert.AreEqual("Friary and St Nicolas", result.AdminWard);
+            Assert.AreEqual("Guildford South West", result.CED);
             Assert.AreEqual("NHS Guildford and Waverley", result.CCG);
+            Assert.AreEqual("West Surrey", result.NUTS);
             Assert.NotNull(result.Codes);
         }
 
