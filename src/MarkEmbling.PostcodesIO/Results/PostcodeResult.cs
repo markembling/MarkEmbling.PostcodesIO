@@ -17,8 +17,8 @@ namespace MarkEmbling.PostcodesIO.Results
         public string AdminCounty { get; set; }
         public string AdminDistrict { get; set; }
         public string AdminWard { get; set; }
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
         public string ParliamentaryConstituency { get; set; }
         public string EuropeanElectoralRegion { get; set; }
         public string PrimaryCareTrust { get; set; }

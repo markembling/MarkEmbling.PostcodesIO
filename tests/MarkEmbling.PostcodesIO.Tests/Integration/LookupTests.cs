@@ -137,5 +137,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.IsNull(result.Eastings);
             Assert.IsNull(result.Northings);
         }
+
+        [Test]
+        public void Null_longitude_and_latitude_are_handled()
+        {
+            var result = _client.Lookup("JE2 4ST");
+
+            Assert.IsNull(result.Longitude);
+            Assert.IsNull(result.Latitude);
+        }
     }
 }
