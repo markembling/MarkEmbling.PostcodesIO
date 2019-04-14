@@ -146,5 +146,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.IsNull(result.Longitude);
             Assert.IsNull(result.Latitude);
         }
+
+        [Test]
+        public void Null_longitude_and_latitude_in_outcode_lookup_are_handled()
+        {
+            var result = _client.OutwardCodeLookup("JE2");
+
+            Assert.IsNull(result.Longitude);
+            Assert.IsNull(result.Latitude);
+        }
     }
 }
