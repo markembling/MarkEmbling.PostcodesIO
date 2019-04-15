@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MarkEmbling.PostcodesIO.Tests.Integration
 {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
-    public class LookupLatLonTests {
+    public class ReverseGeocodeTests {
         private PostcodesIOClient _client;
 
         [SetUp]
@@ -16,19 +16,19 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public void LookupLatLon_simple_query_returns_populated_response()
+        public void ReverseGeocode_simple_query_returns_populated_response()
         {
-            var results = _client.LookupLatLon(new ReverseGeocodeQuery {
+            var results = _client.ReverseGeocode(new ReverseGeocodeQuery {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613
             }).ToList();
 
-            TestLookupLatLon_simple_query_returns_populated_response(results);
+            TestReverseGeocode_simple_query_returns_populated_response(results);
         }
 
         [Test]
-        public void LookupLatLon_with_limit_returns_only_that_number_of_results() {
-            var results = _client.LookupLatLon(new ReverseGeocodeQuery {
+        public void ReverseGeocode_with_limit_returns_only_that_number_of_results() {
+            var results = _client.ReverseGeocode(new ReverseGeocodeQuery {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613,
                 Limit = 2
@@ -38,21 +38,21 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public async Task LookupLatLon_simple_query_returns_populated_response_async()
+        public async Task ReverseGeocode_simple_query_returns_populated_response_async()
         {
-            var results = (await _client.LookupLatLonAsync(new ReverseGeocodeQuery
+            var results = (await _client.ReverseGeocodeAsync(new ReverseGeocodeQuery
             {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613
             })).ToList();
 
-            TestLookupLatLon_simple_query_returns_populated_response(results);
+            TestReverseGeocode_simple_query_returns_populated_response(results);
         }
 
         [Test]
-        public async Task LookupLatLon_with_limit_returns_only_that_number_of_results_async()
+        public async Task ReverseGeocode_with_limit_returns_only_that_number_of_results_async()
         {
-            var results = (await _client.LookupLatLonAsync(new ReverseGeocodeQuery
+            var results = (await _client.ReverseGeocodeAsync(new ReverseGeocodeQuery
             {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613,
@@ -63,7 +63,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         // TODO: tests for radius and wideSearch. Probably better as unit tests.
-        private static void TestLookupLatLon_simple_query_returns_populated_response(List<PostcodeResult> results)
+        private static void TestReverseGeocode_simple_query_returns_populated_response(List<PostcodeResult> results)
         {
             Assert.True(results.Any());
             //TODO probably a better way of writing this without using Assert.IsTrue

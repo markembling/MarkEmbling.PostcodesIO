@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MarkEmbling.PostcodesIO.Tests.Integration
 {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
-    public class BulkLookupLatLonTests {
+    public class BulkReverseGeocodeTests {
         private PostcodesIOClient _client;
         private ReverseGeocodeQuery[] _lookups;
             
@@ -21,51 +21,51 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public void BulkLookupLatLon_returns_results() {
-            var results = _client.BulkLookupLatLon(_lookups);
+        public void BulkReverseGeocode_returns_results() {
+            var results = _client.BulkReverseGeocode(_lookups);
             Assert.AreEqual(2, results.Count());
         }
 
         [Test]
-        public void BulkLookupLatLon_results_contain_original_queries() {
-            var results = _client.BulkLookupLatLon(_lookups).ToList();
+        public void BulkReverseGeocode_results_contain_original_queries() {
+            var results = _client.BulkReverseGeocode(_lookups).ToList();
 
             Assert.True(results.Any(x => x.Query.Equals(_lookups[0])));
             Assert.True(results.Any(x => x.Query.Equals(_lookups[1])));
         }
 
         [Test]
-        public void BulkLookupLatLon_results_contain_postcode_results() {
-            var results = _client.BulkLookupLatLon(_lookups).ToList();
+        public void BulkReverseGeocode_results_contain_postcode_results() {
+            var results = _client.BulkReverseGeocode(_lookups).ToList();
 
-            TestBulkLookupLatLon_results_contain_postcode_results(results);
+            TestBulkReverseGeocode_results_contain_postcode_results(results);
         }
 
         [Test]
-        public async Task BulkLookupLatLon_returns_results_async()
+        public async Task BulkReverseGeocode_returns_results_async()
         {
-            var results = await _client.BulkLookupLatLonAsync(_lookups);
+            var results = await _client.BulkReverseGeocodeAsync(_lookups);
             Assert.AreEqual(2, results.Count());
         }
 
         [Test]
-        public async Task BulkLookupLatLon_results_contain_original_queries_async()
+        public async Task BulkReverseGeocode_results_contain_original_queries_async()
         {
-            var results = (await _client.BulkLookupLatLonAsync(_lookups)).ToList();
+            var results = (await _client.BulkReverseGeocodeAsync(_lookups)).ToList();
 
             Assert.True(results.Any(x => x.Query.Equals(_lookups[0])));
             Assert.True(results.Any(x => x.Query.Equals(_lookups[1])));
         }
 
         [Test]
-        public async Task BulkLookupLatLon_results_contain_postcode_results_async()
+        public async Task BulkReverseGeocode_results_contain_postcode_results_async()
         {
-            var results = (await _client.BulkLookupLatLonAsync(_lookups)).ToList();
+            var results = (await _client.BulkReverseGeocodeAsync(_lookups)).ToList();
 
-            TestBulkLookupLatLon_results_contain_postcode_results(results);
+            TestBulkReverseGeocode_results_contain_postcode_results(results);
         }
 
-        private void TestBulkLookupLatLon_results_contain_postcode_results(List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> results)
+        private void TestBulkReverseGeocode_results_contain_postcode_results(List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> results)
         {
             Assert.True(results[0].Result.Any());
             Assert.True(results[1].Result.Any());

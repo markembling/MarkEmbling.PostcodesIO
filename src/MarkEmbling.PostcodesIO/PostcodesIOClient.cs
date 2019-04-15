@@ -41,27 +41,27 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<List<BulkQueryResult<string, PostcodeResult>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<string, PostcodeResult>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public IEnumerable<PostcodeResult> LookupLatLon(ReverseGeocodeQuery query)
+        public IEnumerable<PostcodeResult> ReverseGeocode(ReverseGeocodeQuery query)
         {
-            var request = CreateLookupLocationRequest(query);
+            var request = CreateReverseGeocodeRequest(query);
             return Execute<List<PostcodeResult>>(request);
         }
 
-        public Task<IEnumerable<PostcodeResult>> LookupLatLonAsync(ReverseGeocodeQuery query)
+        public Task<IEnumerable<PostcodeResult>> ReverseGeocodeAsync(ReverseGeocodeQuery query)
         {
-            var request = CreateLookupLocationRequest(query);
+            var request = CreateReverseGeocodeRequest(query);
             return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
+        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkReverseGeocode(IEnumerable<ReverseGeocodeQuery> queries)
         {
-            var request = CreateBulkLookupLatLon(queries);
+            var request = CreateBulkReverseGeocodeRequest(queries);
             return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request);
         }
 
-        public Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkLookupLatLonAsync(IEnumerable<ReverseGeocodeQuery> queries)
+        public Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkReverseGeocodeAsync(IEnumerable<ReverseGeocodeQuery> queries)
         {
-            var request = CreateBulkLookupLatLon(queries);
+            var request = CreateBulkReverseGeocodeRequest(queries);
             return ExecuteAsync<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
@@ -198,7 +198,7 @@ namespace MarkEmbling.PostcodesIO
             return request;
         }
 
-        private static RestRequest CreateLookupLocationRequest(ReverseGeocodeQuery query)
+        private static RestRequest CreateReverseGeocodeRequest(ReverseGeocodeQuery query)
         {
             var request = new RestRequest("postcodes", Method.GET);
             request.AddParameter("lon", query.Longitude);
@@ -209,7 +209,7 @@ namespace MarkEmbling.PostcodesIO
             return request;
         }
 
-        private static RestRequest CreateBulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
+        private static RestRequest CreateBulkReverseGeocodeRequest(IEnumerable<ReverseGeocodeQuery> queries)
         {
             var request = new RestRequest("postcodes", Method.POST)
             {

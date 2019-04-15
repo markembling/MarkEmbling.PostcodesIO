@@ -16,10 +16,10 @@ namespace MarkEmbling.PostcodesIO
         bool Validate(string postcode);
         Task<bool> ValidateAsync(string postcode);
 
-        IEnumerable<PostcodeResult> LookupLatLon(ReverseGeocodeQuery query);
-        Task<IEnumerable<PostcodeResult>> LookupLatLonAsync(ReverseGeocodeQuery query);
-        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
-        Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkLookupLatLonAsync(IEnumerable<ReverseGeocodeQuery> queries);
+        IEnumerable<PostcodeResult> ReverseGeocode(ReverseGeocodeQuery query);
+        Task<IEnumerable<PostcodeResult>> ReverseGeocodeAsync(ReverseGeocodeQuery query);
+        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkReverseGeocode(IEnumerable<ReverseGeocodeQuery> queries);
+        Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkReverseGeocodeAsync(IEnumerable<ReverseGeocodeQuery> queries);
 
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
         Task<IEnumerable<string>> AutocompleteAsync(string postcode, int? limit = null);
