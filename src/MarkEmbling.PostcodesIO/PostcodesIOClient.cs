@@ -149,12 +149,35 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<TerminatedPostcodeResult>(request);
         }
 
-        // TODO: place lookup (& async)
+        public PlaceResult PlaceLookup(string code)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public Task<PlaceResult> PlaceLookupAsync(string code)
+        {
+            throw new NotImplementedException();
+        }
 
-        // TODO: place query (& async)
+        public IEnumerable<PlaceResult> PlaceQuery(string q, int? limit = null)
+        {
+            throw new NotImplementedException();
+        }
 
-        // TODO: random place (& async)
+        public Task<IEnumerable<PlaceResult>> PlaceQueryAsync(string q, int? limit = null)
+        {
+            throw new NotImplementedException();
+        }
 
+        public PlaceResult RandomPlace()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PlaceResult> RandomPlaceAsync()
+        {
+            throw new NotImplementedException();
+        }
 
 
         private T Execute<T>(RestRequest request) where T : new()
