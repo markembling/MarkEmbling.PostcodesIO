@@ -27,8 +27,8 @@ namespace MarkEmbling.PostcodesIO.Results
         [DeserializeAs(Name = "name_2_lang")]
         public string Name2Language { get; set; }
 
-        public string CountryUnitary { get; set; }
-        public string CountryUnitaryType { get; set; }
+        public string CountyUnitary { get; set; }
+        public string CountyUnitaryType { get; set; }
         public string DistrictBorough { get; set; }
         public string DistrictBoroughType { get; set; }
         public string Region { get; set; }

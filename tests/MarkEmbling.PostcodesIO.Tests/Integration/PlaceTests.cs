@@ -33,8 +33,8 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         {
             Assert.AreEqual("osgb4000000074564391", result.Code);
             Assert.AreEqual("England", result.Country);
-            Assert.AreEqual("Hampshire", result.CountryUnitary);
-            Assert.AreEqual("County", result.CountryUnitaryType);
+            Assert.AreEqual("Hampshire", result.CountyUnitary);
+            Assert.AreEqual("County", result.CountyUnitaryType);
             Assert.AreEqual("New Forest", result.DistrictBorough);
             Assert.AreEqual("District", result.DistrictBoroughType);
             Assert.AreEqual(413940, result.Eastings);
