@@ -84,5 +84,70 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
 
         //TODO: tests on radius, need to find postcode with other postcodes that are not near
 
+        [Test]
+        public void NearestOutwardCode_returns_populated_response()
+        {
+            var results = _client.NearestOutwardCode("GU1");
+            Assert.AreEqual(4, results.Count());
+        }
+
+        [Test]
+        public async Task NearestOutwardCodeAsync_returns_populated_response()
+        {
+            var results = await _client.NearestOutwardCodeAsync("GU1");
+
+            Assert.AreEqual(4, results.Count());
+            foreach (var result in results)
+            {
+                AssertOutwardCodeResultIsPopulated(result);
+            }
+        }
+
+        [Test]
+        public void NearestOutwardCode_with_limit_returns_limited_results()
+        {
+            var results = _client.NearestOutwardCode("GU1", limit: 2);
+
+            Assert.AreEqual(2, results.Count());
+            foreach (var result in results)
+            {
+                AssertOutwardCodeResultIsPopulated(result);
+            }
+        }
+
+        [Test]
+        public async Task NearestOutwardCodeAsync_with_limit_returns_limited_results()
+        {
+            var results = await _client.NearestOutwardCodeAsync("GU1", limit: 2);
+            Assert.AreEqual(2, results.Count());
+        }
+
+        [Test]
+        public void NearestOutwardCode_with_wide_radius_gives_more_results()
+        {
+            var results = _client.NearestOutwardCode("GU1", radius: 10000);
+            Assert.AreEqual(10, results.Count());
+        }
+
+        [Test]
+        public async Task NearestOutwardCodeAsync_with_wide_radius_gives_more_results()
+        {
+            var results = await _client.NearestOutwardCodeAsync("GU1", radius: 10000);
+            Assert.AreEqual(10, results.Count());
+        }
+
+        private static void AssertOutwardCodeResultIsPopulated(OutwardCodeResult result)
+        {
+            Assert.NotNull(result.AdminCounty);
+            Assert.NotNull(result.AdminDistrict);
+            Assert.NotNull(result.AdminWard);
+            Assert.NotNull(result.Country);
+            Assert.NotNull(result.Eastings);
+            Assert.NotNull(result.Latitude);
+            Assert.NotNull(result.Longitude);
+            Assert.NotNull(result.Northings);
+            Assert.NotNull(result.Outcode);
+            Assert.NotNull(result.Parish);
+        }
     }
 }

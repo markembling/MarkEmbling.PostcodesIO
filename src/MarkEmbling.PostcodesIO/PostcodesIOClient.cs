@@ -131,11 +131,37 @@ namespace MarkEmbling.PostcodesIO
             return Execute<OutwardCodeResult>(request);
         }
 
-        // TODO: outward lookup async
+        public Task<OutwardCodeResult> OutwardCodeLookupAsync(string outcode)
+        {
+            var request = CreateOutwardCodeLookupRequest(outcode);
+            return ExecuteAsync<OutwardCodeResult>(request);
+        }
        
-        // TODO: outcode reverse geocoding (& async)
+        public IEnumerable<OutwardCodeResult> OutwardCodeReverseGeocode(double latitude, double longitude, int? limit = null, int? radius = null)
+        {
+            var request = CreateOutwardCodeReverseGeocodeRequest(latitude, longitude, limit, radius);
+            return Execute<List<OutwardCodeResult>>(request);
+        }
 
-        // TODO: nearest outcode (& async)
+        public Task<IEnumerable<OutwardCodeResult>> OutwardCodeReverseGeocodeAsync(double latitude, double longitude, int? limit = null, int? radius = null)
+        {
+            var request = CreateOutwardCodeReverseGeocodeRequest(latitude, longitude, limit, radius);
+            return ExecuteAsync<List<OutwardCodeResult>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<OutwardCodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
+        public IEnumerable<OutwardCodeResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null)
+        {
+            var request = CreateNearestOutwardCodeRequest(outcode, limit, radius);
+            return Execute<List<OutwardCodeResult>>(request);
+        }
+
+        public Task<IEnumerable<OutwardCodeResult>> NearestOutwardCodeAsync(string outcode, int? limit = null, int? radius = null)
+        {
+            var request = CreateNearestOutwardCodeRequest(outcode, limit, radius);
+            return ExecuteAsync<List<OutwardCodeResult>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<OutwardCodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
 
         public TerminatedPostcodeResult Terminated(string postcode)
         {
@@ -258,6 +284,24 @@ namespace MarkEmbling.PostcodesIO
         private static RestRequest CreateOutwardCodeLookupRequest(string outcode)
         {
             return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
+        }
+
+        private static RestRequest CreateOutwardCodeReverseGeocodeRequest(double latitude, double longitude, int? limit, int? radius)
+        {
+            var request = new RestRequest("outcodes", Method.GET);
+            request.AddParameter("lon", longitude);
+            request.AddParameter("lat", latitude);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            if (radius.HasValue) request.AddParameter("radius", radius);
+            return request;
+        }
+
+        private static RestRequest CreateNearestOutwardCodeRequest(string outcode, int? limit, int? radius)
+        {
+            var request = new RestRequest(string.Format("outcodes/{0}/nearest", outcode), Method.GET);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            if (radius.HasValue) request.AddParameter("radius", radius);
+            return request;
         }
 
         private static RestRequest CreateTerminatedRequest(string postcode)
