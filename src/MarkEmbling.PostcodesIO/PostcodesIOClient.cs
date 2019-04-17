@@ -175,12 +175,42 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<TerminatedPostcodeResult>(request);
         }
 
-        // TODO: place lookup (& async)
+        public PlaceResult PlaceLookup(string code)
+        {
+            var request = CreatePlaceLookupRequest(code);
+            return Execute<PlaceResult>(request);
+        }
+        
+        public Task<PlaceResult> PlaceLookupAsync(string code)
+        {
+            var request = CreatePlaceLookupRequest(code);
+            return ExecuteAsync<PlaceResult>(request);
+        }
 
-        // TODO: place query (& async)
+        public IEnumerable<PlaceResult> PlaceQuery(string q, int? limit = null)
+        {
+            var request = CreatePlaceQueryRequest(q, limit);
+            return Execute<List<PlaceResult>>(request);
+        }
 
-        // TODO: random place (& async)
+        public Task<IEnumerable<PlaceResult>> PlaceQueryAsync(string q, int? limit = null)
+        {
+            var request = CreatePlaceQueryRequest(q, limit);
+            return ExecuteAsync<List<PlaceResult>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<PlaceResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
 
+        public PlaceResult RandomPlace()
+        {
+            var request = CreateRandomPlaceRequest();
+            return Execute<PlaceResult>(request);
+        }
+
+        public Task<PlaceResult> RandomPlaceAsync()
+        {
+            var request = CreateRandomPlaceRequest();
+            return ExecuteAsync<PlaceResult>(request);
+        }
 
 
         private T Execute<T>(RestRequest request) where T : new()
@@ -307,6 +337,26 @@ namespace MarkEmbling.PostcodesIO
         private static RestRequest CreateTerminatedRequest(string postcode)
         {
             return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.GET);
+        }
+
+        private static RestRequest CreatePlaceLookupRequest(string code)
+        {
+            var request = new RestRequest(string.Format("places/{0}", code), Method.GET);
+            return request;
+        }
+
+        private static RestRequest CreatePlaceQueryRequest(string q, int? limit)
+        {
+            var request = new RestRequest("places", Method.GET);
+            request.AddQueryParameter("q", q);
+            if (limit.HasValue) request.AddParameter("limit", limit);
+            return request;
+        }
+
+        private static RestRequest CreateRandomPlaceRequest()
+        {
+            var request = new RestRequest("random/places", Method.GET);
+            return request;
         }
     }
 }
