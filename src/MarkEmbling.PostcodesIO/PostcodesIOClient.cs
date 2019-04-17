@@ -131,7 +131,11 @@ namespace MarkEmbling.PostcodesIO
             return Execute<OutwardCodeResult>(request);
         }
 
-        // TODO: outward lookup async
+        public Task<OutwardCodeResult> OutwardCodeLookupAsync(string outcode)
+        {
+            var request = CreateOutwardCodeLookupRequest(outcode);
+            return ExecuteAsync<OutwardCodeResult>(request);
+        }
        
         // TODO: outcode reverse geocoding (& async)
 

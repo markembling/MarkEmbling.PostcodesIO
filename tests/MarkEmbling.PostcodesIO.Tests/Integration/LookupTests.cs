@@ -23,7 +23,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public void OutwardCode_Lookup_returns_populated_response()
+        public void OutwardCodeLookup_returns_populated_response()
         {
             var result = _client.OutwardCodeLookup("IP3");
 
@@ -36,6 +36,13 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             var result = await _client.LookupAsync("GU1 1AA");
 
             TestLookup_returns_populated_responseResult(result);
+        }
+
+        [Test]
+        public async Task OutwardCodeLookupAsync_returns_populated_response()
+        {
+            var result = await _client.OutwardCodeLookupAsync("IP3");
+            TestOutwardCode_Lookup_returns_populated_responseResult(result);
         }
 
         private static void TestLookup_returns_populated_responseResult(PostcodeResult result)
