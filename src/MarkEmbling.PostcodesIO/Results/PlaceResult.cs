@@ -15,13 +15,16 @@ namespace MarkEmbling.PostcodesIO.Results
         public int MaxEastings { get; set; }
         public string Country { get; set; }
         public double Longitude { get; set; }
-        public double Latituide { get; set; }
+        public double Latitude { get; set; }
         public string LocalType { get; set; }
+
+        [DeserializeAs(Name = "name_1")]
         public string Name1 { get; set; }
 
         [DeserializeAs(Name = "name_1_lang")]
         public string Name1Language { get; set; }
 
+        [DeserializeAs(Name = "name_2")]
         public string Name2 { get; set; }
 
         [DeserializeAs(Name = "name_2_lang")]

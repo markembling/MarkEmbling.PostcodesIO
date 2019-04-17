@@ -151,12 +151,14 @@ namespace MarkEmbling.PostcodesIO
 
         public PlaceResult PlaceLookup(string code)
         {
-            throw new NotImplementedException();
+            var request = CreatePlaceLookupRequest(code);
+            return Execute<PlaceResult>(request);
         }
         
         public Task<PlaceResult> PlaceLookupAsync(string code)
         {
-            throw new NotImplementedException();
+            var request = CreatePlaceLookupRequest(code);
+            return ExecuteAsync<PlaceResult>(request);
         }
 
         public IEnumerable<PlaceResult> PlaceQuery(string q, int? limit = null)
@@ -286,6 +288,12 @@ namespace MarkEmbling.PostcodesIO
         private static RestRequest CreateTerminatedRequest(string postcode)
         {
             return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.GET);
+        }
+
+        private static RestRequest CreatePlaceLookupRequest(string code)
+        {
+            var request = new RestRequest(string.Format("places/{0}", code), Method.GET);
+            return request;
         }
     }
 }

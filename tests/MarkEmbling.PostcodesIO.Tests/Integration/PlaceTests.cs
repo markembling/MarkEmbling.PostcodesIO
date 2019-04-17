@@ -38,7 +38,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual("New Forest", result.DistrictBorough);
             Assert.AreEqual("District", result.DistrictBoroughType);
             Assert.AreEqual(413940, result.Eastings);
-            Assert.AreEqual(50.8926950373503, result.Latituide);
+            Assert.AreEqual(50.8926950373503, result.Latitude);
             Assert.AreEqual("Hamlet", result.LocalType);
             Assert.AreEqual(-1.80317162043943, result.Longitude);
             Assert.AreEqual(414169, result.MaxEastings);
