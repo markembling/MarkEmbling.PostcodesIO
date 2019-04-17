@@ -74,6 +74,22 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual(2, results.Count());
         }
 
+        [Test]
+        public void RandomPlace_returns_a_postcode_result()
+        {
+            var result = _client.RandomPlace();
+            Assert.NotNull(result);
+            Assert.False(string.IsNullOrEmpty(result.Code));
+        }
+
+        [Test]
+        public async Task RandomPlaceAsync_returns_a_postcode_result()
+        {
+            var result = await _client.RandomPlaceAsync();
+            Assert.NotNull(result);
+            Assert.False(string.IsNullOrEmpty(result.Code));
+        }
+
         private static void AssertPlaceLookupResult(PlaceResult result)
         {
             Assert.AreEqual("osgb4000000074564391", result.Code);

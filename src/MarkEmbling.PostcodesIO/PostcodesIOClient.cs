@@ -176,12 +176,14 @@ namespace MarkEmbling.PostcodesIO
 
         public PlaceResult RandomPlace()
         {
-            throw new NotImplementedException();
+            var request = CreateRandomPlaceRequest();
+            return Execute<PlaceResult>(request);
         }
 
         public Task<PlaceResult> RandomPlaceAsync()
         {
-            throw new NotImplementedException();
+            var request = CreateRandomPlaceRequest();
+            return ExecuteAsync<PlaceResult>(request);
         }
 
 
@@ -304,6 +306,12 @@ namespace MarkEmbling.PostcodesIO
             var request = new RestRequest("places", Method.GET);
             request.AddQueryParameter("q", q);
             if (limit.HasValue) request.AddParameter("limit", limit);
+            return request;
+        }
+
+        private static RestRequest CreateRandomPlaceRequest()
+        {
+            var request = new RestRequest("random/places", Method.GET);
             return request;
         }
     }
