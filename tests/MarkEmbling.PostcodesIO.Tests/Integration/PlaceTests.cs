@@ -1,5 +1,6 @@
 ﻿using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO.Tests.Integration
@@ -27,6 +28,50 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         {
             var result = await _client.PlaceLookupAsync("osgb4000000074564391");
             AssertPlaceLookupResult(result);
+        }
+
+        [Test]
+        public void PlaceQuery_returns_matching_results()
+        {
+            var results = _client.PlaceQuery("Kent");
+            Assert.AreEqual(7, results.Count());
+            Assert.AreEqual("Kent", results.First().Name1);
+        }
+
+        [Test]
+        public async Task PlaceQueryAsync_returns_matching_results()
+        {
+            var results = await _client.PlaceQueryAsync("Kent");
+            Assert.AreEqual(7, results.Count());
+            Assert.AreEqual("Kent", results.First().Name1);
+        }
+
+        [Test]
+        public void PlaceQuery_with_non_existent_place_returns_null()
+        {
+            var result = _client.PlaceQuery("NONEXISTENT");
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public async Task PlaceQueryAsync_with_non_existent_place_returns_null()
+        {
+            var result = await _client.PlaceQueryAsync("NONEXISTENT");
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void PlaceQuery_with_limit_returns_limited_results()
+        {
+            var results = _client.PlaceQuery("Kent", 2);
+            Assert.AreEqual(2, results.Count());
+        }
+
+        [Test]
+        public async Task PlaceQueryAsync_with_limit_returns_limited_results()
+        {
+            var results = await _client.PlaceQueryAsync("Kent", 2);
+            Assert.AreEqual(2, results.Count());
         }
 
         private static void AssertPlaceLookupResult(PlaceResult result)
