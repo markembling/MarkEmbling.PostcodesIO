@@ -1,14 +1,26 @@
 ﻿using MarkEmbling.PostcodesIO.Exceptions;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
-using System;
 using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO.Internals
 {
     public interface IRequestExecutor
     {
+        /// <summary>
+        /// Execute a request and return the result
+        /// </summary>
+        /// <typeparam name="T">Type to deserialise the result into</typeparam>
+        /// <param name="request">Request to execute</param>
+        /// <returns>Result object</returns>
         T ExecuteRequest<T>(RestRequest request) where T : new();
+
+        /// <summary>
+        /// Execute a request asyncronously and return the result
+        /// </summary>
+        /// <typeparam name="T">Type to deserialise the result into</typeparam>
+        /// <param name="request">Request to execute</param>
+        /// <returns>Result object</returns>
         Task<T> ExecuteRequestAsync<T>(RestRequest request) where T : new();
     }
 
@@ -17,17 +29,27 @@ namespace MarkEmbling.PostcodesIO.Internals
     /// </summary>
     public class RequestExecutor : IRequestExecutor
     {
-        private readonly string _endpoint;
+        private readonly IRestClient _restClient;
 
         public RequestExecutor(string endpoint)
         {
-            _endpoint = endpoint;
+            _restClient = new RestClient(endpoint);
         }
 
+        public RequestExecutor(IRestClient restClient)
+        {
+            _restClient = restClient;
+        }
+
+        /// <summary>
+        /// Execute a request and return the result
+        /// </summary>
+        /// <typeparam name="T">Type to deserialise the result into</typeparam>
+        /// <param name="request">Request to execute</param>
+        /// <returns>Result object</returns>
         public T ExecuteRequest<T>(RestRequest request) where T : new()
         {
-            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
-            var response = client.Execute<RawResult<T>>(request);
+            var response = _restClient.Execute<RawResult<T>>(request);
 
             if (response.ErrorException != null)
                 throw new PostcodesIOApiException(response.ErrorException);
@@ -38,10 +60,15 @@ namespace MarkEmbling.PostcodesIO.Internals
             //return NormaliseResults(response.Data.Result);
         }
 
+        /// <summary>
+        /// Execute a request asyncronously and return the result
+        /// </summary>
+        /// <typeparam name="T">Type to deserialise the result into</typeparam>
+        /// <param name="request">Request to execute</param>
+        /// <returns>Result object</returns>
         public async Task<T> ExecuteRequestAsync<T>(RestRequest request) where T : new()
         {
-            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
-            var response = await client.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
+            var response = await _restClient.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
 
             if (response.ErrorException != null)
                 throw new PostcodesIOApiException(response.ErrorException);
