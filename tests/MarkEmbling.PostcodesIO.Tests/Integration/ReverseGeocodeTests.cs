@@ -23,7 +23,19 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
                 Longitude = -0.58231794275613
             }).ToList();
 
-            TestReverseGeocode_simple_query_returns_populated_response(results);
+            AssertPopulatedResponse(results);
+        }
+
+        [Test]
+        public async Task ReverseGeocodeAsync_simple_query_returns_populated_response()
+        {
+            var results = (await _client.ReverseGeocodeAsync(new ReverseGeocodeQuery
+            {
+                Latitude = 51.2452924089757,
+                Longitude = -0.58231794275613
+            })).ToList();
+
+            AssertPopulatedResponse(results);
         }
 
         [Test]
@@ -38,19 +50,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public async Task ReverseGeocode_simple_query_returns_populated_response_async()
-        {
-            var results = (await _client.ReverseGeocodeAsync(new ReverseGeocodeQuery
-            {
-                Latitude = 51.2452924089757,
-                Longitude = -0.58231794275613
-            })).ToList();
-
-            TestReverseGeocode_simple_query_returns_populated_response(results);
-        }
-
-        [Test]
-        public async Task ReverseGeocode_with_limit_returns_only_that_number_of_results_async()
+        public async Task ReverseGeocodeAsync_with_limit_returns_only_that_number_of_results()
         {
             var results = (await _client.ReverseGeocodeAsync(new ReverseGeocodeQuery
             {
@@ -63,13 +63,13 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         // TODO: tests for radius and wideSearch. Probably better as unit tests.
-        private static void TestReverseGeocode_simple_query_returns_populated_response(List<PostcodeResult> results)
+
+        private static void AssertPopulatedResponse(List<PostcodeResult> results)
         {
             Assert.True(results.Any());
             //TODO probably a better way of writing this without using Assert.IsTrue
             Assert.IsTrue(results.Any(p => p.Postcode == "GU1 1AA"));
         }
-
 
         [Test]
         public void OutwardCodeReverseGeocode_returns_populated_response()
