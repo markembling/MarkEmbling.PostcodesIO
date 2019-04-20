@@ -1,8 +1,6 @@
-﻿using MarkEmbling.PostcodesIO.Exceptions;
-using MarkEmbling.PostcodesIO.Internals;
+﻿using MarkEmbling.PostcodesIO.Internals;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,234 +8,215 @@ namespace MarkEmbling.PostcodesIO
 {
     public class PostcodesIOClient : IPostcodesIOClient
     {
-        private readonly string _endpoint;
+        private readonly IRequestExecutor _requestExecutor;
 
         public PostcodesIOClient(string endpoint = "https://api.postcodes.io")
         {
-            _endpoint = endpoint;
+            _requestExecutor = new RequestExecutor(endpoint);
         }
 
         public PostcodeResult Lookup(string postcode)
         {
             var request = CreateLookupRequest(postcode);
-            return Execute<PostcodeResult>(request);
+            return _requestExecutor.ExecuteRequest<PostcodeResult>(request);
         }
 
         public Task<PostcodeResult> LookupAsync(string postcode)
         {
             var request = CreateLookupRequest(postcode);
-            return ExecuteAsync<PostcodeResult>(request);
+            return _requestExecutor.ExecuteRequestAsync<PostcodeResult>(request);
         }
 
         public IEnumerable<BulkQueryResult<string, PostcodeResult>> BulkLookup(IEnumerable<string> postcodes)
         {
             var request = CreateBulkLookupRequest(postcodes);
-            return Execute<List<BulkQueryResult<string, PostcodeResult>>>(request);
+            return _requestExecutor.ExecuteRequest<List<BulkQueryResult<string, PostcodeResult>>>(request);
         }
 
         public Task<IEnumerable<BulkQueryResult<string, PostcodeResult>>> BulkLookupAsync(IEnumerable<string> postcodes)
         {
             var request = CreateBulkLookupRequest(postcodes);
-            return ExecuteAsync<List<BulkQueryResult<string, PostcodeResult>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<string, PostcodeResult>>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return _requestExecutor.ExecuteRequestAsync<List<BulkQueryResult<string, PostcodeResult>>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<string, PostcodeResult>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public IEnumerable<PostcodeResult> ReverseGeocode(ReverseGeocodeQuery query)
         {
             var request = CreateReverseGeocodeRequest(query);
-            return Execute<List<PostcodeResult>>(request);
+            return _requestExecutor.ExecuteRequest<List<PostcodeResult>>(request);
         }
 
         public Task<IEnumerable<PostcodeResult>> ReverseGeocodeAsync(ReverseGeocodeQuery query)
         {
             var request = CreateReverseGeocodeRequest(query);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return _requestExecutor.ExecuteRequestAsync<List<PostcodeResult>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkReverseGeocode(IEnumerable<ReverseGeocodeQuery> queries)
         {
             var request = CreateBulkReverseGeocodeRequest(queries);
-            return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request);
+            return _requestExecutor.ExecuteRequest<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request);
         }
 
         public Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkReverseGeocodeAsync(IEnumerable<ReverseGeocodeQuery> queries)
         {
             var request = CreateBulkReverseGeocodeRequest(queries);
-            return ExecuteAsync<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return _requestExecutor.ExecuteRequestAsync<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public IEnumerable<PostcodeResult> Query(string q, int? limit = null)
         {
             var request = CreateQueryRequest(q, limit);
-            return Execute<List<PostcodeResult>>(request);
+            return _requestExecutor.ExecuteRequest<List<PostcodeResult>>(request);
         }
 
         public Task<IEnumerable<PostcodeResult>> QueryAsync(string q, int? limit = null)
         {
             var request = CreateQueryRequest(q, limit);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return _requestExecutor.ExecuteRequestAsync<List<PostcodeResult>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public bool Validate(string postcode)
         {
             var request = CreateValidateRequest(postcode);
-            return Execute<bool>(request);
+            return _requestExecutor.ExecuteRequest<bool>(request);
         }
 
         public Task<bool> ValidateAsync(string postcode)
         {
             var request = CreateValidateRequest(postcode);
-            return ExecuteAsync<bool>(request);
+            return _requestExecutor.ExecuteRequestAsync<bool>(request);
         }
 
         public IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null)
         {
             var request = CreateNearestRequest(postcode, limit, radius);
-            return Execute<List<PostcodeResult>>(request);
+            return _requestExecutor.ExecuteRequest<List<PostcodeResult>>(request);
         }
 
         public Task<IEnumerable<PostcodeResult>> NearestAsync(string postcode, int? limit = null, int? radius = null)
         {
             var request = CreateNearestRequest(postcode, limit, radius);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return _requestExecutor.ExecuteRequestAsync<List<PostcodeResult>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public IEnumerable<string> Autocomplete(string postcode, int? limit = null)
         {
             var request = CreateAutocompleteRequest(postcode, limit);
-            return Execute<List<string>>(request);
+            return _requestExecutor.ExecuteRequest<List<string>>(request);
         }
 
         public Task<IEnumerable<string>> AutocompleteAsync(string postcode, int? limit = null)
         {
             var request = CreateAutocompleteRequest(postcode, limit);
-            return ExecuteAsync<List<string>>(request).ContinueWith(t => t.Result as IEnumerable<string>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return _requestExecutor.ExecuteRequestAsync<List<string>>(request)
+                .ContinueWith(t => t.Result as IEnumerable<string>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public PostcodeResult Random()
         {
             var request = CreateRandomRequest();
-            return Execute<PostcodeResult>(request);
+            return _requestExecutor.ExecuteRequest<PostcodeResult>(request);
         }
 
         public Task<PostcodeResult> RandomAsync()
         {
             var request = CreateRandomRequest();
-            return ExecuteAsync<PostcodeResult>(request);
+            return _requestExecutor.ExecuteRequestAsync<PostcodeResult>(request);
         }
 
         public OutwardCodeResult OutwardCodeLookup(string outcode)
         {
             var request = CreateOutwardCodeLookupRequest(outcode);
-            return Execute<OutwardCodeResult>(request);
+            return _requestExecutor.ExecuteRequest<OutwardCodeResult>(request);
         }
 
         public Task<OutwardCodeResult> OutwardCodeLookupAsync(string outcode)
         {
             var request = CreateOutwardCodeLookupRequest(outcode);
-            return ExecuteAsync<OutwardCodeResult>(request);
+            return _requestExecutor.ExecuteRequestAsync<OutwardCodeResult>(request);
         }
        
         public IEnumerable<OutwardCodeResult> OutwardCodeReverseGeocode(double latitude, double longitude, int? limit = null, int? radius = null)
         {
             var request = CreateOutwardCodeReverseGeocodeRequest(latitude, longitude, limit, radius);
-            return Execute<List<OutwardCodeResult>>(request);
+            return _requestExecutor.ExecuteRequest<List<OutwardCodeResult>>(request);
         }
 
         public Task<IEnumerable<OutwardCodeResult>> OutwardCodeReverseGeocodeAsync(double latitude, double longitude, int? limit = null, int? radius = null)
         {
             var request = CreateOutwardCodeReverseGeocodeRequest(latitude, longitude, limit, radius);
-            return ExecuteAsync<List<OutwardCodeResult>>(request)
+            return _requestExecutor.ExecuteRequestAsync<List<OutwardCodeResult>>(request)
                 .ContinueWith(t => t.Result as IEnumerable<OutwardCodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public IEnumerable<OutwardCodeResult> NearestOutwardCode(string outcode, int? limit = null, int? radius = null)
         {
             var request = CreateNearestOutwardCodeRequest(outcode, limit, radius);
-            return Execute<List<OutwardCodeResult>>(request);
+            return _requestExecutor.ExecuteRequest<List<OutwardCodeResult>>(request);
         }
 
         public Task<IEnumerable<OutwardCodeResult>> NearestOutwardCodeAsync(string outcode, int? limit = null, int? radius = null)
         {
             var request = CreateNearestOutwardCodeRequest(outcode, limit, radius);
-            return ExecuteAsync<List<OutwardCodeResult>>(request)
+            return _requestExecutor.ExecuteRequestAsync<List<OutwardCodeResult>>(request)
                 .ContinueWith(t => t.Result as IEnumerable<OutwardCodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public TerminatedPostcodeResult Terminated(string postcode)
         {
             var request = CreateTerminatedRequest(postcode);
-            return Execute<TerminatedPostcodeResult>(request);
+            return _requestExecutor.ExecuteRequest<TerminatedPostcodeResult>(request);
         }
 
         public Task<TerminatedPostcodeResult> TerminatedAsync(string postcode)
         {
             var request = CreateTerminatedRequest(postcode);
-            return ExecuteAsync<TerminatedPostcodeResult>(request);
+            return _requestExecutor.ExecuteRequestAsync<TerminatedPostcodeResult>(request);
         }
 
         public PlaceResult PlaceLookup(string code)
         {
             var request = CreatePlaceLookupRequest(code);
-            return Execute<PlaceResult>(request);
+            return _requestExecutor.ExecuteRequest<PlaceResult>(request);
         }
         
         public Task<PlaceResult> PlaceLookupAsync(string code)
         {
             var request = CreatePlaceLookupRequest(code);
-            return ExecuteAsync<PlaceResult>(request);
+            return _requestExecutor.ExecuteRequestAsync<PlaceResult>(request);
         }
 
         public IEnumerable<PlaceResult> PlaceQuery(string q, int? limit = null)
         {
             var request = CreatePlaceQueryRequest(q, limit);
-            return Execute<List<PlaceResult>>(request);
+            return _requestExecutor.ExecuteRequest<List<PlaceResult>>(request);
         }
 
         public Task<IEnumerable<PlaceResult>> PlaceQueryAsync(string q, int? limit = null)
         {
             var request = CreatePlaceQueryRequest(q, limit);
-            return ExecuteAsync<List<PlaceResult>>(request)
+            return _requestExecutor.ExecuteRequestAsync<List<PlaceResult>>(request)
                 .ContinueWith(t => t.Result as IEnumerable<PlaceResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public PlaceResult RandomPlace()
         {
             var request = CreateRandomPlaceRequest();
-            return Execute<PlaceResult>(request);
+            return _requestExecutor.ExecuteRequest<PlaceResult>(request);
         }
 
         public Task<PlaceResult> RandomPlaceAsync()
         {
             var request = CreateRandomPlaceRequest();
-            return ExecuteAsync<PlaceResult>(request);
+            return _requestExecutor.ExecuteRequestAsync<PlaceResult>(request);
         }
 
 
-        private T Execute<T>(RestRequest request) where T : new()
-        {
-            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
-            var response = client.Execute<RawResult<T>>(request);
-
-            if (response.ErrorException != null)
-                throw new PostcodesIOApiException(response.ErrorException);
-            if (response.Data == null)
-                throw new PostcodesIOEmptyResponseException(response.StatusCode);
-
-            return response.Data.Result;
-        }
-
-        private async Task<T> ExecuteAsync<T>(RestRequest request) where T : new()
-        {
-            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
-            var response = await client.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
-
-            if (response.ErrorException != null)
-                throw new PostcodesIOApiException(response.ErrorException);
-            if (response.Data == null)
-                throw new PostcodesIOEmptyResponseException(response.StatusCode);
-
-            return response.Data.Result;
-        }
 
         private static RestRequest CreateLookupRequest(string postcode)
         {
