@@ -1,6 +1,7 @@
 ﻿using MarkEmbling.PostcodesIO.Exceptions;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
+using System.Collections;
 using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO.Internals
@@ -56,8 +57,7 @@ namespace MarkEmbling.PostcodesIO.Internals
             if (response.Data == null)
                 throw new PostcodesIOEmptyResponseException(response.StatusCode);
 
-            return response.Data.Result;
-            //return NormaliseResults(response.Data.Result);
+            return NormaliseResults(response.Data.Result);
         }
 
         /// <summary>
@@ -75,25 +75,24 @@ namespace MarkEmbling.PostcodesIO.Internals
             if (response.Data == null)
                 throw new PostcodesIOEmptyResponseException(response.StatusCode);
 
-            return response.Data.Result;
-            //return NormaliseResults(response.Data.Result);
+            return NormaliseResults(response.Data.Result);
         }
 
-        ///// <summary>
-        ///// Checks to see if the type we're dealing with here is a collection. If it is, and the result
-        ///// we've been given is null, we'll instead return a new empty collection. In all other cases,
-        ///// we'll just pass through the result untouched.
-        ///// </summary>
-        ///// <typeparam name="T">Result type</typeparam>
-        ///// <param name="result">Result</param>
-        ///// <returns>Result, appropriately normalised</returns>
-        //private T NormaliseResults<T>(T result) where T : new()
-        //{
-        //    if (typeof(T).IsAssignableFrom(typeof(ICollection)))
-        //    {
-        //        if (result == null) return new T();
-        //    }
-        //    return result;
-        //}
+        /// <summary>
+        /// Checks to see if the type we're dealing with here is a collection. If it is, and the result
+        /// we've been given is null, we'll instead return a new empty collection. In all other cases,
+        /// we'll just pass through the result untouched.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        /// <param name="result">Result</param>
+        /// <returns>Result, appropriately normalised</returns>
+        private T NormaliseResults<T>(T result) where T : new()
+        {
+            if (typeof(ICollection).IsAssignableFrom(typeof(T)))
+            {
+                if (result == null) return new T();
+            }
+            return result;
+        }
     }
 }
