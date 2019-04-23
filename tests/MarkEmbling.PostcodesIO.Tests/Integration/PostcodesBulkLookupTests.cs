@@ -1,4 +1,5 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Internals;
+using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +8,31 @@ using System.Threading.Tasks;
 namespace MarkEmbling.PostcodesIO.Tests.Integration
 {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
-    public class BulkLookupTests {
-        private PostcodesIOClient _client;
+    public class PostcodesBulkLookupTests {
+        private PostcodesResource _postcodes;
 
         [SetUp]
         public void Setup() {
-            _client = new PostcodesIOClient();
+            _postcodes = new PostcodesResource(new RequestExecutor("https://api.postcodes.io"));
         }
 
         [Test]
         public void BulkLookup_returns_results()
         {
-            var result = _client.BulkLookup(new[]{"GU1 1AA", "GU1 1AB", "GU1 1AD"}).ToList();
+            var result = _postcodes.BulkLookup(new[]{"GU1 1AA", "GU1 1AB", "GU1 1AD"}).ToList();
 
-            TestResults(result);
+            AssertResults(result);
         }
 
         [Test]
-        public async Task BulkLookup_returns_results_async()
+        public async Task BulkLookupAsync_returns_results()
         {
-            var result = (await _client.BulkLookupAsync(new[] { "GU1 1AA", "GU1 1AB", "GU1 1AD" })).ToList();
+            var result = (await _postcodes.BulkLookupAsync(new[] { "GU1 1AA", "GU1 1AB", "GU1 1AD" })).ToList();
 
-            TestResults(result);
+            AssertResults(result);
         }
 
-        private static void TestResults(List<BulkQueryResult<string, PostcodeResult>> result)
+        private static void AssertResults(List<BulkQueryResult<string, PostcodeResult>> result)
         {
             Assert.AreEqual(3, result.Count);
             // The results come back in no particular order, so we must check for 
