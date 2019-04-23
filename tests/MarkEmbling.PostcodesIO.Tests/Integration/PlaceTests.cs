@@ -49,17 +49,17 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public void PlaceQuery_with_non_existent_place_returns_null()
+        public void PlaceQuery_with_non_existent_place_returns_empty()
         {
             var result = _client.Query("NONEXISTENT");
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
         }
 
         [Test]
-        public async Task PlaceQueryAsync_with_non_existent_place_returns_null()
+        public async Task PlaceQueryAsync_with_non_existent_place_returns_empty()
         {
             var result = await _client.QueryAsync("NONEXISTENT");
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
         }
 
         [Test]

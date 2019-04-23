@@ -23,9 +23,24 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public void Autocomplete_returns_null_for_uncompletable_postcode() {
+        public async Task AutocompleteAsync_returns_full_postcodes_for_partial()
+        {
+            var result = (await _postcodes.AutocompleteAsync("GU1 1A")).ToList();
+            Assert.True(result.Any());
+            Assert.True(result.Contains("GU1 1AA"));
+        }
+
+        [Test]
+        public void Autocomplete_returns_empty_for_uncompletable_postcode() {
             var result = _postcodes.Autocomplete("X");
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task AutocompleteAsync_returns_empty_for_uncompletable_postcode()
+        {
+            var result = await _postcodes.AutocompleteAsync("X");
+            Assert.IsEmpty(result);
         }
 
         [Test]
@@ -35,22 +50,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public async Task Autocomplete_returns_full_postcodes_for_partial_async()
-        {
-            var result = (await _postcodes.AutocompleteAsync("GU1 1A")).ToList();
-            Assert.True(result.Any());
-            Assert.True(result.Contains("GU1 1AA"));
-        }
-
-        [Test]
-        public async Task Autocomplete_returns_null_for_uncompletable_postcode_async()
-        {
-            var result = await _postcodes.AutocompleteAsync("X");
-            Assert.IsNull(result);
-        }
-
-        [Test]
-        public async Task Autocomplete_limits_results_when_limit_is_given_async()
+        public async Task AutocompleteAsync_limits_results_when_limit_is_given()
         {
             var result = (await _postcodes.AutocompleteAsync("GU1 1A", 2)).ToList();
             Assert.AreEqual(2, result.Count());

@@ -46,16 +46,16 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         [Test]
-        public void Query_with_invalid_postcode_returns_nothing() {
+        public void Query_with_invalid_postcode_returns_empty() {
             var result = _postcodes.Query("X");
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
         }
 
         [Test]
-        public async Task QueryAsync_with_invalid_postcode_returns_nothing()
+        public async Task QueryAsync_with_invalid_postcode_returns_empty()
         {
             var result = await _postcodes.QueryAsync("X");
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
         }
 
         [Test]
