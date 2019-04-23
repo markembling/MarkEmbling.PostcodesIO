@@ -1,4 +1,6 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Internals;
+using MarkEmbling.PostcodesIO.Resources;
+using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,32 +10,32 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class PlaceTests
     {
-        private PostcodesIOClient _client;
+        private PlacesResource _client;
 
         [SetUp]
         public void Setup()
         {
-            _client = new PostcodesIOClient();
+            _client = new PlacesResource(new RequestExecutor("https://api.postcodes.io"));
         }
 
         [Test]
         public void PlaceLookup_returns_a_populated_result()
         {
-            var result = _client.PlaceLookup("osgb4000000074564391");
-            AssertPlaceLookupResult(result);
+            var result = _client.Lookup("osgb4000000074564391");
+            AssertPopulatedPlaceLookupResult(result);
         }
 
         [Test]
         public async Task PlaceLookupAsync_returns_a_populated_result()
         {
-            var result = await _client.PlaceLookupAsync("osgb4000000074564391");
-            AssertPlaceLookupResult(result);
+            var result = await _client.LookupAsync("osgb4000000074564391");
+            AssertPopulatedPlaceLookupResult(result);
         }
 
         [Test]
         public void PlaceQuery_returns_matching_results()
         {
-            var results = _client.PlaceQuery("Kent");
+            var results = _client.Query("Kent");
             Assert.AreEqual(7, results.Count());
             Assert.AreEqual("Kent", results.First().Name1);
         }
@@ -41,7 +43,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         [Test]
         public async Task PlaceQueryAsync_returns_matching_results()
         {
-            var results = await _client.PlaceQueryAsync("Kent");
+            var results = await _client.QueryAsync("Kent");
             Assert.AreEqual(7, results.Count());
             Assert.AreEqual("Kent", results.First().Name1);
         }
@@ -49,35 +51,35 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         [Test]
         public void PlaceQuery_with_non_existent_place_returns_null()
         {
-            var result = _client.PlaceQuery("NONEXISTENT");
+            var result = _client.Query("NONEXISTENT");
             Assert.IsNull(result);
         }
 
         [Test]
         public async Task PlaceQueryAsync_with_non_existent_place_returns_null()
         {
-            var result = await _client.PlaceQueryAsync("NONEXISTENT");
+            var result = await _client.QueryAsync("NONEXISTENT");
             Assert.IsNull(result);
         }
 
         [Test]
         public void PlaceQuery_with_limit_returns_limited_results()
         {
-            var results = _client.PlaceQuery("Kent", 2);
+            var results = _client.Query("Kent", 2);
             Assert.AreEqual(2, results.Count());
         }
 
         [Test]
         public async Task PlaceQueryAsync_with_limit_returns_limited_results()
         {
-            var results = await _client.PlaceQueryAsync("Kent", 2);
+            var results = await _client.QueryAsync("Kent", 2);
             Assert.AreEqual(2, results.Count());
         }
 
         [Test]
         public void RandomPlace_returns_a_postcode_result()
         {
-            var result = _client.RandomPlace();
+            var result = _client.Random();
             Assert.NotNull(result);
             Assert.False(string.IsNullOrEmpty(result.Code));
         }
@@ -85,12 +87,12 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         [Test]
         public async Task RandomPlaceAsync_returns_a_postcode_result()
         {
-            var result = await _client.RandomPlaceAsync();
+            var result = await _client.RandomAsync();
             Assert.NotNull(result);
             Assert.False(string.IsNullOrEmpty(result.Code));
         }
 
-        private static void AssertPlaceLookupResult(PlaceResult result)
+        private static void AssertPopulatedPlaceLookupResult(PlaceResult result)
         {
             Assert.AreEqual("osgb4000000074564391", result.Code);
             Assert.AreEqual("England", result.Country);
