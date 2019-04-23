@@ -1,4 +1,6 @@
-﻿namespace MarkEmbling.PostcodesIO
+﻿using MarkEmbling.PostcodesIO.Resources;
+
+namespace MarkEmbling.PostcodesIO
 {
     public interface IPostcodesIOClient {
         PostcodesResource Postcodes { get; }

@@ -3,7 +3,7 @@ using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
 using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO
+namespace MarkEmbling.PostcodesIO.Resources
 {
     public class TerminatedPostcodesResource
     {

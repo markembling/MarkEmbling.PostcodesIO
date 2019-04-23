@@ -4,7 +4,7 @@ using RestSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO
+namespace MarkEmbling.PostcodesIO.Resources
 {
     public class PostcodesResource
     {

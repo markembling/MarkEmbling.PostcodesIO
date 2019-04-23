@@ -1,4 +1,5 @@
 using MarkEmbling.PostcodesIO.Internals;
+using MarkEmbling.PostcodesIO.Resources;
 using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Collections.Generic;

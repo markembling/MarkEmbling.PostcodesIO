@@ -1,4 +1,5 @@
 ﻿using MarkEmbling.PostcodesIO.Internals;
+using MarkEmbling.PostcodesIO.Resources;
 
 namespace MarkEmbling.PostcodesIO
 {
