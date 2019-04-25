@@ -1,4 +1,4 @@
-﻿using RestSharp.Deserializers;
+﻿using Newtonsoft.Json;
 using System;
 
 namespace MarkEmbling.PostcodesIO.Results
@@ -11,7 +11,7 @@ namespace MarkEmbling.PostcodesIO.Results
         public int? Northings { get; set; }
         public string Country { get; set; }
 
-        [DeserializeAs(Name = "nhs_ha")]
+        [JsonProperty("nhs_ha")]
         public string NHSHealthAuthority { get; set; }
 
         public string AdminCounty { get; set; }
@@ -29,7 +29,11 @@ namespace MarkEmbling.PostcodesIO.Results
         public string CED { get; set; }
         public string CCG { get; set; }
         public string NUTS { get; set; }
+
+        [JsonProperty("incode")]
         public string InCode { get; set; }
+
+        [JsonProperty("outcode")]
         public string OutCode { get; set; }
         
         public PostcodeCodesResult Codes { get; set; }

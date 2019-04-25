@@ -35,6 +35,9 @@ namespace MarkEmbling.PostcodesIO.Internals
         public RequestExecutor(string endpoint)
         {
             _restClient = new RestClient(endpoint);
+            _restClient.ClearHandlers();
+            _restClient.AddHandler("application/json", () => new JsonDotNetSerializer());
+            _restClient.AddHandler("text/json", () => new JsonDotNetSerializer());
         }
 
         public RequestExecutor(IRestClient restClient)
