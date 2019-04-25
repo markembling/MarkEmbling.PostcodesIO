@@ -1,6 +1,7 @@
 ﻿using MarkEmbling.PostcodesIO.Internals;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -60,6 +61,9 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateReverseGeocodeRequest(ReverseGeocodeQuery query)
         {
+            if (query.WideSearch.HasValue)
+                throw new InvalidOperationException("WideSearch is not supported for outward code reverse geocoding");
+
             var request = new RestRequest("outcodes", Method.GET);
             request.AddParameter("lon", query.Longitude);
             request.AddParameter("lat", query.Latitude);
