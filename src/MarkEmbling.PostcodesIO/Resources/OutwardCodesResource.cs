@@ -56,7 +56,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateLookupRequest(string outcode)
         {
-            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
+            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET, DataFormat.Json);
         }
 
         private static RestRequest CreateReverseGeocodeRequest(ReverseGeocodeQuery query)
@@ -64,7 +64,7 @@ namespace MarkEmbling.PostcodesIO.Resources
             if (query.WideSearch.HasValue)
                 throw new InvalidOperationException("WideSearch is not supported for outward code reverse geocoding");
 
-            var request = new RestRequest("outcodes", Method.GET);
+            var request = new RestRequest("outcodes", Method.GET, DataFormat.Json);
             request.AddParameter("lon", query.Longitude);
             request.AddParameter("lat", query.Latitude);
             if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
@@ -74,7 +74,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateNearestRequest(string outcode, int? limit, int? radius)
         {
-            var request = new RestRequest(string.Format("outcodes/{0}/nearest", outcode), Method.GET);
+            var request = new RestRequest(string.Format("outcodes/{0}/nearest", outcode), Method.GET, DataFormat.Json);
             if (limit.HasValue) request.AddParameter("limit", limit);
             if (radius.HasValue) request.AddParameter("radius", radius);
             return request;

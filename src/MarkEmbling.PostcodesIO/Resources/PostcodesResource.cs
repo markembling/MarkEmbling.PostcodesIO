@@ -131,12 +131,12 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateLookupRequest(string postcode)
         {
-            return new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET);
+            return new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET, DataFormat.Json);
         }
 
         private static RestRequest CreateBulkLookupRequest(IEnumerable<string> postcodes)
         {
-            var request = new RestRequest("postcodes", Method.POST)
+            var request = new RestRequest("postcodes", Method.POST, DataFormat.Json)
             {
                 RequestFormat = DataFormat.Json
             };
@@ -146,7 +146,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateReverseGeocodeRequest(ReverseGeocodeQuery query)
         {
-            var request = new RestRequest("postcodes", Method.GET);
+            var request = new RestRequest("postcodes", Method.GET, DataFormat.Json);
             request.AddParameter("lon", query.Longitude);
             request.AddParameter("lat", query.Latitude);
             if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
@@ -157,7 +157,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateBulkReverseGeocodeRequest(IEnumerable<ReverseGeocodeQuery> queries)
         {
-            var request = new RestRequest("postcodes", Method.POST)
+            var request = new RestRequest("postcodes", Method.POST, DataFormat.Json)
             {
                 RequestFormat = DataFormat.Json,
                 JsonSerializer = new JsonDotNetSerializer()
@@ -168,7 +168,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateQueryRequest(string q, int? limit)
         {
-            var request = new RestRequest("postcodes", Method.GET);
+            var request = new RestRequest("postcodes", Method.GET, DataFormat.Json);
             request.AddQueryParameter("q", q);
             if (limit.HasValue) request.AddParameter("limit", limit);
             return request;
@@ -176,13 +176,13 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateValidateRequest(string postcode)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET);
+            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET, DataFormat.Json);
             return request;
         }
 
         private static RestRequest CreateNearestRequest(string postcode, int? limit, int? radius)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.GET);
+            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.GET, DataFormat.Json);
             if (limit.HasValue) request.AddParameter("limit", limit);
             if (radius.HasValue) request.AddParameter("radius", radius);
             return request;
@@ -190,14 +190,14 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateAutocompleteRequest(string postcode, int? limit)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/autocomplete", postcode), Method.GET);
+            var request = new RestRequest(string.Format("postcodes/{0}/autocomplete", postcode), Method.GET, DataFormat.Json);
             if (limit.HasValue) request.AddParameter("limit", limit);
             return request;
         }
 
         private static RestRequest CreateRandomRequest()
         {
-            var request = new RestRequest("random/postcodes", Method.GET);
+            var request = new RestRequest("random/postcodes", Method.GET, DataFormat.Json);
             return request;
         }
     }

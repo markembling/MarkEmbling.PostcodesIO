@@ -54,13 +54,13 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateLookupRequest(string code)
         {
-            var request = new RestRequest(string.Format("places/{0}", code), Method.GET);
+            var request = new RestRequest(string.Format("places/{0}", code), Method.GET, DataFormat.Json);
             return request;
         }
 
         private static RestRequest CreateQueryRequest(string q, int? limit)
         {
-            var request = new RestRequest("places", Method.GET);
+            var request = new RestRequest("places", Method.GET, DataFormat.Json);
             request.AddQueryParameter("q", q);
             if (limit.HasValue) request.AddParameter("limit", limit);
             return request;
@@ -68,7 +68,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateRandomRequest()
         {
-            var request = new RestRequest("random/places", Method.GET);
+            var request = new RestRequest("random/places", Method.GET, DataFormat.Json);
             return request;
         }
     }

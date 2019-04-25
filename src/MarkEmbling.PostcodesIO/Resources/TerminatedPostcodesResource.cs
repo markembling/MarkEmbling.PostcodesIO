@@ -28,7 +28,7 @@ namespace MarkEmbling.PostcodesIO.Resources
 
         private static RestRequest CreateLookupRequest(string postcode)
         {
-            return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.GET);
+            return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.GET, DataFormat.Json);
         }
     }
 }
