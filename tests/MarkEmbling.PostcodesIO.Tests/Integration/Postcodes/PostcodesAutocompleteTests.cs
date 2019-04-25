@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO.Tests.Integration
+namespace MarkEmbling.PostcodesIO.Tests.Integration.Postcodes
 {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class PostcodesAutocompleteTests {

@@ -4,7 +4,7 @@ using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO.Tests.Integration
+namespace MarkEmbling.PostcodesIO.Tests.Integration.Postcodes
 {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class PostcodesLookupTests {

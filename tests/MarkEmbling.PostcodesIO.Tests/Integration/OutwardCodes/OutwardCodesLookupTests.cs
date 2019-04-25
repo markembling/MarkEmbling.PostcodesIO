@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO.Tests.Integration
+namespace MarkEmbling.PostcodesIO.Tests.Integration.OutwardCodes
 {
     [TestFixture, Explicit("Hits live Postcodes.io API")]
     public class OutwardCodesLookupTests
