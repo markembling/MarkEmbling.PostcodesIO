@@ -5,16 +5,16 @@ namespace MarkEmbling.PostcodesIO
 {
     public class PostcodesIOClient : IPostcodesIOClient
     {
-        private readonly IRequestExecutor _requestExecutor;
-
         public PostcodesIOClient(string endpoint = "https://api.postcodes.io")
-        {
-            _requestExecutor = new RequestExecutor(endpoint);
+            : this(new RequestExecutor(endpoint))
+        { }
 
-            Postcodes = new PostcodesResource(_requestExecutor);
-            TerminatedPostcodes = new TerminatedPostcodesResource(_requestExecutor);
-            OutwardCodes = new OutwardCodesResource(_requestExecutor);
-            Places = new PlacesResource(_requestExecutor);
+        public PostcodesIOClient(IRequestExecutor requestExecutor)
+        {
+            Postcodes = new PostcodesResource(requestExecutor);
+            TerminatedPostcodes = new TerminatedPostcodesResource(requestExecutor);
+            OutwardCodes = new OutwardCodesResource(requestExecutor);
+            Places = new PlacesResource(requestExecutor);
         }
 
         public PostcodesResource Postcodes { get; private set; }

@@ -1,5 +1,9 @@
-﻿using MarkEmbling.PostcodesIO.Resources;
+﻿using MarkEmbling.PostcodesIO.Internals;
+using MarkEmbling.PostcodesIO.Resources;
+using MarkEmbling.PostcodesIO.Results;
+using Moq;
 using NUnit.Framework;
+using RestSharp;
 
 namespace MarkEmbling.PostcodesIO.Tests.Unit
 {
@@ -36,6 +40,23 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
         public void Places_property_returns_instance_of_PlacesResource()
         {
             Assert.IsInstanceOf<PlacesResource>(_client.Places);
+        }
+
+        [Test]
+        public void Client_can_take_custom_RequestExecutor_and_resource_calls_use_it()
+        {
+            var mockRequestExecutor = new Mock<IRequestExecutor>();
+            var client = new PostcodesIOClient(mockRequestExecutor.Object);
+
+            client.Postcodes.Lookup("POSTCODE");
+            client.TerminatedPostcodes.Lookup("TERMCODE");
+            client.OutwardCodes.Lookup("OUTCODE");
+            client.Places.Lookup("CODE");
+
+            mockRequestExecutor.Verify(x => x.ExecuteRequest<PostcodeResult>(It.IsAny<RestRequest>()));
+            mockRequestExecutor.Verify(x => x.ExecuteRequest<TerminatedPostcodeResult>(It.IsAny<RestRequest>()));
+            mockRequestExecutor.Verify(x => x.ExecuteRequest<OutwardCodeResult>(It.IsAny<RestRequest>()));
+            mockRequestExecutor.Verify(x => x.ExecuteRequest<PlaceResult>(It.IsAny<RestRequest>()));
         }
     }
 }
