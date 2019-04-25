@@ -27,15 +27,15 @@ namespace MarkEmbling.PostcodesIO.Resources
             return _requestExecutor.ExecuteRequestAsync<OutwardCodeResult>(request);
         }
 
-        public IEnumerable<OutwardCodeResult> ReverseGeocode(double latitude, double longitude, int? limit = null, int? radius = null)
+        public IEnumerable<OutwardCodeResult> ReverseGeocode(ReverseGeocodeQuery query)
         {
-            var request = CreateReverseGeocodeRequest(latitude, longitude, limit, radius);
+            var request = CreateReverseGeocodeRequest(query);
             return _requestExecutor.ExecuteRequest<List<OutwardCodeResult>>(request);
         }
 
-        public Task<IEnumerable<OutwardCodeResult>> ReverseGeocodeAsync(double latitude, double longitude, int? limit = null, int? radius = null)
+        public Task<IEnumerable<OutwardCodeResult>> ReverseGeocodeAsync(ReverseGeocodeQuery query)
         {
-            var request = CreateReverseGeocodeRequest(latitude, longitude, limit, radius);
+            var request = CreateReverseGeocodeRequest(query);
             return _requestExecutor.ExecuteRequestAsync<List<OutwardCodeResult>>(request)
                 .ContinueWith(t => t.Result as IEnumerable<OutwardCodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
@@ -58,13 +58,13 @@ namespace MarkEmbling.PostcodesIO.Resources
             return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
         }
 
-        private static RestRequest CreateReverseGeocodeRequest(double latitude, double longitude, int? limit, int? radius)
+        private static RestRequest CreateReverseGeocodeRequest(ReverseGeocodeQuery query)
         {
             var request = new RestRequest("outcodes", Method.GET);
-            request.AddParameter("lon", longitude);
-            request.AddParameter("lat", latitude);
-            if (limit.HasValue) request.AddParameter("limit", limit);
-            if (radius.HasValue) request.AddParameter("radius", radius);
+            request.AddParameter("lon", query.Longitude);
+            request.AddParameter("lat", query.Latitude);
+            if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
+            if (query.Radius.HasValue) request.AddParameter("radius", query.Radius);
             return request;
         }
 

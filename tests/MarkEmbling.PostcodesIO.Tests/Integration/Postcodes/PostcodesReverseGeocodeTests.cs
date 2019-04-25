@@ -20,7 +20,8 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration.Postcodes
         [Test]
         public void ReverseGeocode_simple_query_returns_populated_response()
         {
-            var results = _postcodes.ReverseGeocode(new ReverseGeocodeQuery {
+            var results = _postcodes.ReverseGeocode(new ReverseGeocodeQuery
+            {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613
             }).ToList();
@@ -42,7 +43,8 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration.Postcodes
 
         [Test]
         public void ReverseGeocode_with_limit_returns_only_that_number_of_results() {
-            var results = _postcodes.ReverseGeocode(new ReverseGeocodeQuery {
+            var results = _postcodes.ReverseGeocode(new ReverseGeocodeQuery
+            {
                 Latitude = 51.2452924089757,
                 Longitude = -0.58231794275613,
                 Limit = 2
