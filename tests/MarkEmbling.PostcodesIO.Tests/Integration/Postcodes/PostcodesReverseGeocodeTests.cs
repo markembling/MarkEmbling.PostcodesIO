@@ -66,8 +66,6 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration.Postcodes
             Assert.AreEqual(2, results.Count);
         }
 
-        // TODO: tests for radius and wideSearch. Probably better as unit tests.
-
         private static void AssertPopulatedResponse(List<PostcodeResult> results)
         {
             Assert.True(results.Any());
