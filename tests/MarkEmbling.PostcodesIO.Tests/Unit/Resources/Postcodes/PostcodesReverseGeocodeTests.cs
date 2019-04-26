@@ -42,6 +42,24 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit.Resources.Postcodes
         }
 
         [Test]
+        public void ReverseGeocode_calls_appropriate_resource()
+        {
+            _postcodes.ReverseGeocode(new ReverseGeocodeQuery());
+            _requestExecutorMock.Verify(
+                x => x.ExecuteRequest<List<PostcodeResult>>(
+                    It.Is<RestRequest>(req => req.Resource == "postcodes")));
+        }
+
+        [Test]
+        public async Task ReverseGeocodeAsync_calls_appropriate_resource()
+        {
+            await _postcodes.ReverseGeocodeAsync(new ReverseGeocodeQuery());
+            _requestExecutorMock.Verify(
+                x => x.ExecuteRequestAsync<List<PostcodeResult>>(
+                    It.Is<RestRequest>(req => req.Resource == "postcodes")));
+        }
+
+        [Test]
         public void ReverseGeocode_simple_query_has_lat_long_query_params()
         {
             var reverseGeocodeQuery = new ReverseGeocodeQuery
