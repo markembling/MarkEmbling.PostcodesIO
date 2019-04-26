@@ -1,7 +1,7 @@
 ﻿using MarkEmbling.PostcodesIO.Internals;
 using NUnit.Framework;
 
-namespace MarkEmbling.PostcodesIO.Tests.Unit
+namespace MarkEmbling.PostcodesIO.Tests.Unit.Internals
 {
     [TestFixture]
     public class LowercaseWithUnderscoresContractResolverTests

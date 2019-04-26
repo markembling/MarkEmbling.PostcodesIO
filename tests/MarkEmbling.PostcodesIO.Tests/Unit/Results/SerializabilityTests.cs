@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace MarkEmbling.PostcodesIO.Tests.Unit
+namespace MarkEmbling.PostcodesIO.Tests.Unit.Results
 {
     [TestFixture]
     public class SerializabilityTests

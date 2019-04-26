@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MarkEmbling.PostcodesIO.Tests.Unit
+namespace MarkEmbling.PostcodesIO.Tests.Unit.Internals
 {
     [TestFixture]
     public class RequestExecutorTests
