@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MarkEmbling.PostcodesIO.Tests.Unit.Resources.Places
 {
     [TestFixture]
-    public class PlacesLookupTests
+    public class PlacesRandomTests
     {
         private Mock<IRequestExecutor> _requestExecutorMock;
         private PlacesResource _places;
@@ -22,39 +22,39 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit.Resources.Places
         }
 
         [Test]
-        public void Lookup_request_method_is_get()
+        public void Random_request_method_is_get()
         {
-            _places.Lookup("osgb4000000074564391");
+            _places.Random();
             _requestExecutorMock.Verify(
                 x => x.ExecuteRequest<PlaceResult>(
                     It.Is<RestRequest>(req => req.Method == Method.GET)));
         }
 
         [Test]
-        public async Task LookupAsync_request_method_is_get()
+        public async Task RandomAsync_request_method_is_get()
         {
-            await _places.LookupAsync("osgb4000000074564391");
+            await _places.RandomAsync();
             _requestExecutorMock.Verify(
                 x => x.ExecuteRequestAsync<PlaceResult>(
                     It.Is<RestRequest>(req => req.Method == Method.GET)));
         }
 
         [Test]
-        public void Lookup_calls_appropriate_resource_url_with_code()
+        public void Random_calls_appropriate_resource_url()
         {
-            _places.Lookup("osgb4000000074564391");
+            _places.Random();
             _requestExecutorMock.Verify(x =>
                 x.ExecuteRequest<PlaceResult>(
-                    It.Is<RestRequest>(req => req.Resource == "places/osgb4000000074564391")));
+                    It.Is<RestRequest>(req => req.Resource == "random/places")));
         }
 
         [Test]
-        public async Task LookupAsync_calls_appropriate_resource_url_with_code()
+        public async Task RandomAsync_calls_appropriate_resource_url()
         {
-            await _places.LookupAsync("osgb4000000074564391");
+            await _places.RandomAsync();
             _requestExecutorMock.Verify(x =>
                 x.ExecuteRequestAsync<PlaceResult>(
-                    It.Is<RestRequest>(req => req.Resource == "places/osgb4000000074564391")));
+                    It.Is<RestRequest>(req => req.Resource == "random/places")));
         }
     }
 }
