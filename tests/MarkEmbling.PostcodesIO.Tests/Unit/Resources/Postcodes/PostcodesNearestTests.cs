@@ -4,10 +4,8 @@ using MarkEmbling.PostcodesIO.Results;
 using Moq;
 using NUnit.Framework;
 using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO.Tests.Unit.Resources.Postcodes

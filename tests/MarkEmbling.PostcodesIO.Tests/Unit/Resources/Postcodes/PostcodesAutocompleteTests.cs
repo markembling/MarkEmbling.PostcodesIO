@@ -1,6 +1,5 @@
 ﻿using MarkEmbling.PostcodesIO.Internals;
 using MarkEmbling.PostcodesIO.Resources;
-using MarkEmbling.PostcodesIO.Results;
 using Moq;
 using NUnit.Framework;
 using RestSharp;
