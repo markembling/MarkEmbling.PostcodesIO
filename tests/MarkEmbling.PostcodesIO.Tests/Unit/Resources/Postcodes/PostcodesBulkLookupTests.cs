@@ -58,6 +58,28 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit.Resources.Postcodes
                     It.Is<RestRequest>(req => req.Resource == "postcodes")));
         }
 
-        // TODO: test that body is set appropriately
+        [Test]
+        public void BulkLookup_adds_json_body_to_request()
+        {
+            _postcodes.BulkLookup(new[] { "XX1 1XX", "XX2 2XX" });
+            _requestExecutorMock.Verify(x =>
+                x.ExecuteRequest<List<BulkQueryResult<string, PostcodeResult>>>(
+                    It.Is<RestRequest>(req => 
+                        req.Parameters.Count == 1 &&
+                        req.Parameters[0].Type == ParameterType.RequestBody &&
+                        req.Parameters[0].GetType() == typeof(JsonParameter))));
+        }
+
+        [Test]
+        public async Task BulkLookupAsync_adds_json_body_to_request()
+        {
+            await _postcodes.BulkLookupAsync(new[] { "XX1 1XX", "XX2 2XX" });
+            _requestExecutorMock.Verify(x =>
+                x.ExecuteRequestAsync<List<BulkQueryResult<string, PostcodeResult>>>(
+                    It.Is<RestRequest>(req =>
+                        req.Parameters.Count == 1 &&
+                        req.Parameters[0].Type == ParameterType.RequestBody &&
+                        req.Parameters[0].GetType() == typeof(JsonParameter))));
+        }
     }
 }
