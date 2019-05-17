@@ -81,5 +81,50 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit.Resources.Postcodes
                         req.Parameters[0].Type == ParameterType.RequestBody &&
                         req.Parameters[0].GetType() == typeof(JsonParameter))));
         }
+
+        [Test]
+        public void BulkLookup_request_body_has_expected_data_shape()
+        {
+            var lookupData = new[] { "XX1 1XX", "XX2 2XX" };
+            _requestExecutorMock
+                .Setup(x => x.ExecuteRequest<List<BulkQueryResult<string, PostcodeResult>>>(It.IsAny<RestRequest>()))
+                .Callback<RestRequest>(restReq =>
+                {
+                    // Get the request body parameter and check that it has a postcodes property
+                    // which contains the list of postcode strings lookupData.
+                    var body = (JsonParameter)restReq.Parameters[0];
+                    var bodyObj = body.Value;
+                    Assert.AreEqual(
+                        lookupData,
+                        bodyObj.GetType().GetProperty("postcodes").GetValue(bodyObj));
+                });
+
+            _postcodes.BulkLookup(lookupData);
+
+            _requestExecutorMock.VerifyAll();
+        }
+
+        [Test]
+        public async Task BulkLookupAsync_request_body_has_expected_data_shape()
+        {
+            var lookupData = new[] { "XX1 1XX", "XX2 2XX" };
+            _requestExecutorMock
+                .Setup(x => x.ExecuteRequestAsync<List<BulkQueryResult<string, PostcodeResult>>>(It.IsAny<RestRequest>()))
+                .Returns(Task.FromResult(default(List<BulkQueryResult<string, PostcodeResult>>)))  // Required for callback to work for async method
+                .Callback<RestRequest>(restReq =>
+                {
+                    // Get the request body parameter and check that it has a postcodes property
+                    // which contains the list of postcode strings in lookupData.
+                    var body = (JsonParameter)restReq.Parameters[0];
+                    var bodyObj = body.Value;
+                    Assert.AreEqual(
+                        lookupData,
+                        bodyObj.GetType().GetProperty("postcodes").GetValue(bodyObj));
+                });
+
+            await _postcodes.BulkLookupAsync(lookupData);
+
+            _requestExecutorMock.VerifyAll();
+        }
     }
 }
