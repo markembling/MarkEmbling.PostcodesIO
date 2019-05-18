@@ -1,4 +1,5 @@
-﻿using RestSharp.Deserializers;
+﻿using Newtonsoft.Json;
+using RestSharp.Deserializers;
 using System;
 
 namespace MarkEmbling.PostcodesIO.Results
@@ -19,12 +20,12 @@ namespace MarkEmbling.PostcodesIO.Results
         public string LocalType { get; set; }
         public string Name1 { get; set; }
 
-        [DeserializeAs(Name = "name_1_lang")]
+        [JsonProperty("name_1_lang")]
         public string Name1Language { get; set; }
 
         public string Name2 { get; set; }
 
-        [DeserializeAs(Name = "name_2_lang")]
+        [JsonProperty("name_2_lang")]
         public string Name2Language { get; set; }
 
         public string CountyUnitary { get; set; }
