@@ -1,36 +1,32 @@
 include "build_support.boo"
 
 solution = "MarkEmbling.PostcodesIO.sln"
-configuration = "release"
-test_assembly = "tests/MarkEmbling.PostcodesIO.Tests/bin/${configuration}/MarkEmbling.PostcodesIO.Tests.dll"
-bin_path = "build/bin"
+configuration = "Release"
 
-target default, (compile, test, prep):
+target default, (clean, restore, compile, test):
   pass
 
+desc "Cleans the solution"
+target clean:
+  exec("dotnet clean --configuration ${configuration}")
+
+desc "Restore packages"
+target restore:
+  exec("dotnet restore")
+
 desc "Compiles the solution"
-target compile:
-  rmdir("src/MarkEmbling.PostcodesIO/bin/${configuration}")
-  msbuild(file: solution, configuration: configuration, version: "4.0")
+target compile, (clean, restore):
+  exec("dotnet build --configuration ${configuration}")
 
 desc "Executes the tests"
 target test, (compile):
-  with nunit(assembly: test_assembly, toolPath: "packages/NUnit.ConsoleRunner.3.4.1/tools/nunit3-console.exe")
-
-desc "Copies the binaries to the 'build/bin' directory"
-target prep, (compile, test):
-  rmdir(bin_path)
-
-  with FileList("src/MarkEmbling.PostcodesIO/bin/${configuration}"):
-    .Include("*.{dll,exe,config,nupkg}")
-    .ForEach def(file):
-      file.CopyToDirectory(bin_path)
+  exec("dotnet test tests/MarkEmbling.PostcodesIO.Tests/MarkEmbling.PostcodesIO.Tests.csproj --configuration ${configuration} --no-build")
 
 desc "Publishes the NuGet packages"
-target publish, (prep):
-  with FileList(bin_path):
+target publish, (compile, test):
+  with FileList("src/MarkEmbling.PostcodesIO/bin/${configuration}"):
     .Include("*.nupkg")
     .ForEach def(file):
       filename = Path.GetFileName(file.FullName)
       if prompt("Publish ${filename}...?"):
-        exec(".nuget/NuGet.exe", "push \"${file.FullName}\" -Source https://nuget.org/api/v2/package")
+        exec("dotnet nuget push \"${file.FullName}\" --source https://www.nuget.org")
