@@ -61,21 +61,21 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual("Guildford, unparished area", result.Parish);
             Assert.AreEqual("Surrey", result.AdminCounty);
             Assert.AreEqual("Friary and St Nicolas", result.AdminWard);
-            Assert.AreEqual("NHS Guildford and Waverley", result.CCG);
+            Assert.AreEqual("NHS Surrey Heartlands", result.CCG);
             Assert.NotNull(result.Codes);
         }
 
         private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutwardCodeResult result)
         {
             Assert.AreEqual("IP3", result.Outcode);
-            Assert.AreEqual(1.18785462894737, result.Longitude);
-            Assert.AreEqual(52.0414095157894, result.Latitude);
-            Assert.AreEqual(242908, result.Northings);
-            Assert.AreEqual(618721, result.Eastings);
-            Assert.AreEqual(new List<string>() { "Suffolk Coastal", "Ipswich" }, result.AdminDistrict);
+            Assert.AreEqual(1.18801474315515, result.Longitude);
+            Assert.AreEqual(52.0413592933506, result.Latitude);
+            Assert.AreEqual(242903, result.Northings);
+            Assert.AreEqual(618732, result.Eastings);
+            Assert.AreEqual(new List<string>() { "Ipswich", "East Suffolk" }, result.AdminDistrict);
             Assert.AreEqual(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }, result.Parish);
             Assert.AreEqual(new List<string>() { "Suffolk" }, result.AdminCounty);
-            Assert.AreEqual(new List<string>() { "Bixley", "Gainsborough", "Holywells", "Nacton & Purdis Farm", "Alexandra", "St John's", "Tower", "Priory Heath" }, result.AdminWard);    
+            Assert.AreEqual(new List<string>() { "Bixley", "Martlesham & Purdis Farm", "Gainsborough", "Holywells", "Rushmere St Andrew", "Alexandra", "St John's", "Priory Heath" }, result.AdminWard);    
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.AreEqual("E10000030", result.AdminCounty);
             Assert.AreEqual("E05007293", result.AdminWard);
             Assert.AreEqual("E43000138", result.Parish);
-            Assert.AreEqual("E38000214", result.CCG);
+            Assert.AreEqual("E38000246", result.CCG);
         }
     }
 }
