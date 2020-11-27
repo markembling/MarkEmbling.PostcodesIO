@@ -38,7 +38,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             }
         }
 
-        private static void TestLookup_returns_populated_responseResult(PostcodeResult result)
+        private static void TestLookup_returns_populated_responseResult(NearestResult result)
         {
             Assert.NotNull(result.Postcode);
             Assert.NotNull(result.Quality);
@@ -62,6 +62,8 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.NotNull(result.AdminWard);
             Assert.NotNull(result.CCG);
             Assert.NotNull(result.Codes);
+
+            Assert.NotNull(result.Distance);
         }
 
         [Test]
