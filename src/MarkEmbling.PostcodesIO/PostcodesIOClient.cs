@@ -140,16 +140,16 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<PostcodeResult>(request);
         }
 
-        public IEnumerable<PostcodeResult> Nearest(string postcode, int? limit = null, int? radius = null)
+        public IEnumerable<NearestResult> Nearest(string postcode, int? limit = null, int? radius = null)
         {
             var request = CreateNearest(postcode, limit, radius);
-            return Execute<List<PostcodeResult>>(request);
+            return Execute<List<NearestResult>>(request);
         }
 
-        public Task<IEnumerable<PostcodeResult>> NearestAsync(string postcode, int? limit = null, int? radius = null)
+        public Task<IEnumerable<NearestResult>> NearestAsync(string postcode, int? limit = null, int? radius = null)
         {
             var request = CreateNearest(postcode, limit, radius);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return ExecuteAsync<List<NearestResult>>(request).ContinueWith(t => t.Result as IEnumerable<NearestResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public TerminatedPostcodeResult Terminated(string postcode)
