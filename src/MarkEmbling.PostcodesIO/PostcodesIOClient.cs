@@ -14,8 +14,8 @@ namespace MarkEmbling.PostcodesIO
         private readonly string _proxyServerUrl;
 
         public PostcodesIOClient(string endpoint = "https://api.postcodes.io", string proxyServerUrl = null) {
-            _proxyServerUrl = proxyServerUrl;
             _endpoint = endpoint;
+            _proxyServerUrl = proxyServerUrl;
         }
 
         private T Execute<T>(RestRequest request) where T : new() {
@@ -23,8 +23,7 @@ namespace MarkEmbling.PostcodesIO
 
             if (!string.IsNullOrEmpty(_proxyServerUrl))
             {
-                WebProxy proxy = new WebProxy(_proxyServerUrl, true);
-                client.Proxy = proxy;
+                client.Proxy = new WebProxy(_proxyServerUrl, true);
                 client.Proxy.Credentials = CredentialCache.DefaultCredentials;
             }
 
@@ -44,8 +43,7 @@ namespace MarkEmbling.PostcodesIO
 
             if (!string.IsNullOrEmpty(_proxyServerUrl))
             {
-                WebProxy proxy = new WebProxy(_proxyServerUrl, true);
-                client.Proxy = proxy;
+                client.Proxy = new WebProxy(_proxyServerUrl, true);
                 client.Proxy.Credentials = CredentialCache.DefaultCredentials;
             }
 
