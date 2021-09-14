@@ -4,19 +4,29 @@ using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO
 {
     public class PostcodesIOClient : IPostcodesIOClient {
         private readonly string _endpoint;
+        private readonly string _proxyServerUrl;
 
-        public PostcodesIOClient(string endpoint = "https://api.postcodes.io") {
+        public PostcodesIOClient(string endpoint = "https://api.postcodes.io", string proxyServerUrl = null) {
             _endpoint = endpoint;
+            _proxyServerUrl = proxyServerUrl;
         }
 
         private T Execute<T>(RestRequest request) where T : new() {
             var client = new RestClient {BaseUrl = new Uri(_endpoint)};
+
+            if (!string.IsNullOrEmpty(_proxyServerUrl))
+            {
+                client.Proxy = new WebProxy(_proxyServerUrl, true);
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+            }
+
             var response = client.Execute<RawResult<T>>(request);
 
             if (response.ErrorException != null) 
@@ -30,6 +40,13 @@ namespace MarkEmbling.PostcodesIO
         private async Task<T> ExecuteAsync<T>(RestRequest request) where T : new()
         {
             var client = new RestClient { BaseUrl = new Uri(_endpoint) };
+
+            if (!string.IsNullOrEmpty(_proxyServerUrl))
+            {
+                client.Proxy = new WebProxy(_proxyServerUrl, true);
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+            }
+
             var response = await client.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
 
             if (response.ErrorException != null)
