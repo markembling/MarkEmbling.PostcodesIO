@@ -68,10 +68,10 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutwardCodeResult result)
         {
             Assert.AreEqual("IP3", result.Outcode);
-            Assert.AreEqual(1.18801474315515, result.Longitude);
-            Assert.AreEqual(52.0413592933506, result.Latitude);
+            Assert.AreEqual(1.18801782268579, result.Longitude);
+            Assert.AreEqual(52.0413507588004, result.Latitude);
             Assert.AreEqual(242903, result.Northings);
-            Assert.AreEqual(618732, result.Eastings);
+            Assert.AreEqual(618733, result.Eastings);
             Assert.AreEqual(new List<string>() { "Ipswich", "East Suffolk" }, result.AdminDistrict);
             Assert.AreEqual(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }, result.Parish);
             Assert.AreEqual(new List<string>() { "Suffolk" }, result.AdminCounty);
