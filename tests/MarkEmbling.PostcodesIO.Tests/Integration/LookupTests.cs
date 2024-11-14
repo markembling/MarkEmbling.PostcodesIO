@@ -40,42 +40,42 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
 
         private static void TestLookup_returns_populated_responseResult(PostcodeResult result)
         {
-            Assert.AreEqual("GU1 1AA", result.Postcode);
-            Assert.AreEqual(1, result.Quality);
-            Assert.AreEqual(499049, result.Eastings);
-            Assert.AreEqual(150522, result.Northings);
-            Assert.AreEqual("England", result.Country);
-            Assert.AreEqual("South East Coast", result.NHSHealthAuthority);
-            Assert.AreEqual(-0.582332, result.Longitude);
-            Assert.AreEqual(51.245283, result.Latitude);
-            Assert.AreEqual("Guildford", result.ParliamentaryConstituency);
-            Assert.AreEqual("South East", result.EuropeanElectoralRegion);
-            Assert.AreEqual("Surrey", result.PrimaryCareTrust);
-            Assert.AreEqual("South East", result.Region);
-            Assert.AreEqual("Guildford 015A", result.LSOA);
-            Assert.AreEqual("Guildford 015", result.MSOA);
-            Assert.AreEqual("West Surrey", result.NUTS);
-            Assert.AreEqual("1AA", result.InCode);
-            Assert.AreEqual("GU1", result.OutCode);
-            Assert.AreEqual("Guildford", result.AdminDistrict);
-            Assert.AreEqual("Guildford, unparished area", result.Parish);
-            Assert.AreEqual("Surrey", result.AdminCounty);
-            Assert.AreEqual("Friary and St Nicolas", result.AdminWard);
-            Assert.AreEqual("NHS Surrey Heartlands", result.CCG);
-            Assert.NotNull(result.Codes);
+            Assert.That(result.Postcode, Is.EqualTo("GU1 1AA"));
+            Assert.That(result.Quality, Is.EqualTo(1));
+            Assert.That(result.Eastings, Is.EqualTo(499049));
+            Assert.That(result.Northings, Is.EqualTo(150522));
+            Assert.That(result.Country, Is.EqualTo("England"));
+            Assert.That(result.NHSHealthAuthority, Is.EqualTo("South East Coast"));
+            Assert.That(result.Longitude, Is.EqualTo(-0.582332));
+            Assert.That(result.Latitude, Is.EqualTo(51.245283));
+            Assert.That(result.ParliamentaryConstituency, Is.EqualTo("Guildford"));
+            Assert.That(result.EuropeanElectoralRegion, Is.EqualTo("South East"));
+            Assert.That(result.PrimaryCareTrust, Is.EqualTo("Surrey"));
+            Assert.That(result.Region, Is.EqualTo("South East"));
+            Assert.That(result.LSOA, Is.EqualTo("Guildford 015A"));
+            Assert.That(result.MSOA, Is.EqualTo("Guildford 015"));
+            Assert.That(result.NUTS, Is.EqualTo("Guildford"));
+            Assert.That(result.InCode, Is.EqualTo("1AA"));
+            Assert.That(result.OutCode, Is.EqualTo("GU1"));
+            Assert.That(result.AdminDistrict, Is.EqualTo("Guildford"));
+            Assert.That(result.Parish, Is.EqualTo("Guildford, unparished area"));
+            Assert.That(result.AdminCounty, Is.EqualTo("Surrey"));
+            Assert.That(result.AdminWard, Is.EqualTo("Stoke"));
+            Assert.That(result.CCG, Is.EqualTo("NHS Surrey Heartlands"));
+            Assert.That(result.Codes, Is.Not.Null);
         }
 
         private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutwardCodeResult result)
         {
-            Assert.AreEqual("IP3", result.Outcode);
-            Assert.AreEqual(1.18801782268579, result.Longitude);
-            Assert.AreEqual(52.0413507588004, result.Latitude);
-            Assert.AreEqual(242903, result.Northings);
-            Assert.AreEqual(618733, result.Eastings);
-            Assert.AreEqual(new List<string>() { "Ipswich", "East Suffolk" }, result.AdminDistrict);
-            Assert.AreEqual(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }, result.Parish);
-            Assert.AreEqual(new List<string>() { "Suffolk" }, result.AdminCounty);
-            Assert.AreEqual(new List<string>() { "Bixley", "Martlesham & Purdis Farm", "Gainsborough", "Holywells", "Rushmere St Andrew", "Alexandra", "St John's", "Priory Heath" }, result.AdminWard);    
+            Assert.That(result.Outcode, Is.EqualTo("IP3"));
+            Assert.That(result.Longitude, Is.EqualTo(1.188121282722514));
+            Assert.That(result.Latitude, Is.EqualTo(52.041320951570555));
+            Assert.That(result.Northings, Is.EqualTo(242900));
+            Assert.That(result.Eastings, Is.EqualTo(618740));
+            Assert.That(result.AdminDistrict, Is.EqualTo(new List<string>() { "Ipswich", "East Suffolk" }));
+            Assert.That(result.Parish, Is.EqualTo(new List<string>() { "Ipswich, unparished area", "Rushmere St. Andrew", "Purdis Farm" }));
+            Assert.That(result.AdminCounty, Is.EqualTo(new List<string>() { "Suffolk" }));
+            Assert.That(result.AdminWard, Is.EqualTo(new List<string>() { "Bixley", "Martlesham & Purdis Farm", "Gainsborough", "Holywells", "Rushmere St Andrew", "Alexandra", "St John's", "Priory Heath" }));    
         }
 
         [Test]
@@ -96,11 +96,11 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
 
         private static void TestLookup_returns_populated_codes_propertyResult(Codes result)
         {
-            Assert.AreEqual("E07000209", result.AdminDistrict);
-            Assert.AreEqual("E10000030", result.AdminCounty);
-            Assert.AreEqual("E05007293", result.AdminWard);
-            Assert.AreEqual("E43000138", result.Parish);
-            Assert.AreEqual("E38000246", result.CCG);
+            Assert.That(result.AdminDistrict, Is.EqualTo("E07000209"));
+            Assert.That(result.AdminCounty, Is.EqualTo("E10000030"));
+            Assert.That(result.AdminWard, Is.EqualTo("E05014959"));
+            Assert.That(result.Parish, Is.EqualTo("E43000138"));
+            Assert.That(result.CCG, Is.EqualTo("E38000264"));
         }
     }
 }

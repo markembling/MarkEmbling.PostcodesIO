@@ -34,7 +34,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
                 Limit = 2
             }).ToList();
 
-            Assert.AreEqual(2, results.Count);
+            Assert.That(results.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -59,15 +59,15 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
                 Limit = 2
             })).ToList();
 
-            Assert.AreEqual(2, results.Count);
+            Assert.That(results.Count, Is.EqualTo(2));
         }
 
         // TODO: tests for radius and wideSearch. Probably better as unit tests.
         private static void TestLookupLatLon_simple_query_returns_populated_response(List<PostcodeResult> results)
         {
-            Assert.True(results.Any());
-            //TODO probably a better way of writing this without using Assert.IsTrue
-            Assert.IsTrue(results.Any(p => p.Postcode == "GU1 1AA"));
+            Assert.That(results.Any(), Is.True);
+            //TODO probably a better way of writing this without using Is.True
+            Assert.That(results.Any(p => p.Postcode == "GU1 1AA"), Is.True);
         }
     }
 }

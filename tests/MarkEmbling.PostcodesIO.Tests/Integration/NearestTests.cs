@@ -40,30 +40,30 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
 
         private static void TestLookup_returns_populated_responseResult(NearestResult result)
         {
-            Assert.NotNull(result.Postcode);
-            Assert.NotNull(result.Quality);
-            Assert.NotNull(result.Eastings);
-            Assert.NotNull(result.Northings);
-            Assert.NotNull(result.Country);
-            Assert.NotNull(result.NHSHealthAuthority);
-            Assert.NotNull(result.Longitude);
-            Assert.NotNull(result.ParliamentaryConstituency);
-            Assert.NotNull(result.EuropeanElectoralRegion);
-            Assert.NotNull(result.PrimaryCareTrust);
-            Assert.NotNull(result.Region);
-            Assert.NotNull(result.LSOA);
-            Assert.NotNull(result.MSOA);
-            Assert.NotNull(result.NUTS);
-            Assert.NotNull(result.InCode);
-            Assert.NotNull(result.OutCode);
-            Assert.NotNull(result.AdminDistrict);
-            Assert.NotNull(result.Parish);
-            Assert.NotNull(result.AdminCounty);
-            Assert.NotNull(result.AdminWard);
-            Assert.NotNull(result.CCG);
-            Assert.NotNull(result.Codes);
+            Assert.That(result.Postcode, Is.Not.Null);
+            Assert.That(result.Quality, Is.Not.Null);
+            Assert.That(result.Eastings, Is.Not.Null);
+            Assert.That(result.Northings, Is.Not.Null);
+            Assert.That(result.Country, Is.Not.Null);
+            Assert.That(result.NHSHealthAuthority, Is.Not.Null);
+            Assert.That(result.Longitude, Is.Not.Null);
+            Assert.That(result.ParliamentaryConstituency, Is.Not.Null);
+            Assert.That(result.EuropeanElectoralRegion, Is.Not.Null);
+            Assert.That(result.PrimaryCareTrust, Is.Not.Null);
+            Assert.That(result.Region, Is.Not.Null);
+            Assert.That(result.LSOA, Is.Not.Null);
+            Assert.That(result.MSOA, Is.Not.Null);
+            Assert.That(result.NUTS, Is.Not.Null);
+            Assert.That(result.InCode, Is.Not.Null);
+            Assert.That(result.OutCode, Is.Not.Null);
+            Assert.That(result.AdminDistrict, Is.Not.Null);
+            Assert.That(result.Parish, Is.Not.Null);
+            Assert.That(result.AdminCounty, Is.Not.Null);
+            Assert.That(result.AdminWard, Is.Not.Null);
+            Assert.That(result.CCG, Is.Not.Null);
+            Assert.That(result.Codes, Is.Not.Null);
 
-            Assert.NotNull(result.Distance);
+            Assert.That(result.Distance, Is.Not.Null);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             var limit = 20;
             var results = _client.Nearest("GU1 1AA", limit);
 
-            Assert.AreEqual(limit, results.Count());
+            Assert.That(results.Count(), Is.EqualTo(limit));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             var limit = 20;
             var results = await _client.NearestAsync("GU1 1AA", limit);
 
-            Assert.AreEqual(limit, results.Count());
+            Assert.That(results.Count(), Is.EqualTo(limit));
         }
 
         //TODO: tests on radius, need to find postcode with other postcodes that are not near
