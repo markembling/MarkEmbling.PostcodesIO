@@ -15,16 +15,16 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         [Test]
         public void Random_returns_a_postcode_result() {
             var result = _client.Random();
-            Assert.NotNull(result);
-            Assert.False(string.IsNullOrEmpty(result.Postcode));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(string.IsNullOrEmpty(result.Postcode), Is.False);
         }
 
         [Test]
         public async Task Random_returns_a_postcode_result_async()
         {
             var result = await _client.RandomAsync();
-            Assert.NotNull(result);
-            Assert.False(string.IsNullOrEmpty(result.Postcode));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(string.IsNullOrEmpty(result.Postcode), Is.False);
         }
     }
 }

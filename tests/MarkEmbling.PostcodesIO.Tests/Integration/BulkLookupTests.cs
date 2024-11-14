@@ -33,13 +33,13 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
 
         private static void TestResults(List<BulkQueryResult<string, PostcodeResult>> result)
         {
-            Assert.AreEqual(3, result.Count);
+            Assert.That(result.Count, Is.EqualTo(3));
             // The results come back in no particular order, so we must check for 
             // existence of both but make no assumptions about the order they 
             // may have come back in.
-            Assert.True(result.Any(x => x.Query == "GU1 1AA"));
-            Assert.True(result.Any(x => x.Query == "GU1 1AB"));
-            Assert.True(result.Any(x => x.Query == "GU1 1AD"));
+            Assert.That(result.Any(x => x.Query == "GU1 1AA"), Is.True);
+            Assert.That(result.Any(x => x.Query == "GU1 1AB"), Is.True);
+            Assert.That(result.Any(x => x.Query == "GU1 1AD"), Is.True);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 
 namespace MarkEmbling.PostcodesIO.Tests.Unit
 {
@@ -10,33 +9,14 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
     {
         static byte[] Serialize(object o)
         {
-            if (o == null)
-            {
-                return null;
-            }
-
-            var binaryFormatter = new BinaryFormatter();
-            using (var memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, o);
-                byte[] objectDataAsStream = memoryStream.ToArray();
-                return objectDataAsStream;
-            }
+            if (o == null) return null;
+            return JsonSerializer.SerializeToUtf8Bytes(o);
         }
 
-        static T Deserialize<T>(byte[] stream)
+        static T Deserialize<T>(byte[] bytes)
         {
-            if (stream == null)
-            {
-                return default(T);
-            }
-
-            var binaryFormatter = new BinaryFormatter();
-            using (var memoryStream = new MemoryStream(stream))
-            {
-                T result = (T)binaryFormatter.Deserialize(memoryStream);
-                return result;
-            }
+            if (bytes == null || bytes.Length == 0) return default;
+            return JsonSerializer.Deserialize<T>(bytes);
         }
 
         [Test]
@@ -72,10 +52,10 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
             var expectedBytes = Serialize(expected);
             var actual = Deserialize<PostcodeResult>(expectedBytes);
 
-            Assert.AreEqual(expected.Postcode, actual.Postcode);
-            Assert.AreEqual(expected.Eastings, actual.Eastings);
-            Assert.AreEqual(expected.Latitude, actual.Latitude);
-            Assert.AreEqual(expected.Codes.AdminCounty, actual.Codes.AdminCounty);
+            Assert.That(actual.Postcode, Is.EqualTo(expected.Postcode));
+            Assert.That(actual.Eastings, Is.EqualTo(expected.Eastings));
+            Assert.That(actual.Latitude, Is.EqualTo(expected.Latitude));
+            Assert.That(actual.Codes.AdminCounty, Is.EqualTo(expected.Codes.AdminCounty));
         }
     }
 }

@@ -16,42 +16,42 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         [Test]
         public void Autocomplete_returns_full_postcodes_for_partial() {
             var result = _client.Autocomplete("GU1 1A").ToList();
-            Assert.True(result.Any());
-            Assert.True(result.Contains("GU1 1AA"));
+            Assert.That(result.Any(), Is.True);
+            Assert.That(result.Contains("GU1 1AA"), Is.True);
         }
 
         [Test]
         public void Autocomplete_returns_null_for_uncompletable_postcode() {
             var result = _client.Autocomplete("X");
-            Assert.IsNull(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
         public void Autocomplete_limits_results_when_limit_is_given() {
             var result = _client.Autocomplete("GU1 1A", 2).ToList();
-            Assert.AreEqual(2, result.Count());
+            Assert.That(result.Count(), Is.EqualTo(2));
         }
 
         [Test]
         public async Task Autocomplete_returns_full_postcodes_for_partial_async()
         {
             var result = (await _client.AutocompleteAsync("GU1 1A")).ToList();
-            Assert.True(result.Any());
-            Assert.True(result.Contains("GU1 1AA"));
+            Assert.That(result.Any(), Is.True);
+            Assert.That(result.Contains("GU1 1AA"), Is.True);
         }
 
         [Test]
         public async Task Autocomplete_returns_null_for_uncompletable_postcode_async()
         {
             var result = await _client.AutocompleteAsync("X");
-            Assert.IsNull(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
         public async Task Autocomplete_limits_results_when_limit_is_given_async()
         {
             var result = (await _client.AutocompleteAsync("GU1 1A", 2)).ToList();
-            Assert.AreEqual(2, result.Count());
+            Assert.That(result.Count(), Is.EqualTo(2));
         }
     }
 }
