@@ -11,6 +11,10 @@ MarkEmbling.PostcodesIO
 
 Check out the integration tests (`MarkEmbling.PostcodesIO.Tests`) for further examples.
 
+Do not instantiate a new instance of PostocdesIOClient for each request. If you use a dependency-injection container, register the client as a singleton.
+
+Supports .NET Framework 4.7.2 and above, and .NET Standard 2.0 onwards.
+
 ----------
 
 This library is still a work-in-progress. More examples and documentation will come soon, along with the missing API methods.

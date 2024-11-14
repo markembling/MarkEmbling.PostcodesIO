@@ -5,13 +5,13 @@
     <Authors>Mark Embling</Authors>
     <Company>Mark Embling</Company>
     <Description>Library for interacting with the excellent Postcodes.io service.</Description>
-    <Copyright>Copyright © Mark Embling and Contributors 2015-2022</Copyright>
+    <Copyright>Copyright © Mark Embling and Contributors 2015-2024</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/markembling/MarkEmbling.PostcodesIO</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.10</Version>
-    <AssemblyVersion>0.0.10</AssemblyVersion>
-    <FileVersion>0.0.10</FileVersion>
+    <Version>0.0.11</Version>
+    <AssemblyVersion>0.0.11</AssemblyVersion>
+    <FileVersion>0.0.11</FileVersion>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
