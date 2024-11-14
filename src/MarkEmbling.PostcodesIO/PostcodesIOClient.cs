@@ -1,10 +1,11 @@
 ﻿using MarkEmbling.PostcodesIO.Exceptions;
-using MarkEmbling.PostcodesIO.Internals;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
+using RestSharp.Serializers.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MarkEmbling.PostcodesIO
@@ -12,22 +13,29 @@ namespace MarkEmbling.PostcodesIO
     public class PostcodesIOClient : IPostcodesIOClient {
         private readonly string _endpoint;
         private readonly string _proxyServerUrl;
+        private readonly RestClient _client;
 
         public PostcodesIOClient(string endpoint = "https://api.postcodes.io", string proxyServerUrl = null) {
             _endpoint = endpoint;
             _proxyServerUrl = proxyServerUrl;
+
+            var clientOptions = new RestClientOptions(_endpoint);
+            if (!string.IsNullOrEmpty(_proxyServerUrl))
+            {
+                clientOptions.Proxy = new WebProxy(_proxyServerUrl, true)
+                {
+                    Credentials = CredentialCache.DefaultCredentials
+                };
+            }
+            _client = new RestClient(
+                baseUrl: new Uri(_endpoint),
+                configureSerialization: s => s.UseSystemTextJson(new JsonSerializerOptions {
+                    PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
         }
 
         private T Execute<T>(RestRequest request) where T : new() {
-            var client = new RestClient {BaseUrl = new Uri(_endpoint)};
-
-            if (!string.IsNullOrEmpty(_proxyServerUrl))
-            {
-                client.Proxy = new WebProxy(_proxyServerUrl, true);
-                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
-            }
-
-            var response = client.Execute<RawResult<T>>(request);
+            var response = _client.Execute<RawResult<T>>(request);
 
             if (response.ErrorException != null) 
                 throw new PostcodesIOApiException(response.ErrorException);
@@ -39,15 +47,7 @@ namespace MarkEmbling.PostcodesIO
 
         private async Task<T> ExecuteAsync<T>(RestRequest request) where T : new()
         {
-            var client = new RestClient { BaseUrl = new Uri(_endpoint) };
-
-            if (!string.IsNullOrEmpty(_proxyServerUrl))
-            {
-                client.Proxy = new WebProxy(_proxyServerUrl, true);
-                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
-            }
-
-            var response = await client.ExecuteTaskAsync<RawResult<T>>(request).ConfigureAwait(false);
+            var response = await _client.ExecuteAsync<RawResult<T>>(request).ConfigureAwait(false);
 
             if (response.ErrorException != null)
                 throw new PostcodesIOApiException(response.ErrorException);
@@ -183,7 +183,7 @@ namespace MarkEmbling.PostcodesIO
 
         private static RestRequest CreateBulkLookupRequest(IEnumerable<string> postcodes)
         {
-            var request = new RestRequest("postcodes", Method.POST)
+            var request = new RestRequest("postcodes", Method.Post)
             {
                 RequestFormat = DataFormat.Json
             };
@@ -193,72 +193,68 @@ namespace MarkEmbling.PostcodesIO
 
         private static RestRequest CreateQueryRequest(string q, int? limit)
         {
-            var request = new RestRequest("postcodes", Method.GET);
+            var request = new RestRequest("postcodes", Method.Get);
             request.AddQueryParameter("q", q);
-            if (limit.HasValue) request.AddParameter("limit", limit);
+            if (limit.HasValue) request.AddParameter("limit", limit.Value);
             return request;
         }
 
         private static RestRequest CreateValidateRequest(string postcode)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.GET);
+            var request = new RestRequest(string.Format("postcodes/{0}/validate", postcode), Method.Get);
             return request;
         }
 
         private static RestRequest CreateLookupLocationRequest(ReverseGeocodeQuery query)
         {
-            var request = new RestRequest("postcodes", Method.GET);
+            var request = new RestRequest("postcodes", Method.Get);
             request.AddParameter("lat", query.Latitude);
             request.AddParameter("lon", query.Longitude);
-            if (query.Limit.HasValue) request.AddParameter("limit", query.Limit);
+            if (query.Limit.HasValue) request.AddParameter("limit", query.Limit.Value);
             return request;
         }
 
         private static RestRequest CreateLookupRequest(string postcode)
         {
-            return new RestRequest(string.Format("postcodes/{0}", postcode), Method.GET);
+            return new RestRequest(string.Format("postcodes/{0}", postcode), Method.Get);
         }
 
         private static RestRequest CreateOutwardCodeLookupRequest(string outcode)
         {
-            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.GET);
+            return new RestRequest(string.Format("outcodes/{0}", outcode), Method.Get);
         }
 
         private static RestRequest CreateBulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
         {
-            var request = new RestRequest("postcodes", Method.POST)
-            {
-                RequestFormat = DataFormat.Json,
-                JsonSerializer = new JsonDotNetSerializer()
-            };
+            var request = new RestRequest("postcodes", Method.Post);
             request.AddJsonBody(new { geolocations = queries });
             return request;
         }
 
         private static RestRequest CreateAutocompleteRequest(string postcode, int? limit)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/autocomplete", postcode), Method.GET);
-            if (limit.HasValue) request.AddParameter("limit", limit);
+            var request = new RestRequest(string.Format("postcodes/{0}/autocomplete", postcode), Method.Get);
+            if (limit.HasValue) request.AddParameter("limit", limit.Value);
             return request;
         }
 
         private static RestRequest CreateRandomRequest()
         {
-            var request = new RestRequest("random/postcodes", Method.GET);
+            var request = new RestRequest("random/postcodes", Method.Get);
             return request;
         }
 
         private static RestRequest CreateNearest(string postcode, int? limit, int? radius)
         {
-            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.GET);
-            if (limit.HasValue) request.AddParameter("limit", limit);
-            if (radius.HasValue) request.AddParameter("radius", radius);
+            var request = new RestRequest(string.Format("postcodes/{0}/nearest", postcode), Method.Get);
+            if (limit.HasValue) request.AddParameter("limit", limit.Value);
+            if (radius.HasValue) request.AddParameter("radius", radius.Value);
             return request;
         }
 
         private static RestRequest CreateTerminatedRequest(string postcode)
         {
-            return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.GET);
+            return new RestRequest(string.Format("terminated_postcodes/{0}", postcode), Method.Get);
         }
     }
 }
