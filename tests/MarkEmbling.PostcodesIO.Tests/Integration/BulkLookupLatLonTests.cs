@@ -1,3 +1,4 @@
+using MarkEmbling.PostcodesIO.Data;
 using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -66,7 +67,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             TestBulkLookupLatLon_results_contain_postcode_results(results);
         }
 
-        private void TestBulkLookupLatLon_results_contain_postcode_results(List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> results)
+        private void TestBulkLookupLatLon_results_contain_postcode_results(List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>> results)
         {
             Assert.That(results[0].Result.Any(), Is.True);
             Assert.That(results[1].Result.Any(), Is.True);

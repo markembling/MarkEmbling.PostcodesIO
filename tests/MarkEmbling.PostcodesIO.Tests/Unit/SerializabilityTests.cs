@@ -1,4 +1,4 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Data;
 using NUnit.Framework;
 using System.Text.Json;
 
@@ -22,7 +22,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
         [Test]
         public void PostcodeResult_should_be_serializable()
         {
-            var expected = new PostcodeResult
+            var expected = new PostcodeData
             {
                 AdminCounty = "AdminCounty",
                 AdminWard = "AdminWard",
@@ -47,11 +47,11 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
                 PrimaryCareTrust = "PrimaryCareTrust",
                 Quality = 1,
                 Region = "Region",
-                Codes = new Codes {Parish = "Parish", CCG = "CCG", AdminDistrict = "AdminDistrict", AdminWard = "AdminWard", AdminCounty = "AdminCounty"}
+                Codes = new PostcodeCodesData {Parish = "Parish", CCG = "CCG", AdminDistrict = "AdminDistrict", AdminWard = "AdminWard", AdminCounty = "AdminCounty"}
             };
 
             var expectedBytes = Serialize(expected);
-            var actual = Deserialize<PostcodeResult>(expectedBytes);
+            var actual = Deserialize<PostcodeData>(expectedBytes);
 
             Assert.That(actual.Postcode, Is.EqualTo(expected.Postcode));
             Assert.That(actual.Eastings, Is.EqualTo(expected.Eastings));

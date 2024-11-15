@@ -1,4 +1,4 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Data;
 using NUnit.Framework;
 using System.Linq;
 using System.Threading.Tasks;

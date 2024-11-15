@@ -1,4 +1,5 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Data;
+using MarkEmbling.PostcodesIO.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,32 +8,32 @@ namespace MarkEmbling.PostcodesIO
     public interface IPostcodesIOClient {
         // TODO: documentation
 
-        PostcodeResult Lookup(string postcode);
-        Task<PostcodeResult> LookupAsync(string postcode);
-        IEnumerable<BulkQueryResult<string, PostcodeResult>> BulkLookup(IEnumerable<string> postcodes);
-        Task<IEnumerable<BulkQueryResult<string, PostcodeResult>>> BulkLookupAsync(IEnumerable<string> postcodes);
-        IEnumerable<PostcodeResult> Query(string q, int? limit = null);
-        Task<IEnumerable<PostcodeResult>> QueryAsync(string q, int? limit = null);
+        PostcodeData Lookup(string postcode);
+        Task<PostcodeData> LookupAsync(string postcode);
+        IEnumerable<BulkQueryResult<string, PostcodeData>> BulkLookup(IEnumerable<string> postcodes);
+        Task<IEnumerable<BulkQueryResult<string, PostcodeData>>> BulkLookupAsync(IEnumerable<string> postcodes);
+        IEnumerable<PostcodeData> Query(string q, int? limit = null);
+        Task<IEnumerable<PostcodeData>> QueryAsync(string q, int? limit = null);
         bool Validate(string postcode);
         Task<bool> ValidateAsync(string postcode);
 
-        IEnumerable<PostcodeResult> LookupLatLon(ReverseGeocodeQuery query);
-        Task<IEnumerable<PostcodeResult>> LookupLatLonAsync(ReverseGeocodeQuery query);
-        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
-        Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkLookupLatLonAsync(IEnumerable<ReverseGeocodeQuery> queries);
+        IEnumerable<PostcodeData> LookupLatLon(ReverseGeocodeQuery query);
+        Task<IEnumerable<PostcodeData>> LookupLatLonAsync(ReverseGeocodeQuery query);
+        IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries);
+        Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>>> BulkLookupLatLonAsync(IEnumerable<ReverseGeocodeQuery> queries);
 
         IEnumerable<string> Autocomplete(string postcode, int? limit = null);
         Task<IEnumerable<string>> AutocompleteAsync(string postcode, int? limit = null);
-        PostcodeResult Random();
-        Task<PostcodeResult> RandomAsync();
+        PostcodeData Random();
+        Task<PostcodeData> RandomAsync();
 
         IEnumerable<NearestResult> Nearest(string postcode, int? limit = null, int? radius = null);
         Task<IEnumerable<NearestResult>> NearestAsync(string postcode, int? limit = null, int? radius = null);
 
-        OutwardCodeResult OutwardCodeLookup(string outcode);
+        OutcodeData OutwardCodeLookup(string outcode);
 
-        TerminatedPostcodeResult Terminated(string postcode);
-        Task<TerminatedPostcodeResult> TerminatedAsync(string postcode);
+        TerminatedPostcodeData Terminated(string postcode);
+        Task<TerminatedPostcodeData> TerminatedAsync(string postcode);
 
         /*
         IEnumerable<OutwardCodeResult> OutwardCodeLookupLatLon(ReverseGeocodeQuery query);

@@ -1,4 +1,4 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Data;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +63,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
         }
 
         // TODO: tests for radius and wideSearch. Probably better as unit tests.
-        private static void TestLookupLatLon_simple_query_returns_populated_response(List<PostcodeResult> results)
+        private static void TestLookupLatLon_simple_query_returns_populated_response(List<PostcodeData> results)
         {
             Assert.That(results.Any(), Is.True);
             //TODO probably a better way of writing this without using Is.True

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace MarkEmbling.PostcodesIO.Results
+namespace MarkEmbling.PostcodesIO.Data
 {
     [Serializable]
-    public class PostcodeResult {
+    public class PostcodeData
+    {
         public string Postcode { get; set; }
 
         [JsonPropertyName("outcode")]
@@ -37,22 +38,6 @@ namespace MarkEmbling.PostcodesIO.Results
         public string CCG { get; set; }
         public string NUTS { get; set; }
 
-        public Codes Codes { get; set; }
-    }
-
-    [Serializable]
-    public class Codes {
-        public string AdminDistrict { get; set; }
-        public string AdminCounty { get; set; }
-        public string AdminWard { get; set; }
-        public string Parish { get; set; }
-        public string CCG { get; set; }
-        public string CCGId { get; set; }
-        public string CED { get; set; }
-        public string NUTS { get; set; }
-        public string LAU2 { get; set; }
-        public string LSOA { get; set; }
-        public string MSOA { get; set; }
-        public string PFA { get; set; }
+        public PostcodeCodesData Codes { get; set; }
     }
 }

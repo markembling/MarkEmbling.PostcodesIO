@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace MarkEmbling.PostcodesIO.Results
+namespace MarkEmbling.PostcodesIO.Data
 {
     [Serializable]
-    public class NearestResult : PostcodeResult
+    public class NearestResult : PostcodeData
     {
         public double Distance { get; set; }
     }

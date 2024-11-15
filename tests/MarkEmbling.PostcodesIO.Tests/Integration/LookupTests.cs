@@ -1,4 +1,4 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Data;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             TestLookup_returns_populated_responseResult(result);
         }
 
-        private static void TestLookup_returns_populated_responseResult(PostcodeResult result)
+        private static void TestLookup_returns_populated_responseResult(PostcodeData result)
         {
             Assert.That(result.Postcode, Is.EqualTo("GU1 1AA"));
             Assert.That(result.Quality, Is.EqualTo(1));
@@ -66,7 +66,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.That(result.Codes, Is.Not.Null);
         }
 
-        private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutwardCodeResult result)
+        private static void TestOutwardCode_Lookup_returns_populated_responseResult(OutcodeData result)
         {
             Assert.That(result.Outcode, Is.EqualTo("IP3"));
             Assert.That(result.Northings, Is.EqualTo(242900));
@@ -96,7 +96,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             TestLookup_returns_populated_codes_propertyResult(result);
         }
 
-        private static void TestLookup_returns_populated_codes_propertyResult(Codes result)
+        private static void TestLookup_returns_populated_codes_propertyResult(PostcodeCodesData result)
         {
             Assert.That(result.AdminDistrict, Is.EqualTo("E07000209"));
             Assert.That(result.AdminCounty, Is.EqualTo("E10000030"));

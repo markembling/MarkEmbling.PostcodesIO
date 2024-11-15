@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace MarkEmbling.PostcodesIO.Results
+namespace MarkEmbling.PostcodesIO.Data
 {
     [Serializable]
-    public class TerminatedPostcodeResult
+    public class TerminatedPostcodeData
     {
         public string Postcode { get; set; }
         public int YearTerminated { get; set; }

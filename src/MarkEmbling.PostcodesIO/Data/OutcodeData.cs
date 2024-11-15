@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarkEmbling.PostcodesIO.Results
+namespace MarkEmbling.PostcodesIO.Data
 {
     [Serializable]
-    public class OutwardCodeResult {
+    public class OutcodeData
+    {
         public string Outcode { get; set; }
         public int Eastings { get; set; }
         public int Northings { get; set; }

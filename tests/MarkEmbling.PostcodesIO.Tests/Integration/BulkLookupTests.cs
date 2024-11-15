@@ -1,4 +1,5 @@
-﻿using MarkEmbling.PostcodesIO.Results;
+﻿using MarkEmbling.PostcodesIO.Data;
+using MarkEmbling.PostcodesIO.Results;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             TestResults(result);
         }
 
-        private static void TestResults(List<BulkQueryResult<string, PostcodeResult>> result)
+        private static void TestResults(List<BulkQueryResult<string, PostcodeData>> result)
         {
             Assert.That(result.Count, Is.EqualTo(3));
             // The results come back in no particular order, so we must check for 

@@ -1,4 +1,5 @@
-﻿using MarkEmbling.PostcodesIO.Exceptions;
+﻿using MarkEmbling.PostcodesIO.Data;
+using MarkEmbling.PostcodesIO.Exceptions;
 using MarkEmbling.PostcodesIO.Results;
 using RestSharp;
 using RestSharp.Serializers.Json;
@@ -57,44 +58,44 @@ namespace MarkEmbling.PostcodesIO
             return response.Data.Result;
         }
 
-        public PostcodeResult Lookup(string postcode) {
+        public PostcodeData Lookup(string postcode) {
             var request = CreateLookupRequest(postcode);
-            return Execute<PostcodeResult>(request);
+            return Execute<PostcodeData>(request);
         }
 
-        public OutwardCodeResult OutwardCodeLookup(string outcode) {
+        public OutcodeData OutwardCodeLookup(string outcode) {
             var request = CreateOutwardCodeLookupRequest(outcode);
-            return Execute<OutwardCodeResult>(request);
+            return Execute<OutcodeData>(request);
         }
 
-        public Task<PostcodeResult> LookupAsync(string postcode)
+        public Task<PostcodeData> LookupAsync(string postcode)
         {
             var request = CreateLookupRequest(postcode);
-            return ExecuteAsync<PostcodeResult>(request);
+            return ExecuteAsync<PostcodeData>(request);
         }
 
-        public IEnumerable<BulkQueryResult<string, PostcodeResult>> BulkLookup(IEnumerable<string> postcodes)
+        public IEnumerable<BulkQueryResult<string, PostcodeData>> BulkLookup(IEnumerable<string> postcodes)
         {
             var request = CreateBulkLookupRequest(postcodes);
-            return Execute<List<BulkQueryResult<string, PostcodeResult>>>(request);
+            return Execute<List<BulkQueryResult<string, PostcodeData>>>(request);
         }
 
-        public Task<IEnumerable<BulkQueryResult<string, PostcodeResult>>> BulkLookupAsync(IEnumerable<string> postcodes)
+        public Task<IEnumerable<BulkQueryResult<string, PostcodeData>>> BulkLookupAsync(IEnumerable<string> postcodes)
         {
             var request = CreateBulkLookupRequest(postcodes);
-            return ExecuteAsync<List<BulkQueryResult<string, PostcodeResult>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<string, PostcodeResult>>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return ExecuteAsync<List<BulkQueryResult<string, PostcodeData>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<string, PostcodeData>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public IEnumerable<PostcodeResult> Query(string q, int? limit = null)
+        public IEnumerable<PostcodeData> Query(string q, int? limit = null)
         {
             var request = CreateQueryRequest(q, limit);
-            return Execute<List<PostcodeResult>>(request);
+            return Execute<List<PostcodeData>>(request);
         }
 
-        public Task<IEnumerable<PostcodeResult>> QueryAsync(string q, int? limit = null)
+        public Task<IEnumerable<PostcodeData>> QueryAsync(string q, int? limit = null)
         {
             var request = CreateQueryRequest(q, limit);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return ExecuteAsync<List<PostcodeData>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeData>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public bool Validate(string postcode)
@@ -109,28 +110,28 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<bool>(request);
         }
 
-        public IEnumerable<PostcodeResult> LookupLatLon(ReverseGeocodeQuery query)
+        public IEnumerable<PostcodeData> LookupLatLon(ReverseGeocodeQuery query)
         {
             var request = CreateLookupLocationRequest(query);
-            return Execute<List<PostcodeResult>>(request);
+            return Execute<List<PostcodeData>>(request);
         }
 
-        public Task<IEnumerable<PostcodeResult>> LookupLatLonAsync(ReverseGeocodeQuery query)
+        public Task<IEnumerable<PostcodeData>> LookupLatLonAsync(ReverseGeocodeQuery query)
         {
             var request = CreateLookupLocationRequest(query);
-            return ExecuteAsync<List<PostcodeResult>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return ExecuteAsync<List<PostcodeData>>(request).ContinueWith(t => t.Result as IEnumerable<PostcodeData>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
+        public IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>> BulkLookupLatLon(IEnumerable<ReverseGeocodeQuery> queries)
         {
             var request = CreateBulkLookupLatLon(queries);
-            return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request);
+            return Execute<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>>>(request);
         }
 
-        public Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>> BulkLookupLatLonAsync(IEnumerable<ReverseGeocodeQuery> queries)
+        public Task<IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>>> BulkLookupLatLonAsync(IEnumerable<ReverseGeocodeQuery> queries)
         {
             var request = CreateBulkLookupLatLon(queries);
-            return ExecuteAsync<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeResult>>>, TaskContinuationOptions.OnlyOnRanToCompletion);
+            return ExecuteAsync<List<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>>>(request).ContinueWith(t => t.Result as IEnumerable<BulkQueryResult<ReverseGeocodeQuery, List<PostcodeData>>>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public IEnumerable<string> Autocomplete(string postcode, int? limit = null)
@@ -145,16 +146,16 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<List<string>>(request).ContinueWith(t => t.Result as IEnumerable<string>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public PostcodeResult Random()
+        public PostcodeData Random()
         {
             var request = CreateRandomRequest();
-            return Execute<PostcodeResult>(request);
+            return Execute<PostcodeData>(request);
         }
 
-        public Task<PostcodeResult> RandomAsync()
+        public Task<PostcodeData> RandomAsync()
         {
             var request = CreateRandomRequest();
-            return ExecuteAsync<PostcodeResult>(request);
+            return ExecuteAsync<PostcodeData>(request);
         }
 
         public IEnumerable<NearestResult> Nearest(string postcode, int? limit = null, int? radius = null)
@@ -169,16 +170,16 @@ namespace MarkEmbling.PostcodesIO
             return ExecuteAsync<List<NearestResult>>(request).ContinueWith(t => t.Result as IEnumerable<NearestResult>, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public TerminatedPostcodeResult Terminated(string postcode)
+        public TerminatedPostcodeData Terminated(string postcode)
         {
             var request = CreateTerminatedRequest(postcode);
-            return Execute<TerminatedPostcodeResult>(request);
+            return Execute<TerminatedPostcodeData>(request);
         }
 
-        public Task<TerminatedPostcodeResult> TerminatedAsync(string postcode)
+        public Task<TerminatedPostcodeData> TerminatedAsync(string postcode)
         {
             var request = CreateTerminatedRequest(postcode);
-            return ExecuteAsync<TerminatedPostcodeResult>(request);
+            return ExecuteAsync<TerminatedPostcodeData>(request);
         }
 
         private static RestRequest CreateBulkLookupRequest(IEnumerable<string> postcodes)
