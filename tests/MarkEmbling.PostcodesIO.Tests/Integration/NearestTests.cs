@@ -60,6 +60,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.That(result.Parish, Is.Not.Null);
             Assert.That(result.AdminCounty, Is.Not.Null);
             Assert.That(result.AdminWard, Is.Not.Null);
+            Assert.That(result.CED, Is.Not.Null);
             Assert.That(result.CCG, Is.Not.Null);
             Assert.That(result.Codes, Is.Not.Null);
 

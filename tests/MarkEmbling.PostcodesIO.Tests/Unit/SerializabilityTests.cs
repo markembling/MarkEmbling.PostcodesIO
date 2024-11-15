@@ -28,6 +28,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
                 AdminWard = "AdminWard",
                 AdminDistrict = "AdminDistrict",
                 CCG = "CCG",
+                CED = "CED",
                 Country = "Country",
                 Eastings = 100000,
                 Northings = 200000,
