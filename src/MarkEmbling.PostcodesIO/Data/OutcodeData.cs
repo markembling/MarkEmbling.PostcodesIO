@@ -12,8 +12,8 @@ namespace MarkEmbling.PostcodesIO.Data
         public List<string> AdminCounty { get; set; }
         public List<string> AdminDistrict { get; set; }
         public List<string> AdminWard { get; set; }
-        public decimal Longitude { get; set; }
-        public decimal Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public List<string> Country { get; set; }
         public List<string> Parish { get; set; }
     }

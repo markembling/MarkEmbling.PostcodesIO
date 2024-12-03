@@ -1,4 +1,4 @@
-﻿using MarkEmbling.PostcodesIO.Data;
+using MarkEmbling.PostcodesIO.Data;
 using NUnit.Framework;
 using System.Text.Json;
 
@@ -20,7 +20,7 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
         }
 
         [Test]
-        public void PostcodeResult_should_be_serializable()
+        public void PostcodeData_should_be_serializable()
         {
             var expected = new PostcodeData
             {
@@ -57,6 +57,31 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
             Assert.That(actual.Eastings, Is.EqualTo(expected.Eastings));
             Assert.That(actual.Latitude, Is.EqualTo(expected.Latitude));
             Assert.That(actual.Codes.AdminCounty, Is.EqualTo(expected.Codes.AdminCounty));
+        }
+
+        [Test]
+        public void OutcodeData_should_be_serializable()
+        {
+            var expected = new OutcodeData
+            {
+                AdminCounty = ["AdminCounty"],
+                AdminDistrict = ["AdminDistrict"],
+                AdminWard = ["AdminWard"],
+                Country = ["Country"],
+                Eastings = 10000,
+                Latitude = 53.9999,
+                Longitude = -3.9999,
+                Northings = 20000,
+                Outcode = "OUT",
+                Parish = ["Parish"]
+            };
+            var expectedBytes = Serialize(expected);
+            var actual = Deserialize<OutcodeData>(expectedBytes);
+
+            Assert.That(actual.AdminCounty, Is.EqualTo(expected.AdminCounty));
+            Assert.That(actual.Eastings, Is.EqualTo(expected.Eastings));
+            Assert.That(actual.Latitude, Is.EqualTo(expected.Latitude));
+            Assert.That(actual.Outcode, Is.EqualTo(expected.Outcode));
         }
     }
 }
