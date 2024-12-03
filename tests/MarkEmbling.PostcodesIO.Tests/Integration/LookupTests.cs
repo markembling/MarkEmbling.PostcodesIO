@@ -111,5 +111,16 @@ namespace MarkEmbling.PostcodesIO.Tests.Integration
             Assert.That(result.MSOA, Is.EqualTo("E02006358"));
             Assert.That(result.PFA, Is.EqualTo("E23000031"));
         }
+
+        [Test]
+        public void Lookup_correctly_handles_null_geolocation_values()
+        {
+            var result = _client.Lookup("JE2 4ST");
+
+            Assert.That(result.Eastings, Is.Null);
+            Assert.That(result.Northings, Is.Null);
+            Assert.That(result.Latitude, Is.Null);
+            Assert.That(result.Longitude, Is.Null);
+        }
     }
 }
