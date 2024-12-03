@@ -83,5 +83,24 @@ namespace MarkEmbling.PostcodesIO.Tests.Unit
             Assert.That(actual.Latitude, Is.EqualTo(expected.Latitude));
             Assert.That(actual.Outcode, Is.EqualTo(expected.Outcode));
         }
+
+        [Test]
+        public void TerminatedPostcodeData_should_be_serializable()
+        {
+            var expected = new TerminatedPostcodeData
+            {
+                Latitude = 53.9999,
+                Longitude = -3.9999,
+                MonthTerminated = 1,
+                Postcode = "Postcode",
+                YearTerminated = 2000
+            };
+            var expectedBytes = Serialize(expected);
+            var actual = Deserialize<TerminatedPostcodeData>(expectedBytes);
+
+            Assert.That(actual.Latitude, Is.EqualTo(expected.Latitude));
+            Assert.That(actual.MonthTerminated, Is.EqualTo(expected.MonthTerminated));
+            Assert.That(actual.Postcode, Is.EqualTo(expected.Postcode));
+        }
     }
 }
