@@ -213,6 +213,7 @@ namespace MarkEmbling.PostcodesIO
             request.AddParameter("lon", query.Longitude);
             if (query.Limit.HasValue) request.AddParameter("limit", query.Limit.Value);
             if (query.Radius.HasValue) request.AddParameter("radius", query.Radius.Value);
+            if (query.WideSearch.HasValue) request.AddParameter("widesearch", query.WideSearch.Value);
             return request;
         }
 
